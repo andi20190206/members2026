@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>权益商城 · 唯普汽车</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #1a0e3d; }
+  .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #f8fafc; position: relative; }
+  @media (min-width: 768px) {
+    body { background: #f5f5f7; padding: 24px 0; }
+    .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; }
+  }
+  .hero-bg { background: linear-gradient(180deg, #2e1065 0%, #4c1d95 60%, #f8fafc 100%); }
+  .cat.active { background: linear-gradient(135deg, #8b5cf6, #6366f1); color: #fff; }
+  .cat { color: #64748b; background: #fff; }
+</style>
+</head>
+<body>
+
+<div class="phone-shell">
+
+  <!-- Header -->
+  <div class="hero-bg pt-2">
+    <div class="flex items-center justify-between px-5 py-2 text-white text-sm">
+      <span>19:50</span>
+      <span class="text-xs">🔔 📶 🔋 85%</span>
+    </div>
+    <div class="flex items-center justify-between px-5 pb-4">
+      <a href="member.html" class="text-white text-xl">←</a>
+      <span class="text-white text-base font-semibold">权益商城</span>
+      <a href="my-rewards.html" class="text-white text-xs">🎫 我的</a>
+    </div>
+
+    <!-- 余额卡 -->
+    <div class="mx-4 pb-6">
+      <div class="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-4 text-white flex items-center justify-between">
+        <div>
+          <div class="text-xs opacity-80">我的金币</div>
+          <div class="text-3xl font-bold mt-1">356</div>
+        </div>
+        <div class="text-right">
+          <div class="text-xs opacity-80">我的等级</div>
+          <div class="text-lg font-bold mt-1">LV2 银卡</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 分类 -->
+  <div class="px-4 -mt-2 relative z-10 mb-4">
+    <div class="flex gap-2 overflow-x-auto pb-2">
+      <button class="cat active px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap shadow-sm">全部</button>
+      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200">📊 数据查询</button>
+      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200">🏷️ 交易折扣</button>
+      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200">↩️ 额度免审</button>
+      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200">🎧 专属服务</button>
+    </div>
+  </div>
+
+  <!-- Banner 活动 -->
+  <div class="px-4 mb-4">
+    <div class="rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 p-4 flex items-center gap-3 text-white">
+      <span class="text-3xl">🎉</span>
+      <div class="flex-1">
+        <div class="text-sm font-bold">新人首次服务包</div>
+        <div class="text-[11px] opacity-90">LV0 专享 · 1 金币即可兑换</div>
+      </div>
+      <button class="bg-white/20 backdrop-blur rounded-full px-3 py-1 text-xs font-semibold">立即领</button>
+    </div>
+  </div>
+
+  <!-- 商品网格 -->
+  <div class="px-4 pb-8">
+    <div class="grid grid-cols-2 gap-3">
+
+      <!-- 商品卡 -->
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <div class="h-24 bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-4xl">🔍</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">车辆中标价查询卡</div>
+          <div class="text-[10px] text-slate-400 mt-1">LV0 及以上可兑换</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-base font-bold text-violet-600">200<span class="text-[10px] font-normal ml-0.5">金币</span></span>
+            <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1.5">库存 823 · 已兑 177</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <div class="h-24 bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-4xl">📊</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">交易行情查询卡</div>
+          <div class="text-[10px] text-slate-400 mt-1">LV0 及以上可兑换</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-base font-bold text-violet-600">200<span class="text-[10px] font-normal ml-0.5">金币</span></span>
+            <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1.5">库存充足</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <div class="h-24 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-4xl">🛠️</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">出险维保体验卡</div>
+          <div class="text-[10px] text-slate-400 mt-1">LV0 及以上可兑换</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-base font-bold text-violet-600">300<span class="text-[10px] font-normal ml-0.5">金币</span></span>
+            <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1.5">库存 45</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative">
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-violet-600 text-white text-[9px] rounded z-10">LV1+</div>
+        <div class="h-24 bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-4xl">🚗</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">碰撞报告查询卡</div>
+          <div class="text-[10px] text-slate-400 mt-1">LV1 及以上可兑换</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-base font-bold text-violet-600">200<span class="text-[10px] font-normal ml-0.5">金币</span></span>
+            <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative ring-2 ring-violet-200">
+        <div class="absolute top-2 right-2 px-1.5 py-0.5 bg-amber-400 text-amber-900 text-[9px] rounded z-10 font-bold">推荐</div>
+        <div class="h-24 bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-4xl">🏷️</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">过户 8.5 折卡</div>
+          <div class="text-[10px] text-violet-600 mt-1 font-medium">✨ 你可兑换</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-base font-bold text-violet-600">200<span class="text-[10px] font-normal ml-0.5">金币</span></span>
+            <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1.5">库存 128</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative">
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-violet-600 text-white text-[9px] rounded z-10">LV2+</div>
+        <div class="h-24 bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-4xl">↩️</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">无理由退车 1 次卡</div>
+          <div class="text-[10px] text-violet-600 mt-1 font-medium">✨ 你可兑换</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-base font-bold text-violet-600">500<span class="text-[10px] font-normal ml-0.5">金币</span></span>
+            <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1.5">库存 32</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative opacity-60">
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-slate-700 text-white text-[9px] rounded z-10">🔒 LV3</div>
+        <div class="h-24 bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center text-4xl">🎧</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">400 专属客服</div>
+          <div class="text-[10px] text-slate-400 mt-1">升级 LV1 即享(等级直达)</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-xs text-slate-500">等级直达</span>
+            <button class="px-3 py-1 bg-slate-300 text-white rounded-full text-[11px] cursor-not-allowed">去升级</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative opacity-60">
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10">💎 钻石</div>
+        <div class="h-24 bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-4xl">🏢</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">代经销对接卡</div>
+          <div class="text-[10px] text-slate-400 mt-1">仅钻石会员可享</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-xs text-slate-500">等级直达</span>
+            <button class="px-3 py-1 bg-slate-300 text-white rounded-full text-[11px] cursor-not-allowed">未解锁</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center text-xs text-slate-400 py-6">— 更多权益卡持续上新 —</div>
+  </div>
+
+</div>
+
+<div class="hidden md:block fixed top-4 left-4 z-50">
+  <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
+</div>
+
+</body>
+</html>
