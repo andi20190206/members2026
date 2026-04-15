@@ -58,7 +58,6 @@
 |------|------|------|
 | user_id | BIGINT | PK,关联 user.id |
 | current_level | TINYINT | 当前等级(0/1/2/3) |
-| is_diamond | BOOLEAN | 是否有钻石荣誉标签 |
 | level_updated_at | DATETIME | 上次等级变更时间 |
 | coin_balance | BIGINT | 金币余额(冗余字段,实时维护) |
 | lifetime_coin_earned | BIGINT | 历史累计获得金币 |
@@ -71,7 +70,6 @@
 CREATE TABLE member_profile (
   user_id            BIGINT      PRIMARY KEY,
   current_level      TINYINT     NOT NULL DEFAULT 0,
-  is_diamond         BOOLEAN     NOT NULL DEFAULT FALSE,
   level_updated_at   DATETIME    NULL,
   coin_balance       BIGINT      NOT NULL DEFAULT 0,
   lifetime_coin_earned BIGINT    NOT NULL DEFAULT 0,
@@ -79,8 +77,7 @@ CREATE TABLE member_profile (
   last_settled_at    DATETIME    NULL,
   created_at         DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at         DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  INDEX idx_level (current_level),
-  INDEX idx_diamond (is_diamond)
+  INDEX idx_level (current_level)
 ) COMMENT='会员扩展档案';
 ```
 
@@ -182,8 +179,6 @@ CREATE TABLE coin_dedup (
 | previous_level | TINYINT | 变更前等级 |
 | new_level | TINYINT | 变更后等级 |
 | change_type | VARCHAR(10) | UPGRADE / DOWNGRADE / KEEP |
-| is_diamond_before | BOOLEAN | 变更前是否钻石 |
-| is_diamond_after | BOOLEAN | 变更后是否钻石 |
 | created_at | DATETIME | 记录时间 |
 
 ```sql
@@ -197,8 +192,6 @@ CREATE TABLE level_history (
   previous_level    TINYINT     NOT NULL,
   new_level         TINYINT     NOT NULL,
   change_type       VARCHAR(10) NOT NULL,
-  is_diamond_before BOOLEAN     NOT NULL DEFAULT FALSE,
-  is_diamond_after  BOOLEAN     NOT NULL DEFAULT FALSE,
   created_at        DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY uk_user_month (user_id, settle_month),
   INDEX idx_settle_month (settle_month),
@@ -218,10 +211,10 @@ CREATE TABLE level_history (
 | code | VARCHAR(50) | 权益卡编码(如 CAR_BID_PRICE_QUERY) |
 | name | VARCHAR(100) | 卡名 |
 | category | VARCHAR(20) | QUERY / DISCOUNT / QUOTA / SERVICE |
-| coin_price | INT | 兑换所需金币(0 表示等级直达) |
-| min_level | TINYINT | 最低可兑换等级 |
-| require_diamond | BOOLEAN | 是否仅钻石可兑换 |
-| stock | INT | 库存(-1 = 无限) |
+| coin_price | INT | 兑换所需金币(0 表示等级直达,无需兑换) |
+| min_level | TINYINT | 最低可享/可兑换等级 |
+| grant_type | VARCHAR(10) | REDEEM(金币兑换)/ AUTO(等级直达) |
+| stock | INT | 库存(-1 = 无限,等级直达类填 -1) |
 | redeemed_count | INT | 已兑换数量 |
 | validity_days | INT | 兑换后有效期天数 |
 | description | TEXT | 使用说明 |
@@ -238,7 +231,7 @@ CREATE TABLE reward_card (
   category        VARCHAR(20) NOT NULL,
   coin_price      INT         NOT NULL DEFAULT 0,
   min_level       TINYINT     NOT NULL DEFAULT 0,
-  require_diamond BOOLEAN     NOT NULL DEFAULT FALSE,
+  grant_type      VARCHAR(10) NOT NULL DEFAULT 'REDEEM',
   stock           INT         NOT NULL DEFAULT -1,
   redeemed_count  INT         NOT NULL DEFAULT 0,
   validity_days   INT         NOT NULL DEFAULT 30,
@@ -247,8 +240,9 @@ CREATE TABLE reward_card (
   sort_order      INT         NOT NULL DEFAULT 0,
   created_at      DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at      DATETIME    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  INDEX idx_status_category (status, category)
-) COMMENT='权益卡目录';
+  INDEX idx_status_category (status, category),
+  INDEX idx_grant_type (grant_type)
+) COMMENT='权益卡目录(含金币兑换型 + 等级直达型)';
 ```
 
 ---
@@ -312,7 +306,7 @@ INSERT INTO level_rule (level, name, min_deal_count) VALUES
   (3, '金卡会员', 30);
 ```
 
-另设 **钻石规则**:取 LV3 中 TOP500(通过定时任务筛选后回写 `member_profile.is_diamond`)。
+> v1.1 起取消钻石,无需额外子等级配置。
 
 ---
 
@@ -434,10 +428,9 @@ function monthlyLevelSettle():
             if newLevel < previousLevel:
                 invalidateUnusedRewardCards(user, newLevel)
     
-    # 单独算钻石标签
-    top500 = topN(LV3 users by dealCount, 500)
-    update member_profile.is_diamond = (user_id in top500)
 ```
+
+> 备注:v1.1 起取消钻石荣誉标签,只算 4 级。
 
 ---
 

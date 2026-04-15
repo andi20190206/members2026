@@ -23,7 +23,7 @@
   .ant-tag-orange { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
   .ant-tag-red { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; }
   .ant-tag-purple { background: #f9f0ff; color: #722ed1; border: 1px solid #d3adf7; }
-  .ant-tag-gold { background: #fffbe6; color: #d4b106; border: 1px solid #ffe58f; }
+  .ant-tag-cyan { background: #e6fffb; color: #08979c; border: 1px solid #87e8de; }
   .ant-tag-default { background: #fafafa; color: #595959; border: 1px solid #d9d9d9; }
   tr:hover { background: #fafafa; }
 </style>
@@ -66,16 +66,15 @@
       <div class="flex items-center justify-between mb-5">
         <div>
           <h1 class="text-xl font-semibold text-slate-800">权益卡管理</h1>
-          <p class="text-sm text-slate-500 mt-1">管理会员商城中可兑换的权益卡目录、库存与上下架</p>
+          <p class="text-sm text-slate-500 mt-1">管理金币兑换型与等级直达型权益,支持目录、库存与上下架</p>
         </div>
-        <button class="ant-btn-primary">+ 新增权益卡</button>
+        <button class="ant-btn-primary">+ 新增权益</button>
       </div>
 
-      <!-- KPI 概览 -->
       <div class="grid grid-cols-4 gap-4 mb-5">
         <div class="ant-card p-4">
           <div class="text-xs text-slate-500">上架中</div>
-          <div class="text-2xl font-bold text-slate-800 mt-1">14</div>
+          <div class="text-2xl font-bold text-slate-800 mt-1">15</div>
         </div>
         <div class="ant-card p-4">
           <div class="text-xs text-slate-500">已下架</div>
@@ -91,12 +90,11 @@
         </div>
       </div>
 
-      <!-- 筛选 -->
       <div class="ant-card p-4 mb-5">
         <div class="grid grid-cols-5 gap-3 items-end">
           <div>
             <label class="text-xs text-slate-500 block mb-1">关键字</label>
-            <input class="ant-input" placeholder="权益卡名称 / 编码">
+            <input class="ant-input" placeholder="权益名称 / 编码">
           </div>
           <div>
             <label class="text-xs text-slate-500 block mb-1">类别</label>
@@ -109,6 +107,14 @@
             </select>
           </div>
           <div>
+            <label class="text-xs text-slate-500 block mb-1">获取方式</label>
+            <select class="ant-input">
+              <option>全部</option>
+              <option>金币兑换</option>
+              <option>等级直达</option>
+            </select>
+          </div>
+          <div>
             <label class="text-xs text-slate-500 block mb-1">最低等级</label>
             <select class="ant-input">
               <option>全部</option>
@@ -116,15 +122,6 @@
               <option>LV1</option>
               <option>LV2</option>
               <option>LV3</option>
-              <option>钻石</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-xs text-slate-500 block mb-1">状态</label>
-            <select class="ant-input">
-              <option>全部</option>
-              <option>上架</option>
-              <option>下架</option>
             </select>
           </div>
           <div class="flex gap-2">
@@ -134,29 +131,30 @@
         </div>
       </div>
 
-      <!-- 表格 -->
       <div class="ant-card overflow-hidden">
         <table class="w-full text-sm">
           <thead class="bg-slate-50 text-xs text-slate-600 border-b border-slate-200">
             <tr>
               <th class="text-left px-4 py-3 font-medium"><input type="checkbox"></th>
-              <th class="text-left px-4 py-3 font-medium">权益卡名称</th>
+              <th class="text-left px-4 py-3 font-medium">权益名称</th>
               <th class="text-left px-4 py-3 font-medium">类别</th>
+              <th class="text-left px-4 py-3 font-medium">获取方式</th>
               <th class="text-right px-4 py-3 font-medium">金币价</th>
               <th class="text-left px-4 py-3 font-medium">等级门槛</th>
               <th class="text-right px-4 py-3 font-medium">库存</th>
-              <th class="text-right px-4 py-3 font-medium">已兑换</th>
+              <th class="text-right px-4 py-3 font-medium">已发放</th>
               <th class="text-center px-4 py-3 font-medium">状态</th>
               <th class="text-center px-4 py-3 font-medium">操作</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100">
 
+            <!-- 数据查询类 -->
             <tr>
               <td class="px-4 py-3"><input type="checkbox"></td>
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white text-lg">🔍</div>
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white">🔍</div>
                   <div>
                     <div class="font-medium text-slate-800">车辆中标价查询卡</div>
                     <div class="text-xs text-slate-400">CAR_BID_PRICE_QUERY</div>
@@ -164,14 +162,14 @@
                 </div>
               </td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-blue">数据查询</span></td>
-              <td class="px-4 py-3 text-right font-semibold text-slate-800">200</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">金币兑换</span></td>
+              <td class="px-4 py-3 text-right font-semibold">200</td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV0+</span></td>
               <td class="px-4 py-3 text-right">823</td>
               <td class="px-4 py-3 text-right">177</td>
               <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">上架</span></td>
               <td class="px-4 py-3 text-center text-xs">
                 <a href="#" class="text-blue-600 mr-2">编辑</a>
-                <a href="#" class="text-blue-600 mr-2">补库存</a>
                 <a href="#" class="text-rose-600">下架</a>
               </td>
             </tr>
@@ -180,7 +178,7 @@
               <td class="px-4 py-3"><input type="checkbox"></td>
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white text-lg">📊</div>
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white">📊</div>
                   <div>
                     <div class="font-medium text-slate-800">交易行情查询卡</div>
                     <div class="text-xs text-slate-400">MARKET_QUERY</div>
@@ -188,6 +186,7 @@
                 </div>
               </td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-blue">数据查询</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">金币兑换</span></td>
               <td class="px-4 py-3 text-right font-semibold">200</td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV0+</span></td>
               <td class="px-4 py-3 text-right">1,245</td>
@@ -195,7 +194,6 @@
               <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">上架</span></td>
               <td class="px-4 py-3 text-center text-xs">
                 <a href="#" class="text-blue-600 mr-2">编辑</a>
-                <a href="#" class="text-blue-600 mr-2">补库存</a>
                 <a href="#" class="text-rose-600">下架</a>
               </td>
             </tr>
@@ -204,16 +202,65 @@
               <td class="px-4 py-3"><input type="checkbox"></td>
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-white text-lg">🛠️</div>
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white">📜</div>
                   <div>
-                    <div class="font-medium text-slate-800">出险维保数据体验卡</div>
+                    <div class="font-medium text-slate-800">历史数据查询卡 <span class="text-[10px] px-1 py-0.5 bg-rose-50 text-rose-600 rounded ml-1">新</span></div>
+                    <div class="text-xs text-slate-400">HISTORY_DATA</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-blue">数据查询</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">金币兑换</span></td>
+              <td class="px-4 py-3 text-right font-semibold">200</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV1+</span></td>
+              <td class="px-4 py-3 text-right">612</td>
+              <td class="px-4 py-3 text-right">88</td>
+              <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">上架</span></td>
+              <td class="px-4 py-3 text-center text-xs">
+                <a href="#" class="text-blue-600 mr-2">编辑</a>
+                <a href="#" class="text-rose-600">下架</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="px-4 py-3"><input type="checkbox"></td>
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-fuchsia-400 to-pink-500 flex items-center justify-center text-white">🎯</div>
+                  <div>
+                    <div class="font-medium text-slate-800">保留价查询卡 <span class="text-[10px] px-1 py-0.5 bg-rose-50 text-rose-600 rounded ml-1">新</span></div>
+                    <div class="text-xs text-slate-400">RESERVE_PRICE_QUERY</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-blue">数据查询</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">金币兑换</span></td>
+              <td class="px-4 py-3 text-right font-semibold">200</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV1+</span></td>
+              <td class="px-4 py-3 text-right">480</td>
+              <td class="px-4 py-3 text-right">152</td>
+              <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">上架</span></td>
+              <td class="px-4 py-3 text-center text-xs">
+                <a href="#" class="text-blue-600 mr-2">编辑</a>
+                <a href="#" class="text-rose-600">下架</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="px-4 py-3"><input type="checkbox"></td>
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-white">🛠️</div>
+                  <div>
+                    <div class="font-medium text-slate-800">出险维保数据卡</div>
                     <div class="text-xs text-slate-400">MAINTAIN_DATA</div>
                   </div>
                 </div>
               </td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-blue">数据查询</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">金币兑换</span></td>
               <td class="px-4 py-3 text-right font-semibold">300</td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV0+</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV1+</span></td>
               <td class="px-4 py-3 text-right text-rose-600 font-semibold">45</td>
               <td class="px-4 py-3 text-right">155</td>
               <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-orange">库存低</span></td>
@@ -228,7 +275,7 @@
               <td class="px-4 py-3"><input type="checkbox"></td>
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white text-lg">🚗</div>
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white">🚗</div>
                   <div>
                     <div class="font-medium text-slate-800">碰撞报告查询卡</div>
                     <div class="text-xs text-slate-400">CRASH_REPORT</div>
@@ -236,6 +283,7 @@
                 </div>
               </td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-blue">数据查询</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">金币兑换</span></td>
               <td class="px-4 py-3 text-right font-semibold">200</td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV1+</span></td>
               <td class="px-4 py-3 text-right">688</td>
@@ -243,16 +291,16 @@
               <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">上架</span></td>
               <td class="px-4 py-3 text-center text-xs">
                 <a href="#" class="text-blue-600 mr-2">编辑</a>
-                <a href="#" class="text-blue-600 mr-2">补库存</a>
                 <a href="#" class="text-rose-600">下架</a>
               </td>
             </tr>
 
+            <!-- 交易折扣 -->
             <tr>
               <td class="px-4 py-3"><input type="checkbox"></td>
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center text-white text-lg">🏷️</div>
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center text-white">🏷️</div>
                   <div>
                     <div class="font-medium text-slate-800">过户 9.5 折 / 复检 9.5 折</div>
                     <div class="text-xs text-slate-400">DISCOUNT_95</div>
@@ -260,30 +308,7 @@
                 </div>
               </td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">交易折扣</span></td>
-              <td class="px-4 py-3 text-right font-semibold">300</td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV0+</span></td>
-              <td class="px-4 py-3 text-right">512</td>
-              <td class="px-4 py-3 text-right">488</td>
-              <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">上架</span></td>
-              <td class="px-4 py-3 text-center text-xs">
-                <a href="#" class="text-blue-600 mr-2">编辑</a>
-                <a href="#" class="text-blue-600 mr-2">补库存</a>
-                <a href="#" class="text-rose-600">下架</a>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="px-4 py-3"><input type="checkbox"></td>
-              <td class="px-4 py-3">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-white text-lg">🏷️</div>
-                  <div>
-                    <div class="font-medium text-slate-800">过户 8.5 折 / 复检 8.5 折</div>
-                    <div class="text-xs text-slate-400">DISCOUNT_85</div>
-                  </div>
-                </div>
-              </td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">交易折扣</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">金币兑换</span></td>
               <td class="px-4 py-3 text-right font-semibold">200</td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV2+</span></td>
               <td class="px-4 py-3 text-right">128</td>
@@ -291,7 +316,6 @@
               <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">上架</span></td>
               <td class="px-4 py-3 text-center text-xs">
                 <a href="#" class="text-blue-600 mr-2">编辑</a>
-                <a href="#" class="text-blue-600 mr-2">补库存</a>
                 <a href="#" class="text-rose-600">下架</a>
               </td>
             </tr>
@@ -300,7 +324,7 @@
               <td class="px-4 py-3"><input type="checkbox"></td>
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center text-white text-lg">🏷️</div>
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-amber-400 to-yellow-500 flex items-center justify-center text-white">🏷️</div>
                   <div>
                     <div class="font-medium text-slate-800">过户 8 折 / 复检 8 折</div>
                     <div class="text-xs text-slate-400">DISCOUNT_80</div>
@@ -308,32 +332,34 @@
                 </div>
               </td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">交易折扣</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">金币兑换</span></td>
               <td class="px-4 py-3 text-right font-semibold">200</td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-gold">💎 钻石</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV3+</span></td>
               <td class="px-4 py-3 text-right">50</td>
               <td class="px-4 py-3 text-right">32</td>
               <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">上架</span></td>
               <td class="px-4 py-3 text-center text-xs">
                 <a href="#" class="text-blue-600 mr-2">编辑</a>
-                <a href="#" class="text-blue-600 mr-2">补库存</a>
                 <a href="#" class="text-rose-600">下架</a>
               </td>
             </tr>
 
+            <!-- 额度免审 -->
             <tr>
               <td class="px-4 py-3"><input type="checkbox"></td>
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded bg-gradient-to-br from-rose-400 to-red-500 flex items-center justify-center text-white text-lg">↩️</div>
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-rose-400 to-red-500 flex items-center justify-center text-white">↩️</div>
                   <div>
-                    <div class="font-medium text-slate-800">无理由退车 1 次卡</div>
+                    <div class="font-medium text-slate-800">无理由退车 1 台卡</div>
                     <div class="text-xs text-slate-400">REFUND_ONCE</div>
                   </div>
                 </div>
               </td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-red">额度免审</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">金币兑换</span></td>
               <td class="px-4 py-3 text-right font-semibold">500</td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV2+</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV3+</span></td>
               <td class="px-4 py-3 text-right text-rose-600 font-semibold">32</td>
               <td class="px-4 py-3 text-right">178</td>
               <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-orange">库存低</span></td>
@@ -344,22 +370,24 @@
               </td>
             </tr>
 
+            <!-- 等级直达 -->
             <tr>
               <td class="px-4 py-3"><input type="checkbox"></td>
               <td class="px-4 py-3">
                 <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center text-white text-lg">🎧</div>
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-white">🎧</div>
                   <div>
-                    <div class="font-medium text-slate-800">400 专属客服</div>
+                    <div class="font-medium text-slate-800">1V1 专属客服</div>
                     <div class="text-xs text-slate-400">VIP_SUPPORT</div>
                   </div>
                 </div>
               </td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">专属服务</span></td>
-              <td class="px-4 py-3 text-right text-slate-400 text-xs">等级直达</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-cyan">专属服务</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-orange">等级直达</span></td>
+              <td class="px-4 py-3 text-right text-slate-400 text-xs">免费</td>
               <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV1+</span></td>
               <td class="px-4 py-3 text-right text-slate-400">—</td>
-              <td class="px-4 py-3 text-right">—</td>
+              <td class="px-4 py-3 text-right">71,956</td>
               <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">启用</span></td>
               <td class="px-4 py-3 text-center text-xs">
                 <a href="#" class="text-blue-600 mr-2">编辑</a>
@@ -367,16 +395,134 @@
               </td>
             </tr>
 
+            <tr>
+              <td class="px-4 py-3"><input type="checkbox"></td>
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white">👨‍💼</div>
+                  <div>
+                    <div class="font-medium text-slate-800">专属销售顾问 <span class="text-[10px] px-1 py-0.5 bg-rose-50 text-rose-600 rounded ml-1">新</span></div>
+                    <div class="text-xs text-slate-400">SALES_ADVISOR</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-cyan">专属服务</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-orange">等级直达</span></td>
+              <td class="px-4 py-3 text-right text-slate-400 text-xs">免费</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV1+</span></td>
+              <td class="px-4 py-3 text-right text-slate-400">—</td>
+              <td class="px-4 py-3 text-right">71,956</td>
+              <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">启用</span></td>
+              <td class="px-4 py-3 text-center text-xs">
+                <a href="#" class="text-blue-600 mr-2">编辑</a>
+                <a href="#" class="text-rose-600">禁用</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="px-4 py-3"><input type="checkbox"></td>
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-white">🚛</div>
+                  <div>
+                    <div class="font-medium text-slate-800">代送车上门(代物流)<span class="text-[10px] px-1 py-0.5 bg-rose-50 text-rose-600 rounded ml-1">新</span></div>
+                    <div class="text-xs text-slate-400">DELIVERY_SERVICE</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-cyan">专属服务</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-orange">等级直达</span></td>
+              <td class="px-4 py-3 text-right text-slate-400 text-xs">免费</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV3+</span></td>
+              <td class="px-4 py-3 text-right text-slate-400">—</td>
+              <td class="px-4 py-3 text-right">3,910</td>
+              <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">启用</span></td>
+              <td class="px-4 py-3 text-center text-xs">
+                <a href="#" class="text-blue-600 mr-2">编辑</a>
+                <a href="#" class="text-rose-600">禁用</a>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="px-4 py-3"><input type="checkbox"></td>
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white">🅿️</div>
+                  <div>
+                    <div class="font-medium text-slate-800">免费停车服务 <span class="text-[10px] px-1 py-0.5 bg-rose-50 text-rose-600 rounded ml-1">新</span></div>
+                    <div class="text-xs text-slate-400">FREE_PARKING</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-cyan">专属服务</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-orange">等级直达</span></td>
+              <td class="px-4 py-3 text-right text-slate-400 text-xs">免费</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV3+</span></td>
+              <td class="px-4 py-3 text-right text-slate-400">—</td>
+              <td class="px-4 py-3 text-right">3,910</td>
+              <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">启用</span></td>
+              <td class="px-4 py-3 text-center text-xs">
+                <a href="#" class="text-blue-600 mr-2">编辑</a>
+                <a href="#" class="text-rose-600">禁用</a>
+              </td>
+            </tr>
+
+            <tr class="bg-amber-50">
+              <td class="px-4 py-3"><input type="checkbox" disabled></td>
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded bg-slate-300 flex items-center justify-center text-white">✍️</div>
+                  <div>
+                    <div class="font-medium text-slate-500">代签名 <span class="text-[10px] px-1 py-0.5 bg-amber-100 text-amber-700 rounded ml-1">待定</span></div>
+                    <div class="text-xs text-slate-400">SIGN_SERVICE</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-cyan">专属服务</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">未定义</span></td>
+              <td class="px-4 py-3 text-right text-slate-400">—</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">未定</span></td>
+              <td class="px-4 py-3 text-right text-slate-400">—</td>
+              <td class="px-4 py-3 text-right text-slate-400">—</td>
+              <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-default">待启用</span></td>
+              <td class="px-4 py-3 text-center text-xs">
+                <a href="#" class="text-blue-600">配置</a>
+              </td>
+            </tr>
+
+            <!-- 新人 -->
+            <tr>
+              <td class="px-4 py-3"><input type="checkbox"></td>
+              <td class="px-4 py-3">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded bg-gradient-to-br from-pink-400 to-fuchsia-500 flex items-center justify-center text-white">🎁</div>
+                  <div>
+                    <div class="font-medium text-slate-800">新人首次服务包</div>
+                    <div class="text-xs text-slate-400">NEWBIE_PACK</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-cyan">新人专享</span></td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-purple">金币兑换</span></td>
+              <td class="px-4 py-3 text-right font-semibold">1</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-default">LV0 专享</span></td>
+              <td class="px-4 py-3 text-right">5,000</td>
+              <td class="px-4 py-3 text-right">2,841</td>
+              <td class="px-4 py-3 text-center"><span class="ant-tag ant-tag-green">上架</span></td>
+              <td class="px-4 py-3 text-center text-xs">
+                <a href="#" class="text-blue-600 mr-2">编辑</a>
+                <a href="#" class="text-rose-600">下架</a>
+              </td>
+            </tr>
+
           </tbody>
         </table>
 
-        <!-- 分页 -->
         <div class="px-4 py-3 border-t border-slate-100 flex items-center justify-between text-sm">
-          <div class="text-slate-500">共 17 条</div>
+          <div class="text-slate-500">共 15 条</div>
           <div class="flex items-center gap-2">
             <button class="ant-btn px-2 py-1">‹</button>
             <button class="px-3 py-1 bg-blue-500 text-white rounded">1</button>
-            <button class="ant-btn px-3 py-1">2</button>
             <button class="ant-btn px-2 py-1">›</button>
           </div>
         </div>

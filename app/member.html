@@ -8,14 +8,12 @@
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #1a0e3d; }
 
-  /* 手机框架(PC 端浏览时) */
   .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #fff; position: relative; }
   @media (min-width: 768px) {
     body { background: #f5f5f7; padding: 24px 0; }
     .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; }
   }
 
-  /* 滴滴风渐变 */
   .hero-bg {
     background:
       radial-gradient(ellipse at top left, #8b5cf6 0%, transparent 50%),
@@ -31,21 +29,12 @@
     font-weight: 900;
     letter-spacing: -2px;
   }
-  .glass {
-    backdrop-filter: blur(20px);
-    background: rgba(255,255,255,.1);
-    border: 1px solid rgba(255,255,255,.2);
-  }
   .benefit-icon-bg {
     background: linear-gradient(135deg, rgba(139, 92, 246, .15), rgba(99, 102, 241, .1));
     border: 1px solid rgba(139, 92, 246, .2);
   }
   .card-shine {
     background: linear-gradient(135deg, #5b3fd9 0%, #8b5cf6 100%);
-  }
-  .diamond-badge {
-    background: linear-gradient(135deg, #fde68a, #f59e0b);
-    color: #78350f;
   }
   .lv-pill.active {
     color: #fff;
@@ -60,14 +49,12 @@
 
 <div class="phone-shell">
 
-  <!-- Status bar(模拟) -->
   <div class="hero-bg pt-2">
     <div class="flex items-center justify-between px-5 py-2 text-white text-sm">
       <span>19:50</span>
       <span class="flex items-center gap-1 text-xs">🔔 📶 🔋 85%</span>
     </div>
 
-    <!-- Header -->
     <div class="flex items-center justify-between px-5 pb-4">
       <button class="text-white text-xl">←</button>
       <div class="flex items-center gap-3">
@@ -75,8 +62,8 @@
       </div>
     </div>
 
-    <!-- Level switcher -->
-    <div class="flex items-center justify-center gap-6 pb-4 text-sm">
+    <!-- Level switcher (4 级) -->
+    <div class="flex items-center justify-center gap-8 pb-4 text-sm">
       <span class="lv-pill">LV0</span>
       <span class="lv-pill">LV1</span>
       <span class="lv-pill active relative">
@@ -86,7 +73,6 @@
       <span class="lv-pill">LV3</span>
     </div>
 
-    <!-- Hero: 大等级卡片 -->
     <div class="px-6 pb-10 flex items-end gap-6">
       <div class="flex-none">
         <div class="lv-text text-[110px] leading-none">LV2</div>
@@ -105,7 +91,7 @@
     </div>
   </div>
 
-  <!-- 金币余额卡片(悬浮) -->
+  <!-- 金币余额卡 -->
   <div class="px-4 -mt-4 relative z-10">
     <div class="card-shine rounded-2xl p-5 text-white shadow-xl">
       <div class="flex items-center justify-between mb-3">
@@ -124,24 +110,70 @@
     </div>
   </div>
 
-  <!-- 可享权益 -->
+  <!-- 等级直达权益(LV2 已享) -->
   <div class="px-4 mt-6">
     <div class="flex items-center justify-between mb-3">
       <div class="flex items-center gap-2">
         <div class="h-4 w-0.5 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-full"></div>
-        <span class="text-sm font-bold text-slate-800">可享 8 项权益</span>
+        <span class="text-sm font-bold text-slate-800">银卡专享(等级直达)</span>
       </div>
-      <a href="#" class="text-xs text-violet-600">全部 ›</a>
+      <span class="text-[10px] text-emerald-600 px-2 py-0.5 bg-emerald-50 rounded-full">已开通</span>
+    </div>
+    <div class="grid grid-cols-4 gap-3">
+      <div class="text-center">
+        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🎧</div>
+        <div class="text-xs text-slate-700 mt-2">1V1 客服</div>
+        <div class="text-[10px] text-emerald-600">已享</div>
+      </div>
+      <div class="text-center">
+        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">👨‍💼</div>
+        <div class="text-xs text-slate-700 mt-2">销售顾问</div>
+        <div class="text-[10px] text-emerald-600">已享</div>
+      </div>
+      <div class="text-center">
+        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🏷️</div>
+        <div class="text-xs text-slate-700 mt-2">9.5 折权益</div>
+        <div class="text-[10px] text-violet-600 font-semibold">可兑换</div>
+      </div>
+      <div class="text-center opacity-50">
+        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl relative">
+          🚛
+          <span class="absolute bottom-0 right-0 text-[9px] bg-slate-700 text-white px-1 rounded">🔒LV3</span>
+        </div>
+        <div class="text-xs text-slate-700 mt-2">代送车</div>
+        <div class="text-[10px] text-slate-400">升 LV3</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 数据查询权益(可金币兑换) -->
+  <div class="px-4 mt-5">
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center gap-2">
+        <div class="h-4 w-0.5 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-full"></div>
+        <span class="text-sm font-bold text-slate-800">数据查询(金币兑换)</span>
+      </div>
+      <a href="mall.html" class="text-xs text-violet-600">全部 ›</a>
     </div>
     <div class="grid grid-cols-4 gap-3">
       <div class="text-center">
         <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🔍</div>
-        <div class="text-xs text-slate-700 mt-2">车辆中标价</div>
-        <div class="text-[10px] text-slate-400">查询</div>
+        <div class="text-xs text-slate-700 mt-2">中标价</div>
+        <div class="text-[10px] text-slate-400">200金币</div>
       </div>
       <div class="text-center">
         <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">📊</div>
         <div class="text-xs text-slate-700 mt-2">行情查询</div>
+        <div class="text-[10px] text-slate-400">200金币</div>
+      </div>
+      <div class="text-center">
+        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">📜</div>
+        <div class="text-xs text-slate-700 mt-2">历史数据</div>
+        <div class="text-[10px] text-slate-400">200金币</div>
+      </div>
+      <div class="text-center">
+        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🎯</div>
+        <div class="text-xs text-slate-700 mt-2">保留价</div>
         <div class="text-[10px] text-slate-400">200金币</div>
       </div>
       <div class="text-center">
@@ -155,30 +187,17 @@
         <div class="text-[10px] text-slate-400">200金币</div>
       </div>
       <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🏷️</div>
-        <div class="text-xs text-slate-700 mt-2">过户 8.5 折</div>
-        <div class="text-[10px] text-violet-600 font-semibold">LV2享</div>
-      </div>
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">↩️</div>
-        <div class="text-xs text-slate-700 mt-2">无理由退车</div>
-        <div class="text-[10px] text-violet-600 font-semibold">LV2享</div>
+        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">📄</div>
+        <div class="text-xs text-slate-700 mt-2">行驶证</div>
+        <div class="text-[10px] text-slate-400">100金币</div>
       </div>
       <div class="text-center opacity-50">
         <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl relative">
-          🎧
+          ↩️
           <span class="absolute bottom-0 right-0 text-[9px] bg-slate-700 text-white px-1 rounded">🔒LV3</span>
         </div>
-        <div class="text-xs text-slate-700 mt-2">400客服</div>
-        <div class="text-[10px] text-slate-400">升级可享</div>
-      </div>
-      <div class="text-center opacity-50">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl relative">
-          💎
-          <span class="absolute bottom-0 right-0 text-[9px] bg-amber-500 text-white px-1 rounded">钻石</span>
-        </div>
-        <div class="text-xs text-slate-700 mt-2">代经销对接</div>
-        <div class="text-[10px] text-slate-400">仅钻石</div>
+        <div class="text-xs text-slate-700 mt-2">无理由退车</div>
+        <div class="text-[10px] text-slate-400">升 LV3</div>
       </div>
     </div>
   </div>
@@ -213,19 +232,11 @@
     </div>
     <div class="grid grid-cols-2 gap-3">
       <div class="bg-gradient-to-br from-violet-100 to-indigo-50 rounded-2xl p-4 border border-violet-100">
-        <div class="text-sm font-bold text-slate-800 mb-1">过户 8.5 折卡</div>
-        <div class="text-xs text-slate-500 mb-3">过户/复检 8.5 折优惠</div>
+        <div class="text-sm font-bold text-slate-800 mb-1">过户 9.5 折卡</div>
+        <div class="text-xs text-slate-500 mb-3">过户/复检 9.5 折优惠</div>
         <div class="flex items-center justify-between">
           <span class="text-[11px] px-2 py-0.5 bg-violet-600 text-white rounded-full">200 金币</span>
           <span class="text-xl">🏷️</span>
-        </div>
-      </div>
-      <div class="bg-gradient-to-br from-pink-100 to-rose-50 rounded-2xl p-4 border border-rose-100">
-        <div class="text-sm font-bold text-slate-800 mb-1">无理由退车 1 次</div>
-        <div class="text-xs text-slate-500 mb-3">免审核,安心购车</div>
-        <div class="flex items-center justify-between">
-          <span class="text-[11px] px-2 py-0.5 bg-rose-500 text-white rounded-full">LV2 专享</span>
-          <span class="text-xl">↩️</span>
         </div>
       </div>
       <div class="bg-gradient-to-br from-amber-100 to-yellow-50 rounded-2xl p-4 border border-amber-100">
@@ -244,10 +255,17 @@
           <span class="text-xl">📊</span>
         </div>
       </div>
+      <div class="bg-gradient-to-br from-pink-100 to-rose-50 rounded-2xl p-4 border border-rose-100">
+        <div class="text-sm font-bold text-slate-800 mb-1">保留价查询</div>
+        <div class="text-xs text-slate-500 mb-3">查车源底价</div>
+        <div class="flex items-center justify-between">
+          <span class="text-[11px] px-2 py-0.5 bg-rose-500 text-white rounded-full">200 金币</span>
+          <span class="text-xl">🎯</span>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- 底部导航(模拟) -->
   <div class="sticky bottom-0 bg-white border-t border-slate-100 px-2 py-2 grid grid-cols-5 text-[11px] text-slate-500">
     <a class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">🏠</span>首页</a>
     <a class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">🚗</span>全部车源</a>
@@ -258,7 +276,6 @@
 
 </div>
 
-<!-- 返回导航(非移动端) -->
 <div class="hidden md:block fixed top-4 left-4 z-50">
   <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
 </div>

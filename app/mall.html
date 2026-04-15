@@ -21,7 +21,6 @@
 
 <div class="phone-shell">
 
-  <!-- Header -->
   <div class="hero-bg pt-2">
     <div class="flex items-center justify-between px-5 py-2 text-white text-sm">
       <span>19:50</span>
@@ -33,7 +32,6 @@
       <a href="my-rewards.html" class="text-white text-xs">🎫 我的</a>
     </div>
 
-    <!-- 余额卡 -->
     <div class="mx-4 pb-6">
       <div class="bg-white/10 backdrop-blur border border-white/20 rounded-2xl p-4 text-white flex items-center justify-between">
         <div>
@@ -48,18 +46,17 @@
     </div>
   </div>
 
-  <!-- 分类 -->
   <div class="px-4 -mt-2 relative z-10 mb-4">
     <div class="flex gap-2 overflow-x-auto pb-2">
       <button class="cat active px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap shadow-sm">全部</button>
       <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200">📊 数据查询</button>
       <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200">🏷️ 交易折扣</button>
       <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200">↩️ 额度免审</button>
-      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200">🎧 专属服务</button>
+      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200">🎧 等级直达</button>
     </div>
   </div>
 
-  <!-- Banner 活动 -->
+  <!-- Banner -->
   <div class="px-4 mb-4">
     <div class="rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 p-4 flex items-center gap-3 text-white">
       <span class="text-3xl">🎉</span>
@@ -71,11 +68,13 @@
     </div>
   </div>
 
-  <!-- 商品网格 -->
-  <div class="px-4 pb-8">
+  <!-- 数据查询类 -->
+  <div class="px-4 mb-2">
+    <div class="text-xs font-semibold text-slate-500 mb-2">📊 数据查询(金币兑换)</div>
+  </div>
+  <div class="px-4 pb-2">
     <div class="grid grid-cols-2 gap-3">
 
-      <!-- 商品卡 -->
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
         <div class="h-24 bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-4xl">🔍</div>
         <div class="p-3">
@@ -85,7 +84,7 @@
             <span class="text-base font-bold text-violet-600">200<span class="text-[10px] font-normal ml-0.5">金币</span></span>
             <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
           </div>
-          <div class="text-[10px] text-slate-400 mt-1.5">库存 823 · 已兑 177</div>
+          <div class="text-[10px] text-slate-400 mt-1.5">库存 823</div>
         </div>
       </div>
 
@@ -103,65 +102,157 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <div class="h-24 bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-4xl">📜</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">历史数据查询卡</div>
+          <div class="text-[10px] text-violet-600 mt-1 font-medium">✨ 你可兑换</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-base font-bold text-violet-600">200<span class="text-[10px] font-normal ml-0.5">金币</span></span>
+            <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1.5">LV1+ · 库存 612</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <div class="h-24 bg-gradient-to-br from-fuchsia-400 to-pink-500 flex items-center justify-center text-4xl">🎯</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">保留价查询卡</div>
+          <div class="text-[10px] text-violet-600 mt-1 font-medium">✨ 你可兑换</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-base font-bold text-violet-600">200<span class="text-[10px] font-normal ml-0.5">金币</span></span>
+            <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
+          </div>
+          <div class="text-[10px] text-slate-400 mt-1.5">LV1+ · 库存 480</div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
         <div class="h-24 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-4xl">🛠️</div>
         <div class="p-3">
-          <div class="text-sm font-semibold text-slate-800">出险维保体验卡</div>
-          <div class="text-[10px] text-slate-400 mt-1">LV0 及以上可兑换</div>
+          <div class="text-sm font-semibold text-slate-800">出险维保数据卡</div>
+          <div class="text-[10px] text-violet-600 mt-1 font-medium">✨ 你可兑换</div>
           <div class="flex items-center justify-between mt-3">
             <span class="text-base font-bold text-violet-600">300<span class="text-[10px] font-normal ml-0.5">金币</span></span>
             <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
           </div>
-          <div class="text-[10px] text-slate-400 mt-1.5">库存 45</div>
+          <div class="text-[10px] text-slate-400 mt-1.5">LV1+ · 库存 45</div>
         </div>
       </div>
 
-      <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative">
-        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-violet-600 text-white text-[9px] rounded z-10">LV1+</div>
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
         <div class="h-24 bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-4xl">🚗</div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">碰撞报告查询卡</div>
-          <div class="text-[10px] text-slate-400 mt-1">LV1 及以上可兑换</div>
+          <div class="text-[10px] text-violet-600 mt-1 font-medium">✨ 你可兑换</div>
           <div class="flex items-center justify-between mt-3">
             <span class="text-base font-bold text-violet-600">200<span class="text-[10px] font-normal ml-0.5">金币</span></span>
             <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
           </div>
+          <div class="text-[10px] text-slate-400 mt-1.5">LV1+ · 库存 688</div>
         </div>
       </div>
+
+    </div>
+  </div>
+
+  <!-- 交易折扣 -->
+  <div class="px-4 mt-4 mb-2">
+    <div class="text-xs font-semibold text-slate-500 mb-2">🏷️ 交易折扣(金币兑换)</div>
+  </div>
+  <div class="px-4 pb-2">
+    <div class="grid grid-cols-2 gap-3">
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative ring-2 ring-violet-200">
         <div class="absolute top-2 right-2 px-1.5 py-0.5 bg-amber-400 text-amber-900 text-[9px] rounded z-10 font-bold">推荐</div>
-        <div class="h-24 bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center text-4xl">🏷️</div>
+        <div class="h-24 bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center text-4xl">🏷️</div>
         <div class="p-3">
-          <div class="text-sm font-semibold text-slate-800">过户 8.5 折卡</div>
+          <div class="text-sm font-semibold text-slate-800">过户 9.5 折卡</div>
           <div class="text-[10px] text-violet-600 mt-1 font-medium">✨ 你可兑换</div>
           <div class="flex items-center justify-between mt-3">
             <span class="text-base font-bold text-violet-600">200<span class="text-[10px] font-normal ml-0.5">金币</span></span>
             <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
           </div>
-          <div class="text-[10px] text-slate-400 mt-1.5">库存 128</div>
-        </div>
-      </div>
-
-      <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative">
-        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-violet-600 text-white text-[9px] rounded z-10">LV2+</div>
-        <div class="h-24 bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-4xl">↩️</div>
-        <div class="p-3">
-          <div class="text-sm font-semibold text-slate-800">无理由退车 1 次卡</div>
-          <div class="text-[10px] text-violet-600 mt-1 font-medium">✨ 你可兑换</div>
-          <div class="flex items-center justify-between mt-3">
-            <span class="text-base font-bold text-violet-600">500<span class="text-[10px] font-normal ml-0.5">金币</span></span>
-            <button class="px-3 py-1 bg-violet-600 text-white rounded-full text-[11px]">兑换</button>
-          </div>
-          <div class="text-[10px] text-slate-400 mt-1.5">库存 32</div>
+          <div class="text-[10px] text-slate-400 mt-1.5">LV2+ · 库存 128</div>
         </div>
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative opacity-60">
-        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-slate-700 text-white text-[9px] rounded z-10">🔒 LV3</div>
-        <div class="h-24 bg-gradient-to-br from-slate-400 to-slate-600 flex items-center justify-center text-4xl">🎧</div>
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10">🔒 LV3</div>
+        <div class="h-24 bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-4xl">🏷️</div>
         <div class="p-3">
-          <div class="text-sm font-semibold text-slate-800">400 专属客服</div>
-          <div class="text-[10px] text-slate-400 mt-1">升级 LV1 即享(等级直达)</div>
+          <div class="text-sm font-semibold text-slate-800">过户 8 折卡</div>
+          <div class="text-[10px] text-slate-400 mt-1">LV3 金卡专享</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-base font-bold text-slate-400">200<span class="text-[10px] font-normal ml-0.5">金币</span></span>
+            <button class="px-3 py-1 bg-slate-300 text-white rounded-full text-[11px] cursor-not-allowed">未解锁</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 额度免审 -->
+  <div class="px-4 mt-4 mb-2">
+    <div class="text-xs font-semibold text-slate-500 mb-2">↩️ 额度免审(金币兑换)</div>
+  </div>
+  <div class="px-4 pb-2">
+    <div class="grid grid-cols-2 gap-3">
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative opacity-60">
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10">🔒 LV3</div>
+        <div class="h-24 bg-gradient-to-br from-rose-400 to-red-500 flex items-center justify-center text-4xl">↩️</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">无理由退车 1 台卡</div>
+          <div class="text-[10px] text-slate-400 mt-1">LV3 金卡专享</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-base font-bold text-slate-400">500<span class="text-[10px] font-normal ml-0.5">金币</span></span>
+            <button class="px-3 py-1 bg-slate-300 text-white rounded-full text-[11px] cursor-not-allowed">未解锁</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 等级直达 -->
+  <div class="px-4 mt-4 mb-2">
+    <div class="text-xs font-semibold text-slate-500 mb-2">🎧 等级直达(无需金币)</div>
+  </div>
+  <div class="px-4 pb-8">
+    <div class="grid grid-cols-2 gap-3">
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <div class="h-24 bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-4xl">🎧</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">1V1 专属客服</div>
+          <div class="text-[10px] text-emerald-600 mt-1 font-medium">✓ 已享(LV1+)</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-xs text-slate-500">等级直达</span>
+            <button class="px-3 py-1 bg-emerald-500 text-white rounded-full text-[11px]">联系</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
+        <div class="h-24 bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-4xl">👨‍💼</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">专属销售顾问</div>
+          <div class="text-[10px] text-emerald-600 mt-1 font-medium">✓ 已享(LV1+)</div>
+          <div class="flex items-center justify-between mt-3">
+            <span class="text-xs text-slate-500">等级直达</span>
+            <button class="px-3 py-1 bg-emerald-500 text-white rounded-full text-[11px]">查看</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative opacity-60">
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10">🔒 LV3</div>
+        <div class="h-24 bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-4xl">🚛</div>
+        <div class="p-3">
+          <div class="text-sm font-semibold text-slate-800">代送车上门</div>
+          <div class="text-[10px] text-slate-400 mt-1">含代物流 · LV3 金卡专享</div>
           <div class="flex items-center justify-between mt-3">
             <span class="text-xs text-slate-500">等级直达</span>
             <button class="px-3 py-1 bg-slate-300 text-white rounded-full text-[11px] cursor-not-allowed">去升级</button>
@@ -170,21 +261,21 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative opacity-60">
-        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10">💎 钻石</div>
-        <div class="h-24 bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-4xl">🏢</div>
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10">🔒 LV3</div>
+        <div class="h-24 bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-4xl">🅿️</div>
         <div class="p-3">
-          <div class="text-sm font-semibold text-slate-800">代经销对接卡</div>
-          <div class="text-[10px] text-slate-400 mt-1">仅钻石会员可享</div>
+          <div class="text-sm font-semibold text-slate-800">免费停车服务</div>
+          <div class="text-[10px] text-slate-400 mt-1">LV3 金卡专享</div>
           <div class="flex items-center justify-between mt-3">
             <span class="text-xs text-slate-500">等级直达</span>
-            <button class="px-3 py-1 bg-slate-300 text-white rounded-full text-[11px] cursor-not-allowed">未解锁</button>
+            <button class="px-3 py-1 bg-slate-300 text-white rounded-full text-[11px] cursor-not-allowed">去升级</button>
           </div>
         </div>
       </div>
 
     </div>
 
-    <div class="text-center text-xs text-slate-400 py-6">— 更多权益卡持续上新 —</div>
+    <div class="text-center text-xs text-slate-400 py-6">— 更多权益持续上新 —</div>
   </div>
 
 </div>

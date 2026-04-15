@@ -56,8 +56,7 @@ https://api.wpcar.example/membership/v1
     "avatar": "https://...",
     "current_level": 2,
     "level_name": "银卡会员",
-    "is_diamond": false,
-    "coin_balance": 356,
+        "coin_balance": 356,
     "coin_expiring_soon": 50,       // 30 天内即将过期
     "next_level": 3,
     "next_level_name": "金卡会员",
@@ -154,8 +153,7 @@ https://api.wpcar.example/membership/v1
   "data": {
     "current_level": 2,
     "current_level_name": "银卡会员",
-    "is_diamond": false,
-    "window_start": "2026-01-01",
+        "window_start": "2026-01-01",
     "window_end": "2026-03-31",
     "current_deal_count": 12,
     "tiers": [
@@ -214,7 +212,7 @@ https://api.wpcar.example/membership/v1
         "category_label": "数据查询",
         "coin_price": 200,
         "min_level": 0,
-        "require_diamond": false,
+        "grant_type": "REDEEM",
         "stock_left": 823,
         "validity_days": 30,
         "description": "单次查询单台车历史中标价,有效期 30 天",
@@ -229,12 +227,12 @@ https://api.wpcar.example/membership/v1
         "category_label": "交易折扣",
         "coin_price": 200,
         "min_level": 3,
-        "require_diamond": true,
+        "grant_type": "REDEEM",
         "stock_left": 50,
         "validity_days": 30,
-        "description": "仅钻石会员可兑换",
+        "description": "LV3 金卡会员专享",
         "redeemable": false,
-        "unavailable_reason": "仅钻石会员可兑换"
+        "unavailable_reason": "需 LV3 金卡及以上"
       }
     ]
   }
@@ -402,8 +400,7 @@ https://api.wpcar.example/membership/v1
       "LV0": 125003,
       "LV1": 58921,
       "LV2": 12035,
-      "LV3": 3412,
-      "DIAMOND": 498
+      "LV3": 3910
     },
     "today": {
       "coin_issued": 52300,
@@ -436,8 +433,7 @@ https://api.wpcar.example/membership/v1
       { "level": 2, "name": "银卡会员", "min_deal_count": 10 },
       { "level": 3, "name": "金卡会员", "min_deal_count": 30 }
     ],
-    "window_months": 3,
-    "diamond_top_n": 500
+    "window_months": 3
   }
 }
 ```
@@ -450,8 +446,7 @@ https://api.wpcar.example/membership/v1
     { "level": 1, "min_deal_count": 5 },
     { "level": 2, "min_deal_count": 12 },
     { "level": 3, "min_deal_count": 35 }
-  ],
-  "diamond_top_n": 500
+  ]
 }
 ```
 
@@ -497,7 +492,7 @@ https://api.wpcar.example/membership/v1
   "category": "QUERY",
   "coin_price": 200,
   "min_level": 0,
-  "require_diamond": false,
+  "grant_type": "REDEEM",
   "stock": 1000,
   "validity_days": 30,
   "description": "...",
@@ -516,7 +511,6 @@ https://api.wpcar.example/membership/v1
 |------|------|
 | keyword | 手机号 / 昵称 / 商户号模糊搜索 |
 | level | 0/1/2/3 |
-| is_diamond | true/false |
 | page / page_size | 分页 |
 
 **Response**(字段略,基本是 `member_profile` 的展示版本)
