@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>唯普汽车 · 首页</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f0f0; }
+  .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #f6f7f9; position: relative; }
+  @media (min-width: 768px) {
+    body { background: #f5f5f7; padding: 24px 0; }
+    .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; }
+  }
+
+  /* 会员升级 Banner 专用渐变 */
+  .vip-banner {
+    background: linear-gradient(110deg, #2e1065 0%, #4c1d95 40%, #7c3aed 80%, #a855f7 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .vip-banner::before {
+    content: '';
+    position: absolute;
+    top: 0; right: -20%;
+    width: 200px; height: 100%;
+    background: radial-gradient(circle, rgba(253, 224, 71, .3) 0%, transparent 70%);
+  }
+  .vip-banner::after {
+    content: '';
+    position: absolute;
+    bottom: -10px; left: 15%;
+    width: 80px; height: 80px;
+    background: radial-gradient(circle, rgba(236, 72, 153, .4) 0%, transparent 70%);
+  }
+  .sparkle {
+    animation: sparkle 2.5s ease-in-out infinite;
+  }
+  @keyframes sparkle {
+    0%, 100% { transform: scale(1) rotate(0deg); opacity: .8; }
+    50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
+  }
+  .new-tag {
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, .4);
+  }
+  .car-tag { background: #fef3c7; color: #b45309; font-size: 10px; padding: 1px 5px; border-radius: 3px; }
+</style>
+</head>
+<body>
+
+<div class="phone-shell">
+
+  <!-- Status bar -->
+  <div class="flex items-center justify-between px-5 py-2 bg-white text-slate-800 text-sm">
+    <span>9:41</span>
+    <span class="flex items-center gap-1 text-xs">📶 📶 🔋</span>
+  </div>
+
+  <!-- 搜索框 -->
+  <div class="px-4 py-2 bg-white">
+    <div class="bg-slate-100 rounded-full px-4 py-2.5 flex items-center gap-2 text-sm text-slate-400">
+      <span>🔍</span>
+      <span>搜一搜 品牌/车系/车型</span>
+    </div>
+  </div>
+
+  <!-- 快捷入口 -->
+  <div class="bg-white px-4 py-3">
+    <div class="grid grid-cols-4 gap-2 text-center">
+      <div>
+        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-red-100 to-orange-100 flex items-center justify-center text-2xl">💰</div>
+        <div class="text-xs text-slate-700 mt-1.5">我要卖车</div>
+      </div>
+      <div>
+        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center text-2xl">⭐</div>
+        <div class="text-xs text-slate-700 mt-1.5">我的订阅</div>
+      </div>
+      <div>
+        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center text-2xl">🌏</div>
+        <div class="text-xs text-slate-700 mt-1.5">唯普国际版</div>
+      </div>
+      <div>
+        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-sky-100 to-blue-100 flex items-center justify-center text-2xl">📋</div>
+        <div class="text-xs text-slate-700 mt-1.5">唯车转报告</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主 Banner:赚钱好车 -->
+  <div class="px-4 py-3 bg-white">
+    <div class="rounded-2xl overflow-hidden bg-gradient-to-r from-rose-500 via-red-500 to-orange-500 p-5 text-white relative h-28">
+      <div class="relative z-10">
+        <div class="text-2xl font-black">赚钱好车 捡漏必看</div>
+        <div class="text-sm opacity-90 mt-1">新鲜车源服务费低至 4 折</div>
+      </div>
+      <div class="absolute right-4 top-2 text-6xl opacity-80">🚗</div>
+      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+        <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
+        <span class="w-1.5 h-1.5 bg-white/40 rounded-full"></span>
+        <span class="w-1.5 h-1.5 bg-white/40 rounded-full"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🆕 会员权益大升级 Banner -->
+  <div class="px-4 py-2 bg-white">
+    <a href="landing.html" class="block">
+      <div class="vip-banner rounded-2xl p-4 text-white relative">
+        <!-- NEW 标签 -->
+        <span class="new-tag absolute top-2 right-3 text-[10px] font-bold text-amber-900 px-2 py-0.5 rounded-full z-20">
+          NEW
+        </span>
+
+        <!-- 闪光装饰 -->
+        <div class="absolute top-3 left-1/3 text-yellow-300 text-xs sparkle">✨</div>
+        <div class="absolute bottom-4 right-1/4 text-pink-300 text-sm sparkle" style="animation-delay: .8s">⭐</div>
+
+        <div class="relative z-10 flex items-center gap-3">
+          <!-- 左侧徽章 -->
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-3xl shadow-lg flex-none">
+            👑
+          </div>
+
+          <!-- 中间文案 -->
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-1.5 mb-0.5">
+              <span class="text-base font-black tracking-tight">会员权益大升级</span>
+            </div>
+            <div class="text-[11px] text-indigo-100 leading-snug">
+              4 级会员 · 金币奖励 · 专属客服 · 代送上门
+            </div>
+            <div class="flex items-center gap-1 mt-1.5">
+              <span class="text-[10px] px-1.5 py-0.5 bg-white/20 backdrop-blur rounded">LV1 起送</span>
+              <span class="text-[10px] px-1.5 py-0.5 bg-white/20 backdrop-blur rounded">最高享 8 折</span>
+            </div>
+          </div>
+
+          <!-- 右侧按钮 -->
+          <div class="flex-none">
+            <div class="px-3 py-1.5 bg-gradient-to-r from-amber-300 to-yellow-400 text-amber-900 rounded-full text-xs font-bold whitespace-nowrap shadow-md">
+              立即查看 ›
+            </div>
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 两大专场 -->
+  <div class="px-4 py-2 bg-white">
+    <div class="grid grid-cols-3 gap-2">
+      <div class="col-span-2 grid grid-cols-2 gap-2">
+        <div class="rounded-xl bg-gradient-to-br from-amber-50 to-yellow-50 p-3 relative overflow-hidden">
+          <div class="text-sm font-bold text-slate-800">比亚迪专场</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">厂家车源</div>
+          <div class="text-3xl absolute bottom-1 right-1">🚗</div>
+        </div>
+        <div class="rounded-xl bg-gradient-to-br from-slate-50 to-gray-100 p-3 relative overflow-hidden">
+          <div class="text-sm font-bold text-slate-800">报废车专场</div>
+          <div class="text-[10px] text-slate-500 mt-0.5">需报废资质</div>
+          <div class="text-3xl absolute bottom-1 right-1">🚙</div>
+        </div>
+      </div>
+      <div class="rounded-xl bg-slate-50 flex items-center justify-center text-xs text-slate-500 flex-col gap-1">
+        <span>📋</span>
+        <span>查看<br>更多</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 三大专区 -->
+  <div class="px-4 py-3 bg-white">
+    <div class="grid grid-cols-3 gap-2">
+
+      <div class="rounded-xl bg-gradient-to-b from-emerald-100 to-white p-3 border border-emerald-100">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-slate-800">新能源专区</span>
+          <span class="text-[10px] text-emerald-600">›</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1">
+          <div class="bg-white rounded p-1 text-center">
+            <div class="text-2xl">🚗</div>
+            <div class="text-[10px] text-slate-600 mt-0.5">比亚迪 唐</div>
+            <div class="text-[10px] text-red-500 font-semibold">9.98万起</div>
+          </div>
+          <div class="bg-white rounded p-1 text-center">
+            <div class="text-2xl">🚗</div>
+            <div class="text-[10px] text-slate-600 mt-0.5">比亚迪 唐</div>
+            <div class="text-[10px] text-red-500 font-semibold">9.98万起</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl bg-gradient-to-b from-rose-100 to-white p-3 border border-rose-100">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-slate-800">两湖专区</span>
+          <span class="text-[10px] text-rose-600">›</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1">
+          <div class="bg-white rounded p-1 text-center">
+            <div class="text-2xl">🚗</div>
+            <div class="text-[10px] text-slate-600 mt-0.5">比亚迪 唐</div>
+            <div class="text-[10px] text-red-500 font-semibold">9.98万起</div>
+          </div>
+          <div class="bg-white rounded p-1 text-center">
+            <div class="text-2xl">🚗</div>
+            <div class="text-[10px] text-slate-600 mt-0.5">比亚迪 唐</div>
+            <div class="text-[10px] text-red-500 font-semibold">9.98万起</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl bg-gradient-to-b from-sky-100 to-white p-3 border border-sky-100">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-xs font-bold text-slate-800">广西专区</span>
+          <span class="text-[10px] text-sky-600">›</span>
+        </div>
+        <div class="grid grid-cols-1 gap-1">
+          <div class="bg-white rounded p-1 text-center">
+            <div class="text-2xl">🚗</div>
+            <div class="text-[10px] text-slate-600 mt-0.5">比亚迪 唐</div>
+            <div class="text-[10px] text-red-500 font-semibold">9.98万起</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <div class="bg-white mt-2 px-4 pt-4 pb-2 border-b border-slate-100">
+    <div class="flex items-center justify-center gap-8 text-base">
+      <span class="text-slate-800 font-bold relative">
+        为您推荐
+        <span class="absolute -bottom-2 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-red-500 rounded"></span>
+      </span>
+      <span class="text-slate-500">我的订阅</span>
+    </div>
+  </div>
+
+  <!-- 车源列表 -->
+  <div class="p-2 grid grid-cols-2 gap-2 pb-20">
+
+    <div class="bg-white rounded-xl overflow-hidden">
+      <div class="h-36 bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center text-6xl">🚗</div>
+      <div class="p-2.5">
+        <div class="text-sm font-semibold text-slate-800 leading-tight">比亚迪秦 PLUS版2021年 DM-i55K</div>
+        <div class="text-[11px] text-slate-500 mt-1">2010-10 | 8.10万公里 | 广州</div>
+        <div class="mt-1.5">
+          <span class="car-tag">周转快</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden">
+      <div class="h-36 bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-6xl">🚙</div>
+      <div class="p-2.5">
+        <div class="text-sm font-semibold text-slate-800 leading-tight">比亚迪秦 PLUS版2021年 DM-i55K</div>
+        <div class="text-[11px] text-slate-500 mt-1">2010-10 | 8.10万公里 | 广州</div>
+        <div class="mt-1.5">
+          <span class="car-tag">周转快</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden">
+      <div class="h-36 bg-gradient-to-br from-red-200 to-red-400 flex items-center justify-center text-6xl">🚗</div>
+      <div class="p-2.5">
+        <div class="text-sm font-semibold text-slate-800 leading-tight">比亚迪唐 DM-i 旗舰版</div>
+        <div class="text-[11px] text-slate-500 mt-1">2023-05 | 3.21万公里 | 深圳</div>
+        <div class="mt-1.5">
+          <span class="car-tag">新上</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden">
+      <div class="h-36 bg-gradient-to-br from-sky-200 to-sky-400 flex items-center justify-center text-6xl">🚙</div>
+      <div class="p-2.5">
+        <div class="text-sm font-semibold text-slate-800 leading-tight">比亚迪海豚 2022款 骑士版</div>
+        <div class="text-[11px] text-slate-500 mt-1">2022-08 | 2.50万公里 | 上海</div>
+        <div class="mt-1.5">
+          <span class="car-tag">周转快</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 底部导航 -->
+  <div class="sticky bottom-0 bg-white border-t border-slate-100 px-2 py-2 grid grid-cols-5 text-[11px]">
+    <a href="home.html" class="flex flex-col items-center gap-0.5 py-1 text-red-500 font-semibold">
+      <span class="text-xl">🏠</span>首页
+    </a>
+    <a class="flex flex-col items-center gap-0.5 py-1 text-slate-500">
+      <span class="text-xl">🔨</span>竞价大厅
+    </a>
+    <a class="flex flex-col items-center gap-0.5 py-1 text-slate-500">
+      <span class="text-xl">🚗</span>专场车源
+    </a>
+    <a class="flex flex-col items-center gap-0.5 py-1 text-slate-500">
+      <span class="text-xl">❤️</span>关注订阅
+    </a>
+    <a href="member.html" class="flex flex-col items-center gap-0.5 py-1 text-slate-500">
+      <span class="text-xl">😊</span>我的
+    </a>
+  </div>
+
+</div>
+
+<div class="hidden md:block fixed top-4 left-4 z-50">
+  <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
+</div>
+
+</body>
+</html>
