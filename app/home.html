@@ -22,29 +22,27 @@
   .vip-banner::before {
     content: '';
     position: absolute;
-    top: 0; right: -20%;
-    width: 200px; height: 100%;
-    background: radial-gradient(circle, rgba(253, 224, 71, .3) 0%, transparent 70%);
+    top: 0; right: -10%;
+    width: 180px; height: 100%;
+    background: radial-gradient(circle, rgba(253, 224, 71, .35) 0%, transparent 70%);
   }
   .vip-banner::after {
     content: '';
     position: absolute;
-    bottom: -10px; left: 15%;
+    bottom: -10px; left: 10%;
     width: 80px; height: 80px;
-    background: radial-gradient(circle, rgba(236, 72, 153, .4) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(236, 72, 153, .45) 0%, transparent 70%);
   }
-  .sparkle {
-    animation: sparkle 2.5s ease-in-out infinite;
-  }
-  @keyframes sparkle {
-    0%, 100% { transform: scale(1) rotate(0deg); opacity: .8; }
-    50% { transform: scale(1.2) rotate(180deg); opacity: 1; }
-  }
+
   .new-tag {
     background: linear-gradient(135deg, #fbbf24, #f59e0b);
     box-shadow: 0 2px 8px rgba(245, 158, 11, .4);
   }
   .car-tag { background: #fef3c7; color: #b45309; font-size: 10px; padding: 1px 5px; border-radius: 3px; }
+
+  /* 轮播指示点 */
+  .dot { width: 6px; height: 6px; border-radius: 3px; background: rgba(255,255,255,.4); transition: all .3s; }
+  .dot.active { width: 16px; background: #fff; }
 </style>
 </head>
 <body>
@@ -87,61 +85,31 @@
     </div>
   </div>
 
-  <!-- 主 Banner:赚钱好车 -->
+  <!-- Banner(单个位置 · 轮播) -->
   <div class="px-4 py-3 bg-white">
-    <div class="rounded-2xl overflow-hidden bg-gradient-to-r from-rose-500 via-red-500 to-orange-500 p-5 text-white relative h-28">
-      <div class="relative z-10">
-        <div class="text-2xl font-black">赚钱好车 捡漏必看</div>
-        <div class="text-sm opacity-90 mt-1">新鲜车源服务费低至 4 折</div>
-      </div>
-      <div class="absolute right-4 top-2 text-6xl opacity-80">🚗</div>
-      <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
-        <span class="w-1.5 h-1.5 bg-white rounded-full"></span>
-        <span class="w-1.5 h-1.5 bg-white/40 rounded-full"></span>
-        <span class="w-1.5 h-1.5 bg-white/40 rounded-full"></span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 🆕 会员权益大升级 Banner -->
-  <div class="px-4 py-2 bg-white">
     <a href="landing.html" class="block">
-      <div class="vip-banner rounded-2xl p-4 text-white relative">
-        <!-- NEW 标签 -->
-        <span class="new-tag absolute top-2 right-3 text-[10px] font-bold text-amber-900 px-2 py-0.5 rounded-full z-20">
-          NEW
-        </span>
+      <div class="vip-banner rounded-2xl p-5 text-white relative h-28 overflow-hidden">
+        <!-- NEW -->
+        <span class="new-tag absolute top-3 right-3 text-[10px] font-bold text-amber-900 px-2 py-0.5 rounded-full z-20">NEW</span>
 
-        <!-- 闪光装饰 -->
-        <div class="absolute top-3 left-1/3 text-yellow-300 text-xs sparkle">✨</div>
-        <div class="absolute bottom-4 right-1/4 text-pink-300 text-sm sparkle" style="animation-delay: .8s">⭐</div>
-
-        <div class="relative z-10 flex items-center gap-3">
-          <!-- 左侧徽章 -->
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-3xl shadow-lg flex-none">
-            👑
-          </div>
-
-          <!-- 中间文案 -->
+        <!-- 内容 -->
+        <div class="relative z-10 flex items-center gap-3 h-full">
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-3xl shadow-lg flex-none">👑</div>
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-1.5 mb-0.5">
-              <span class="text-base font-black tracking-tight">会员权益大升级</span>
-            </div>
-            <div class="text-[11px] text-indigo-100 leading-snug">
-              4 级会员 · 金币奖励 · 专属客服 · 代送上门
-            </div>
-            <div class="flex items-center gap-1 mt-1.5">
+            <div class="text-xl font-black tracking-tight leading-tight">会员权益大升级</div>
+            <div class="text-[11px] text-indigo-100 mt-0.5">4 级会员 · 金币奖励 · 专属客服 · 代送上门</div>
+            <div class="flex items-center gap-1.5 mt-1.5">
               <span class="text-[10px] px-1.5 py-0.5 bg-white/20 backdrop-blur rounded">LV1 起送</span>
               <span class="text-[10px] px-1.5 py-0.5 bg-white/20 backdrop-blur rounded">最高享 8 折</span>
             </div>
           </div>
+        </div>
 
-          <!-- 右侧按钮 -->
-          <div class="flex-none">
-            <div class="px-3 py-1.5 bg-gradient-to-r from-amber-300 to-yellow-400 text-amber-900 rounded-full text-xs font-bold whitespace-nowrap shadow-md">
-              立即查看 ›
-            </div>
-          </div>
+        <!-- 轮播指示点(说明:此 Banner 位和其他广告一起轮播) -->
+        <div class="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+          <span class="dot"></span>
+          <span class="dot active"></span>
+          <span class="dot"></span>
         </div>
       </div>
     </a>
@@ -151,15 +119,21 @@
   <div class="px-4 py-2 bg-white">
     <div class="grid grid-cols-3 gap-2">
       <div class="col-span-2 grid grid-cols-2 gap-2">
-        <div class="rounded-xl bg-gradient-to-br from-amber-50 to-yellow-50 p-3 relative overflow-hidden">
-          <div class="text-sm font-bold text-slate-800">比亚迪专场</div>
-          <div class="text-[10px] text-slate-500 mt-0.5">厂家车源</div>
-          <div class="text-3xl absolute bottom-1 right-1">🚗</div>
+        <div class="rounded-xl overflow-hidden relative h-20 bg-gradient-to-br from-amber-50 to-yellow-50">
+          <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=200&h=120&fit=crop&auto=format&q=80" class="absolute right-0 top-0 h-full w-20 object-cover opacity-70" onerror="this.style.display='none'">
+          <div class="absolute inset-0 bg-gradient-to-r from-amber-50 via-amber-50 to-transparent"></div>
+          <div class="relative p-3 z-10">
+            <div class="text-sm font-bold text-slate-800">比亚迪专场</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">厂家车源</div>
+          </div>
         </div>
-        <div class="rounded-xl bg-gradient-to-br from-slate-50 to-gray-100 p-3 relative overflow-hidden">
-          <div class="text-sm font-bold text-slate-800">报废车专场</div>
-          <div class="text-[10px] text-slate-500 mt-0.5">需报废资质</div>
-          <div class="text-3xl absolute bottom-1 right-1">🚙</div>
+        <div class="rounded-xl overflow-hidden relative h-20 bg-gradient-to-br from-slate-50 to-gray-100">
+          <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=200&h=120&fit=crop&auto=format&q=80" class="absolute right-0 top-0 h-full w-20 object-cover opacity-70" onerror="this.style.display='none'">
+          <div class="absolute inset-0 bg-gradient-to-r from-slate-50 via-slate-50 to-transparent"></div>
+          <div class="relative p-3 z-10">
+            <div class="text-sm font-bold text-slate-800">报废车专场</div>
+            <div class="text-[10px] text-slate-500 mt-0.5">需报废资质</div>
+          </div>
         </div>
       </div>
       <div class="rounded-xl bg-slate-50 flex items-center justify-center text-xs text-slate-500 flex-col gap-1">
@@ -179,15 +153,15 @@
           <span class="text-[10px] text-emerald-600">›</span>
         </div>
         <div class="grid grid-cols-2 gap-1">
-          <div class="bg-white rounded p-1 text-center">
-            <div class="text-2xl">🚗</div>
-            <div class="text-[10px] text-slate-600 mt-0.5">比亚迪 唐</div>
-            <div class="text-[10px] text-red-500 font-semibold">9.98万起</div>
+          <div class="bg-white rounded overflow-hidden text-center">
+            <img src="https://images.unsplash.com/photo-1617788138017-80ad40651399?w=160&h=90&fit=crop&auto=format&q=80" class="w-full h-10 object-cover" alt="BYD Tang">
+            <div class="text-[10px] text-slate-600 mt-0.5 px-1">比亚迪 唐</div>
+            <div class="text-[10px] text-red-500 font-semibold pb-1">9.98万起</div>
           </div>
-          <div class="bg-white rounded p-1 text-center">
-            <div class="text-2xl">🚗</div>
-            <div class="text-[10px] text-slate-600 mt-0.5">比亚迪 唐</div>
-            <div class="text-[10px] text-red-500 font-semibold">9.98万起</div>
+          <div class="bg-white rounded overflow-hidden text-center">
+            <img src="https://images.unsplash.com/photo-1619767886558-efdc259cde1a?w=160&h=90&fit=crop&auto=format&q=80" class="w-full h-10 object-cover" alt="BYD Tang">
+            <div class="text-[10px] text-slate-600 mt-0.5 px-1">比亚迪 唐</div>
+            <div class="text-[10px] text-red-500 font-semibold pb-1">9.98万起</div>
           </div>
         </div>
       </div>
@@ -198,15 +172,15 @@
           <span class="text-[10px] text-rose-600">›</span>
         </div>
         <div class="grid grid-cols-2 gap-1">
-          <div class="bg-white rounded p-1 text-center">
-            <div class="text-2xl">🚗</div>
-            <div class="text-[10px] text-slate-600 mt-0.5">比亚迪 唐</div>
-            <div class="text-[10px] text-red-500 font-semibold">9.98万起</div>
+          <div class="bg-white rounded overflow-hidden text-center">
+            <img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=160&h=90&fit=crop&auto=format&q=80" class="w-full h-10 object-cover" alt="Car">
+            <div class="text-[10px] text-slate-600 mt-0.5 px-1">比亚迪 唐</div>
+            <div class="text-[10px] text-red-500 font-semibold pb-1">9.98万起</div>
           </div>
-          <div class="bg-white rounded p-1 text-center">
-            <div class="text-2xl">🚗</div>
-            <div class="text-[10px] text-slate-600 mt-0.5">比亚迪 唐</div>
-            <div class="text-[10px] text-red-500 font-semibold">9.98万起</div>
+          <div class="bg-white rounded overflow-hidden text-center">
+            <img src="https://images.unsplash.com/photo-1617469767053-8da35b2c6db1?w=160&h=90&fit=crop&auto=format&q=80" class="w-full h-10 object-cover" alt="Car">
+            <div class="text-[10px] text-slate-600 mt-0.5 px-1">比亚迪 唐</div>
+            <div class="text-[10px] text-red-500 font-semibold pb-1">9.98万起</div>
           </div>
         </div>
       </div>
@@ -217,10 +191,10 @@
           <span class="text-[10px] text-sky-600">›</span>
         </div>
         <div class="grid grid-cols-1 gap-1">
-          <div class="bg-white rounded p-1 text-center">
-            <div class="text-2xl">🚗</div>
-            <div class="text-[10px] text-slate-600 mt-0.5">比亚迪 唐</div>
-            <div class="text-[10px] text-red-500 font-semibold">9.98万起</div>
+          <div class="bg-white rounded overflow-hidden text-center">
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=160&h=90&fit=crop&auto=format&q=80" class="w-full h-10 object-cover" alt="Car">
+            <div class="text-[10px] text-slate-600 mt-0.5 px-1">比亚迪 唐</div>
+            <div class="text-[10px] text-red-500 font-semibold pb-1">9.98万起</div>
           </div>
         </div>
       </div>
@@ -243,7 +217,7 @@
   <div class="p-2 grid grid-cols-2 gap-2 pb-20">
 
     <div class="bg-white rounded-xl overflow-hidden">
-      <div class="h-36 bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center text-6xl">🚗</div>
+      <img src="https://images.unsplash.com/photo-1617469767053-8da35b2c6db1?w=400&h=300&fit=crop&auto=format&q=80" class="w-full h-36 object-cover" alt="白色轿车">
       <div class="p-2.5">
         <div class="text-sm font-semibold text-slate-800 leading-tight">比亚迪秦 PLUS版2021年 DM-i55K</div>
         <div class="text-[11px] text-slate-500 mt-1">2010-10 | 8.10万公里 | 广州</div>
@@ -254,7 +228,7 @@
     </div>
 
     <div class="bg-white rounded-xl overflow-hidden">
-      <div class="h-36 bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center text-6xl">🚙</div>
+      <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=400&h=300&fit=crop&auto=format&q=80" class="w-full h-36 object-cover" alt="黑色轿车">
       <div class="p-2.5">
         <div class="text-sm font-semibold text-slate-800 leading-tight">比亚迪秦 PLUS版2021年 DM-i55K</div>
         <div class="text-[11px] text-slate-500 mt-1">2010-10 | 8.10万公里 | 广州</div>
@@ -265,7 +239,7 @@
     </div>
 
     <div class="bg-white rounded-xl overflow-hidden">
-      <div class="h-36 bg-gradient-to-br from-red-200 to-red-400 flex items-center justify-center text-6xl">🚗</div>
+      <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&h=300&fit=crop&auto=format&q=80" class="w-full h-36 object-cover" alt="红色轿车">
       <div class="p-2.5">
         <div class="text-sm font-semibold text-slate-800 leading-tight">比亚迪唐 DM-i 旗舰版</div>
         <div class="text-[11px] text-slate-500 mt-1">2023-05 | 3.21万公里 | 深圳</div>
@@ -276,10 +250,32 @@
     </div>
 
     <div class="bg-white rounded-xl overflow-hidden">
-      <div class="h-36 bg-gradient-to-br from-sky-200 to-sky-400 flex items-center justify-center text-6xl">🚙</div>
+      <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=400&h=300&fit=crop&auto=format&q=80" class="w-full h-36 object-cover" alt="蓝色轿车">
       <div class="p-2.5">
         <div class="text-sm font-semibold text-slate-800 leading-tight">比亚迪海豚 2022款 骑士版</div>
         <div class="text-[11px] text-slate-500 mt-1">2022-08 | 2.50万公里 | 上海</div>
+        <div class="mt-1.5">
+          <span class="car-tag">周转快</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?w=400&h=300&fit=crop&auto=format&q=80" class="w-full h-36 object-cover" alt="SUV">
+      <div class="p-2.5">
+        <div class="text-sm font-semibold text-slate-800 leading-tight">比亚迪宋 PLUS 冠军版</div>
+        <div class="text-[11px] text-slate-500 mt-1">2023-03 | 1.80万公里 | 北京</div>
+        <div class="mt-1.5">
+          <span class="car-tag">新上</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-xl overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=400&h=300&fit=crop&auto=format&q=80" class="w-full h-36 object-cover" alt="SUV">
+      <div class="p-2.5">
+        <div class="text-sm font-semibold text-slate-800 leading-tight">比亚迪元 PLUS 精英版</div>
+        <div class="text-[11px] text-slate-500 mt-1">2022-11 | 3.50万公里 | 成都</div>
         <div class="mt-1.5">
           <span class="car-tag">周转快</span>
         </div>
@@ -307,6 +303,50 @@
     </a>
   </div>
 
+</div>
+
+<!-- 🆕 首页弹窗:会员权益大升级(参考滴滴新人礼) -->
+<div id="vipPopup" class="fixed inset-0 z-50 flex items-center justify-center p-6" style="background:rgba(0,0,0,.55);backdrop-filter:blur(3px)">
+  <div class="relative w-full max-w-xs">
+    <!-- 关闭 -->
+    <button onclick="document.getElementById('vipPopup').style.display='none'" class="absolute -top-10 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-white/60 text-white/80 flex items-center justify-center text-lg z-10">✕</button>
+
+    <!-- 弹窗主体 -->
+    <div class="rounded-3xl overflow-hidden shadow-2xl">
+      <!-- 顶部紫金渐变 -->
+      <div class="bg-gradient-to-br from-violet-600 via-purple-700 to-indigo-800 p-5 text-center text-white relative overflow-hidden">
+        <div class="absolute top-2 left-4 text-yellow-300 text-sm" style="animation:sp 2s ease-in-out infinite">✨</div>
+        <div class="absolute top-6 right-6 text-pink-300 text-xs" style="animation:sp 2s ease-in-out infinite;animation-delay:.7s">⭐</div>
+        <div class="absolute -top-1 right-2 bg-gradient-to-br from-amber-400 to-yellow-500 text-amber-900 text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-2xl shadow">重磅</div>
+        <div class="text-4xl mb-2">👑</div>
+        <div class="text-xl font-black">会员权益大升级</div>
+        <div class="text-xs text-indigo-200 mt-1">全新 4 级会员体系 · 行为即奖励</div>
+      </div>
+
+      <!-- 权益列表(仿滴滴优惠券列表) -->
+      <div class="bg-white p-4 space-y-2.5">
+        <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl border border-amber-200">
+          <div class="flex-none text-center"><div class="text-2xl font-black text-amber-600">+50</div><div class="text-[9px] text-amber-500">金币/台</div></div>
+          <div class="flex-1 border-l border-amber-200 pl-3"><div class="text-sm font-bold text-slate-800">成交奖励</div><div class="text-[10px] text-slate-500">每成交 1 台即获 50 金币</div></div>
+        </div>
+        <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-violet-50 to-indigo-50 rounded-xl border border-violet-200">
+          <div class="flex-none text-center"><div class="text-2xl font-black text-violet-600">8折</div><div class="text-[9px] text-violet-500">过户/复检</div></div>
+          <div class="flex-1 border-l border-violet-200 pl-3"><div class="text-sm font-bold text-slate-800">LV3 金卡专享折扣</div><div class="text-[10px] text-slate-500">过户/复检最低 8 折</div></div>
+        </div>
+        <div class="flex items-center gap-3 p-3 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border border-emerald-200">
+          <div class="flex-none text-center"><div class="text-2xl font-black text-emerald-600">1V1</div><div class="text-[9px] text-emerald-500">专属客服</div></div>
+          <div class="flex-1 border-l border-emerald-200 pl-3"><div class="text-sm font-bold text-slate-800">LV1 起享专属服务</div><div class="text-[10px] text-slate-500">销售顾问 · 代送上门 · 免费停车</div></div>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div class="bg-white px-4 pb-5">
+        <a href="landing.html" class="block w-full py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-full text-center text-base font-bold shadow-lg">
+          立即了解 ›
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="hidden md:block fixed top-4 left-4 z-50">
