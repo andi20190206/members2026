@@ -300,10 +300,10 @@ CREATE TABLE level_rule (
 
 -- 初始化数据
 INSERT INTO level_rule (level, name, min_deal_count) VALUES
-  (0, '新人会员', 0),
-  (1, '普通会员', 3),
-  (2, '银卡会员', 10),
-  (3, '金卡会员', 30);
+  (0, 'V0', 0),
+  (1, 'V1', 3),
+  (2, 'V2', 10),
+  (3, 'V3', 30);
 ```
 
 > v1.1 起取消钻石,无需额外子等级配置。

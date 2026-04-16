@@ -55,11 +55,11 @@ https://api.wpcar.example/membership/v1
     "nickname": "张三",
     "avatar": "https://...",
     "current_level": 2,
-    "level_name": "银卡会员",
+    "level_name": "V2",
         "coin_balance": 356,
     "coin_expiring_soon": 50,       // 30 天内即将过期
     "next_level": 3,
-    "next_level_name": "金卡会员",
+    "next_level_name": "V3",
     "deal_count_3m": 12,            // 近 3 个月成交
     "deal_count_needed": 18,        // 距离下一等级还差
     "progress_percent": 40          // 进度条百分比(前端计算也可)
@@ -152,15 +152,15 @@ https://api.wpcar.example/membership/v1
   "code": 0,
   "data": {
     "current_level": 2,
-    "current_level_name": "银卡会员",
+    "current_level_name": "V2",
         "window_start": "2026-01-01",
     "window_end": "2026-03-31",
     "current_deal_count": 12,
     "tiers": [
-      { "level": 0, "name": "新人会员", "threshold": 0, "achieved": true },
-      { "level": 1, "name": "普通会员", "threshold": 3, "achieved": true },
-      { "level": 2, "name": "银卡会员", "threshold": 10, "achieved": true },
-      { "level": 3, "name": "金卡会员", "threshold": 30, "achieved": false }
+      { "level": 0, "name": "V0", "threshold": 0, "achieved": true },
+      { "level": 1, "name": "V1", "threshold": 3, "achieved": true },
+      { "level": 2, "name": "V2", "threshold": 10, "achieved": true },
+      { "level": 3, "name": "V3", "threshold": 30, "achieved": false }
     ],
     "next_settle_date": "2026-05-01"
   }
@@ -230,9 +230,9 @@ https://api.wpcar.example/membership/v1
         "grant_type": "REDEEM",
         "stock_left": 50,
         "validity_days": 30,
-        "description": "V3 金卡会员专享",
+        "description": "V3会员专享",
         "redeemable": false,
-        "unavailable_reason": "需 V3 金卡及以上"
+        "unavailable_reason": "需 V3及以上"
       }
     ]
   }
@@ -428,10 +428,10 @@ https://api.wpcar.example/membership/v1
   "code": 0,
   "data": {
     "levels": [
-      { "level": 0, "name": "新人会员", "min_deal_count": 0 },
-      { "level": 1, "name": "普通会员", "min_deal_count": 3 },
-      { "level": 2, "name": "银卡会员", "min_deal_count": 10 },
-      { "level": 3, "name": "金卡会员", "min_deal_count": 30 }
+      { "level": 0, "name": "V0", "min_deal_count": 0 },
+      { "level": 1, "name": "V1", "min_deal_count": 3 },
+      { "level": 2, "name": "V2", "min_deal_count": 10 },
+      { "level": 3, "name": "V3", "min_deal_count": 30 }
     ],
     "window_months": 3
   }
