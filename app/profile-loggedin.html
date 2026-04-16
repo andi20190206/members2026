@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>个人中心(已登录) · 唯普汽车</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f0f0; }
+  .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #f5f6f8; position: relative; }
+  @media (min-width: 768px) { body { background: #f5f5f7; padding: 24px 0; } .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; } }
+  .badge-cert { background: #1e293b; color: #fff; padding: 2px 8px; border-radius: 10px; font-size: 10px; display: inline-flex; align-items: center; gap: 2px; }
+  .badge-vip { background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #78350f; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: bold; }
+  .dot-new { width: 6px; height: 6px; background: #ef4444; border-radius: 50%; display: inline-block; }
+  .notification-badge { position: absolute; top: -6px; right: -8px; background: #ef4444; color: white; font-size: 10px; padding: 0 5px; min-width: 18px; height: 18px; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+</style>
+</head>
+<body>
+
+<div class="phone-shell">
+
+  <!-- Status -->
+  <div class="flex items-center justify-between px-5 py-2 text-slate-800 text-sm">
+    <span>9:41</span>
+    <span class="flex items-center gap-1"><i data-lucide="signal" class="w-3.5 h-3.5"></i><i data-lucide="wifi" class="w-3.5 h-3.5"></i><i data-lucide="battery-full" class="w-3.5 h-3.5"></i></span>
+  </div>
+
+  <!-- 顶部设置 -->
+  <div class="flex items-center justify-end px-5 py-3">
+    <button class="text-slate-700"><i data-lucide="settings" class="w-5 h-5"></i></button>
+  </div>
+
+  <!-- 用户卡片 -->
+  <a href="#" class="block px-4 mb-4">
+    <div class="flex items-center gap-4 px-2 py-3">
+      <div class="w-16 h-16 rounded-full bg-slate-200 flex items-center justify-center text-slate-400">
+        <i data-lucide="user" class="w-9 h-9"></i>
+      </div>
+      <div class="flex-1">
+        <div class="text-xl font-bold text-slate-800 mb-1">cptest01</div>
+        <div class="flex items-center gap-1.5">
+          <span class="badge-cert"><i data-lucide="check" class="w-2.5 h-2.5"></i>已认证</span>
+          <span class="badge-vip">VIP会员</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-1">
+        <span class="dot-new"></span>
+        <i data-lucide="chevron-right" class="w-5 h-5 text-slate-400"></i>
+      </div>
+    </div>
+  </a>
+
+  <!-- 权益卡 / 优惠券 -->
+  <div class="px-4 mb-3 grid grid-cols-2 gap-3">
+    <div class="bg-white rounded-2xl p-4 flex items-center gap-3">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-slate-600 to-slate-800 flex items-center justify-center text-white shadow-md">
+        <i data-lucide="credit-card" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <div class="text-sm font-bold text-slate-800">权益卡</div>
+        <div class="text-xs text-slate-500 mt-0.5"><span class="text-rose-500 font-semibold">5</span> 张券未使用</div>
+      </div>
+    </div>
+    <div class="bg-white rounded-2xl p-4 flex items-center gap-3">
+      <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white shadow-md">
+        <i data-lucide="ticket" class="w-5 h-5"></i>
+      </div>
+      <div>
+        <div class="text-sm font-bold text-slate-800">优惠券</div>
+        <div class="text-xs text-slate-500 mt-0.5"><span class="text-rose-500">0</span> 张券未使用</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 我的竞价(含 badge) -->
+  <div class="px-4 mb-3">
+    <div class="bg-white rounded-2xl p-4">
+      <div class="text-sm font-bold text-slate-800 mb-3">我的竞价</div>
+      <div class="grid grid-cols-4 gap-2">
+        <a class="text-center relative"><div class="w-10 h-10 mx-auto flex items-center justify-center text-slate-700 relative"><i data-lucide="gavel" class="w-6 h-6"></i></div><div class="text-xs text-slate-700 mt-1">进行中</div></a>
+        <a class="text-center relative"><div class="w-10 h-10 mx-auto flex items-center justify-center text-slate-700 relative"><i data-lucide="hourglass" class="w-6 h-6"></i><span class="notification-badge">23</span></div><div class="text-xs text-slate-700 mt-1">已结束</div></a>
+        <a class="text-center relative"><div class="w-10 h-10 mx-auto flex items-center justify-center text-slate-700 relative"><i data-lucide="clipboard-check" class="w-6 h-6"></i><span class="notification-badge">99+</span></div><div class="text-xs text-slate-700 mt-1">已拍下</div></a>
+        <a class="text-center"><div class="w-10 h-10 mx-auto flex items-center justify-center text-slate-700"><i data-lucide="heart" class="w-6 h-6"></i></div><div class="text-xs text-slate-700 mt-1">关注</div></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🆕 专用账号(会员新增入口) -->
+  <div class="px-4 mb-3">
+    <a class="block bg-white rounded-2xl p-4">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-sm font-bold text-slate-800">专用账号</span>
+          <i data-lucide="eye-off" class="w-3.5 h-3.5 text-slate-400"></i>
+        </div>
+        <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+      </div>
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <div class="text-[11px] text-slate-400 mb-1">可用余额(元)</div>
+          <div class="text-lg font-bold text-slate-800 tracking-widest">* * * *</div>
+        </div>
+        <div>
+          <div class="text-[11px] text-slate-400 mb-1">可用保证金(元)</div>
+          <div class="text-lg font-bold text-slate-800 tracking-widest">* * * *</div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 🆕 会员中心入口 -->
+  <div class="px-4 mb-3">
+    <a href="member.html" class="block rounded-2xl p-4 relative overflow-hidden text-white" style="background:linear-gradient(110deg, #2e1065 0%, #4c1d95 40%, #7c3aed 80%, #a855f7 100%)">
+      <div class="flex items-center justify-between relative z-10">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-amber-900 shadow">
+            <i data-lucide="crown" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <div class="text-sm font-bold">唯普会员中心</div>
+            <div class="text-[11px] opacity-90 mt-0.5">当前 V2 · 356 金币</div>
+          </div>
+        </div>
+        <div class="text-xs font-semibold bg-white/20 backdrop-blur px-3 py-1.5 rounded-full">进入 ›</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- 我的订单(含 badge) -->
+  <div class="px-4 mb-3">
+    <div class="bg-white rounded-2xl p-4">
+      <div class="text-sm font-bold text-slate-800 mb-3">我的订单</div>
+      <div class="grid grid-cols-4 gap-2">
+        <a class="text-center"><div class="w-10 h-10 mx-auto flex items-center justify-center text-slate-700 relative"><i data-lucide="wallet" class="w-6 h-6"></i><span class="notification-badge">33</span></div><div class="text-xs text-slate-700 mt-1">待支付</div></a>
+        <a class="text-center"><div class="w-10 h-10 mx-auto flex items-center justify-center text-slate-700 relative"><i data-lucide="clipboard-check" class="w-6 h-6"></i><span class="notification-badge">1</span></div><div class="text-xs text-slate-700 mt-1">待确认</div></a>
+        <a class="text-center"><div class="w-10 h-10 mx-auto flex items-center justify-center text-slate-700"><i data-lucide="lock" class="w-6 h-6"></i></div><div class="text-xs text-slate-700 mt-1">已冻结</div></a>
+        <a class="text-center"><div class="w-10 h-10 mx-auto flex items-center justify-center text-slate-700"><i data-lucide="list" class="w-6 h-6"></i></div><div class="text-xs text-slate-700 mt-1">全部订单</div></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 我的衍生服务订单 -->
+  <div class="px-4 mb-3">
+    <a class="block bg-white rounded-2xl p-4 flex items-center justify-between">
+      <span class="text-sm font-bold text-slate-800">我的衍生服务订单</span>
+      <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+    </a>
+  </div>
+
+  <!-- 我的服务 -->
+  <div class="px-4 pb-24">
+    <div class="bg-white rounded-2xl p-4">
+      <div class="text-sm font-bold text-slate-800 mb-3">我的服务</div>
+      <div class="grid grid-cols-4 gap-2">
+        <a class="text-center"><div class="w-10 h-10 mx-auto flex items-center justify-center text-red-500"><i data-lucide="file-search" class="w-6 h-6"></i></div><div class="text-xs text-slate-700 mt-1">查维保</div></a>
+        <a class="text-center"><div class="w-10 h-10 mx-auto flex items-center justify-center text-red-500"><i data-lucide="shield-check" class="w-6 h-6"></i></div><div class="text-xs text-slate-700 mt-1">维保出险</div><div class="text-[9px] text-slate-400">旧版</div></a>
+        <a class="text-center"><div class="w-10 h-10 mx-auto flex items-center justify-center text-red-500"><i data-lucide="help-circle" class="w-6 h-6"></i></div><div class="text-xs text-slate-700 mt-1">帮助中心</div></a>
+        <a class="text-center"><div class="w-10 h-10 mx-auto flex items-center justify-center text-red-500"><i data-lucide="headphones" class="w-6 h-6"></i></div><div class="text-xs text-slate-700 mt-1">联系客服</div></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底部导航 -->
+  <div class="sticky bottom-0 bg-white border-t border-slate-100 px-2 py-2 grid grid-cols-4 text-[11px] text-slate-500">
+    <a href="home.html" class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="home" class="w-5 h-5"></i>首页</a>
+    <a class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="car" class="w-5 h-5"></i>全部车源</a>
+    <a class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="target" class="w-5 h-5"></i>专场车源</a>
+    <a href="profile-loggedin.html" class="flex flex-col items-center gap-0.5 py-1 text-red-500 font-semibold"><i data-lucide="user" class="w-5 h-5"></i>个人中心</a>
+  </div>
+
+</div>
+
+<div class="hidden md:block fixed top-4 left-4 z-50">
+  <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+
+</body>
+</html>

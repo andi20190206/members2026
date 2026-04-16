@@ -64,7 +64,7 @@
         <div class="text-sm font-bold">新人首次服务包</div>
         <div class="text-[11px] opacity-90">V0 专享 · 1 金币即可兑换</div>
       </div>
-      <button class="bg-white/20 backdrop-blur rounded-full px-3 py-1 text-xs font-semibold">立即领</button>
+      <button onclick="claimNewbiePack()" class="bg-white/20 backdrop-blur rounded-full px-3 py-1 text-xs font-semibold">立即领</button>
     </div>
   </div>
 
@@ -342,6 +342,15 @@ function confirmRedeem() {
   const toast = document.getElementById('toast');
   toast.classList.remove('hidden');
   setTimeout(() => toast.classList.add('hidden'), 2000);
+}
+
+function claimNewbiePack() {
+  const t = document.createElement('div');
+  t.className = 'fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-slate-800 text-white px-6 py-3 rounded-full text-sm shadow-xl z-[100] flex items-center gap-2';
+  t.innerHTML = '<i data-lucide="check-circle" class="w-4 h-4"></i>新人首次服务包已领取,消耗 1 金币';
+  document.body.appendChild(t);
+  lucide.createIcons();
+  setTimeout(() => t.remove(), 2000);
 }
 </script>
 
