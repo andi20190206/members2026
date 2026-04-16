@@ -8,156 +8,215 @@
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #1a0e3d; }
   .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #f8fafc; position: relative; }
-  @media (min-width: 768px) {
-    body { background: #f5f5f7; padding: 24px 0; }
-    .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; }
-  }
+  @media (min-width: 768px) { body { background: #f5f5f7; padding: 24px 0; } .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; } }
   .hero-bg { background: linear-gradient(180deg, #2e1065 0%, #4c1d95 60%, #f8fafc 100%); }
-  .lv-text {
-    background: linear-gradient(180deg, #fff 0%, #e0e7ff 50%, #a5b4fc 100%);
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-    font-weight: 900; letter-spacing: -2px;
-  }
-  .milestone {
-    position: relative;
-  }
-  .milestone::before {
-    content: ''; position: absolute; left: 24px; top: 48px; width: 2px; height: calc(100% - 16px);
-    background: linear-gradient(180deg, #8b5cf6 0%, #c4b5fd 100%);
-  }
-  .milestone:last-child::before { display: none; }
-  .milestone.locked::before {
-    background: #e2e8f0;
-  }
+  .lv-text { background: linear-gradient(180deg, #fff 0%, #e0e7ff 50%, #a5b4fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; letter-spacing: -2px; }
+  .tier-box { border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px 12px; text-align: center; }
+  .tier-box.current { border-color: #8b5cf6; background: #f5f3ff; }
+  .qa-toggle { cursor: pointer; }
+  .qa-answer { max-height: 0; overflow: hidden; transition: max-height .3s ease; }
+  .qa-answer.open { max-height: 500px; }
 </style>
 </head>
 <body>
 
 <div class="phone-shell">
 
-  <!-- Header -->
   <div class="hero-bg pt-2">
-    <div class="flex items-center justify-between px-5 py-2 text-white text-sm">
-      <span>19:50</span>
-      <span class="text-xs">🔔 📶 🔋 85%</span>
-    </div>
-    <div class="flex items-center justify-between px-5 pb-4">
+    <div class="flex items-center justify-between px-5 py-2 text-white text-sm"><span>09:49</span><span class="text-xs">📶 🔋</span></div>
+    <div class="flex items-center justify-between px-5 pb-2">
       <a href="member.html" class="text-white text-xl">←</a>
-      <span class="text-white text-base font-semibold">等级成长</span>
+      <span class="text-white text-base font-semibold">等级成长详情</span>
       <span class="w-5"></span>
     </div>
 
-    <!-- Hero -->
-    <div class="px-6 pb-8 flex items-end gap-4">
-      <div class="lv-text text-[90px] leading-none">V2</div>
-      <div class="flex-1 text-white pb-2">
-        <div class="text-xl font-bold">银卡会员</div>
-        <div class="text-xs text-indigo-200 mt-1">已超越 78% 的商户</div>
-      </div>
+    <!-- 距下次定级提示 -->
+    <div class="px-5 pb-2">
+      <div class="text-xs text-amber-300">● 距离下次定级还剩 16 天</div>
     </div>
-  </div>
 
-  <!-- 本期统计卡 -->
-  <div class="px-4 -mt-4 relative z-10 mb-4">
-    <div class="bg-white rounded-2xl p-5 shadow-xl">
-      <div class="flex items-center justify-between mb-3">
-        <div>
-          <div class="text-xs text-slate-500">本期统计窗口</div>
-          <div class="text-sm font-semibold text-slate-800 mt-0.5">2026-01-01 ~ 2026-03-31</div>
-        </div>
-        <span class="text-[10px] text-slate-400 px-2 py-1 bg-slate-100 rounded-full">下次结算 05-01</span>
+    <!-- 成交台数(大字) -->
+    <div class="px-5 pb-3">
+      <div class="flex items-end gap-1">
+        <span class="text-white text-5xl font-black leading-none">12</span>
+        <a href="#" class="text-indigo-200 text-sm ml-1">成交台数 ›</a>
       </div>
-      <div class="grid grid-cols-3 gap-3 text-center">
-        <div>
-          <div class="text-2xl font-bold text-violet-600">12</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">近 3 月成交</div>
+      <div class="text-xs text-indigo-300 mt-1">最近3个月（含本月）累计成交台数</div>
+    </div>
+
+    <!-- 进度条 -->
+    <div class="px-5 pb-8">
+      <div class="relative">
+        <div class="flex items-center justify-between text-[10px] text-indigo-300 mb-1">
+          <span>0</span>
+          <span class="text-amber-300 font-semibold">10<br><span class="text-[9px] font-normal">当前</span></span>
+          <span>30</span>
         </div>
-        <div>
-          <div class="text-2xl font-bold text-sky-600">45</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">近 3 月出价</div>
-        </div>
-        <div>
-          <div class="text-2xl font-bold text-amber-600">28</div>
-          <div class="text-[11px] text-slate-500 mt-0.5">近 3 月转发</div>
+        <div class="h-2 bg-white/15 rounded-full overflow-hidden">
+          <div class="h-full bg-gradient-to-r from-amber-300 to-yellow-400 rounded-full" style="width:40%"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- 距下一等级 -->
-  <div class="px-4 mb-4">
-    <div class="bg-gradient-to-r from-violet-500 to-indigo-600 rounded-2xl p-5 text-white shadow-lg">
-      <div class="flex items-center gap-2 text-xs opacity-90 mb-1">
-        <span>⬆️</span><span>距离下一等级</span>
+  <!-- 如何提升成交台数 -->
+  <div class="px-4 -mt-4 relative z-10">
+    <div class="bg-white rounded-2xl p-5 shadow-md border border-slate-100">
+      <div class="text-sm font-bold text-slate-800 mb-3">🔥 如何提升成交台数</div>
+      <div class="grid grid-cols-2 gap-3">
+        <div class="bg-amber-50 rounded-xl p-3 border border-amber-100">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="text-xs text-slate-700 font-medium">竞价成交</span>
+            <span class="text-amber-600 font-black text-sm">×1 倍</span>
+          </div>
+          <div class="text-[10px] text-slate-500">每成功竞得 1 台车,计 1 台成交</div>
+        </div>
+        <div class="bg-violet-50 rounded-xl p-3 border border-violet-100">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="text-xs text-slate-700 font-medium">保留价成交</span>
+            <span class="text-violet-600 font-black text-sm">×1.5 倍</span>
+          </div>
+          <div class="text-[10px] text-slate-500">以保留价直接成交,计 1.5 台</div>
+        </div>
+        <div class="bg-emerald-50 rounded-xl p-3 border border-emerald-100">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="text-xs text-slate-700 font-medium">批量成交</span>
+            <span class="text-emerald-600 font-black text-sm">×2 倍</span>
+          </div>
+          <div class="text-[10px] text-slate-500">单月成交 ≥5 台,额外 ×2 加成</div>
+        </div>
+        <div class="bg-sky-50 rounded-xl p-3 border border-sky-100">
+          <div class="flex items-center gap-1 mb-1">
+            <span class="text-xs text-slate-700 font-medium">专场成交</span>
+            <span class="text-sky-600 font-black text-sm">×1.5 倍</span>
+          </div>
+          <div class="text-[10px] text-slate-500">参与专场车源成交,计 1.5 台</div>
+        </div>
       </div>
-      <div class="text-2xl font-bold mb-3">还需成交 18 台</div>
-      <div class="h-2 bg-white/20 rounded-full overflow-hidden mb-2">
-        <div class="h-full bg-gradient-to-r from-amber-300 to-yellow-400" style="width: 40%"></div>
-      </div>
-      <div class="flex items-center justify-between text-[11px] opacity-90">
-        <span>已完成 12 台 (40%)</span>
-        <span>目标:30 台 · V3 金卡</span>
-      </div>
+      <div class="text-[10px] text-slate-400 mt-3">* 倍数仅供参考,以实际页面展示为准</div>
     </div>
   </div>
 
-  <!-- 等级路径图 -->
-  <div class="px-4 mb-6">
-    <div class="bg-white rounded-2xl p-5">
-      <div class="text-sm font-bold text-slate-800 mb-4">🗺️ 我的成长路径</div>
+  <!-- Q&A -->
+  <div class="px-4 mt-5">
+    <div class="text-base font-bold text-slate-800 mb-3">Q&A</div>
 
-      <div class="space-y-4">
-        <div class="milestone flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center text-white text-lg font-bold flex-none">✓</div>
-          <div class="flex-1 pt-1">
-            <div class="flex items-center gap-2">
-              <span class="text-sm font-semibold text-slate-800">V0 新人会员</span>
-              <span class="text-[10px] px-1.5 py-0.5 bg-emerald-100 text-emerald-700 rounded">已完成</span>
-            </div>
-            <div class="text-xs text-slate-500 mt-0.5">新入驻即可达成</div>
-          </div>
+    <div class="bg-white rounded-2xl overflow-hidden border border-slate-100 divide-y divide-slate-100">
+
+      <!-- Q1 -->
+      <div>
+        <div class="qa-toggle flex items-center justify-between p-4" onclick="toggleQA(this)">
+          <span class="text-sm font-semibold text-slate-800">1. 等级体系介绍</span>
+          <span class="text-slate-400 text-sm transition-transform duration-300">▾</span>
         </div>
-
-        <div class="milestone flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full bg-emerald-500 flex items-center justify-center text-white text-lg font-bold flex-none">✓</div>
-          <div class="flex-1 pt-1">
-            <div class="flex items-center gap-2">
-              <span class="text-sm font-semibold text-slate-800">V1 普通会员</span>
-              <span class="text-[10px] px-1.5 py-0.5 bg-emerald-100 text-emerald-700 rounded">已完成</span>
+        <div class="qa-answer open">
+          <div class="px-4 pb-4">
+            <div class="grid grid-cols-2 gap-2 mb-3">
+              <div class="tier-box"><span class="text-xs text-slate-500">V0 新人</span><div class="text-sm font-bold text-slate-700 mt-0.5">0 台</div></div>
+              <div class="tier-box current"><span class="text-xs text-violet-600 font-medium">V1 普通</span><div class="text-sm font-bold text-violet-700 mt-0.5">≥ 3 台</div></div>
+              <div class="tier-box"><span class="text-xs text-slate-500">V2 银卡</span><div class="text-sm font-bold text-slate-700 mt-0.5">≥ 10 台</div></div>
+              <div class="tier-box"><span class="text-xs text-slate-500">V3 金卡</span><div class="text-sm font-bold text-slate-700 mt-0.5">≥ 30 台</div></div>
             </div>
-            <div class="text-xs text-slate-500 mt-0.5">近 3 月成交 ≥ 3 台</div>
-          </div>
-        </div>
-
-        <div class="milestone flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-lg font-bold flex-none ring-4 ring-violet-100">V2</div>
-          <div class="flex-1 pt-1">
-            <div class="flex items-center gap-2">
-              <span class="text-sm font-semibold text-violet-700">V2 银卡会员</span>
-              <span class="text-[10px] px-1.5 py-0.5 bg-violet-100 text-violet-700 rounded">当前</span>
-            </div>
-            <div class="text-xs text-slate-500 mt-0.5">近 3 月成交 ≥ 10 台 · 你已达成 12 台</div>
-          </div>
-        </div>
-
-        <div class="milestone locked flex items-start gap-4">
-          <div class="w-12 h-12 rounded-full bg-slate-200 flex items-center justify-center text-slate-400 text-lg font-bold flex-none">🔒</div>
-          <div class="flex-1 pt-1">
-            <div class="flex items-center gap-2">
-              <span class="text-sm font-semibold text-slate-500">V3 金卡会员</span>
-              <span class="text-[10px] px-1.5 py-0.5 bg-slate-100 text-slate-500 rounded">还差 18 台</span>
-            </div>
-            <div class="text-xs text-slate-500 mt-0.5">近 3 月成交 ≥ 30 台 · 享 8 折/无理由退车/代送车上门</div>
           </div>
         </div>
       </div>
+
+      <!-- Q2 -->
+      <div>
+        <div class="qa-toggle flex items-center justify-between p-4" onclick="toggleQA(this)">
+          <span class="text-sm font-semibold text-slate-800">2. 等级体系介绍</span>
+          <span class="text-slate-400 text-sm transition-transform duration-300">▾</span>
+        </div>
+        <div class="qa-answer">
+          <div class="px-4 pb-4 text-xs text-slate-600 leading-relaxed space-y-2">
+            <p>唯普会员等级每月 1 日更新,是由用户最近 3 个自然月（不含本月）的累计成交台数决定的,共分为 4 个等级。</p>
+            <p>每月中,用户最近 3 个自然月（含本月）的累计成交台数达到更高等级门槛,即可实时升级。</p>
+            <p>每个等级可享受不同类型的权益,等级越高,权益越丰富。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div>
+        <div class="qa-toggle flex items-center justify-between p-4" onclick="toggleQA(this)">
+          <span class="text-sm font-semibold text-slate-800">3. 什么是成交台数?</span>
+          <span class="text-slate-400 text-sm transition-transform duration-300">▾</span>
+        </div>
+        <div class="qa-answer">
+          <div class="px-4 pb-4 text-xs text-slate-600 leading-relaxed space-y-2">
+            <p>成交台数是用户最近 3 个自然月（含本月）在唯普平台完成过户或付款的车辆数量。不同成交方式对应不同的倍数系数。</p>
+            <p>特别提示:退车、退款等反向交易将冲减对应的成交台数。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q4 -->
+      <div>
+        <div class="qa-toggle flex items-center justify-between p-4" onclick="toggleQA(this)">
+          <span class="text-sm font-semibold text-slate-800">4. 如何累积成交台数?</span>
+          <span class="text-slate-400 text-sm transition-transform duration-300">▾</span>
+        </div>
+        <div class="qa-answer">
+          <div class="px-4 pb-4 text-xs text-slate-600 leading-relaxed space-y-2">
+            <p>使用唯普平台进行竞价、保留价购买、专场活动等方式成交车辆,均可累积成交台数。</p>
+            <p>成交台数以<strong>过户完成</strong>或<strong>付款完成</strong>为准,仅计算近 3 个自然月的数据。</p>
+            <p>后续将陆续增加更多支持累积成交台数的车型订单,敬请期待。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q5 -->
+      <div>
+        <div class="qa-toggle flex items-center justify-between p-4" onclick="toggleQA(this)">
+          <span class="text-sm font-semibold text-slate-800">5. 唯普会员等级变化规则</span>
+          <span class="text-slate-400 text-sm transition-transform duration-300">▾</span>
+        </div>
+        <div class="qa-answer">
+          <div class="px-4 pb-4 text-xs text-slate-600 leading-relaxed space-y-2">
+            <p>每月 1 日,系统将根据用户上一周期（本月前最近的 3 个自然月,不含本月）的累计成交台数进行定级。</p>
+            <p>达标合等级将更新。</p>
+            <p>您可在会员等级页面查看最新的等级和对应的权益。</p>
+            <p><strong>注意:</strong>本月中,若您最近 3 个自然月（含本月）累计成交台数达到更高等级的门槛,将进行实时升级。</p>
+            <p>但如月底时台数不足,则可能在下月 1 日降回对应等级。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q6 -->
+      <div>
+        <div class="qa-toggle flex items-center justify-between p-4" onclick="toggleQA(this)">
+          <span class="text-sm font-semibold text-slate-800">6. 如何查看会员等级权益?</span>
+          <span class="text-slate-400 text-sm transition-transform duration-300">▾</span>
+        </div>
+        <div class="qa-answer">
+          <div class="px-4 pb-4 text-xs text-slate-600 leading-relaxed space-y-2">
+            <p>您可在会员页面通过左右滑动的方式查看各等级的权益,其中未达到的等级显示为未解锁状态。</p>
+            <p>会员等级越高,可享权益越丰富。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Q7 -->
+      <div>
+        <div class="qa-toggle flex items-center justify-between p-4" onclick="toggleQA(this)">
+          <span class="text-sm font-semibold text-slate-800">7. 会员等级有效期多久?</span>
+          <span class="text-slate-400 text-sm transition-transform duration-300">▾</span>
+        </div>
+        <div class="qa-answer">
+          <div class="px-4 pb-4 text-xs text-slate-600 leading-relaxed space-y-2">
+            <p>您的会员等级会在每月 1 日进行更新,更新后的等级有效期至当月最后一日。</p>
+            <p>如果在本月中,您最近 3 个自然月（含本月）累计成交台数达到更高等级门槛,更新后的会员等级有效期延至次月最后一日。</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- 历史等级变更 -->
-  <div class="px-4 pb-8">
+  <!-- 等级变更记录 -->
+  <div class="px-4 mt-5 pb-8">
     <div class="text-sm font-bold text-slate-800 mb-3">📋 等级变更记录</div>
-    <div class="bg-white rounded-2xl divide-y divide-slate-50">
+    <div class="bg-white rounded-2xl divide-y divide-slate-50 border border-slate-100">
       <div class="flex items-center gap-3 p-4">
         <div class="w-9 h-9 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-lg">↗</div>
         <div class="flex-1">
@@ -191,6 +250,15 @@
 <div class="hidden md:block fixed top-4 left-4 z-50">
   <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
 </div>
+
+<script>
+function toggleQA(el) {
+  const answer = el.nextElementSibling;
+  const arrow = el.querySelector('span:last-child');
+  answer.classList.toggle('open');
+  arrow.style.transform = answer.classList.contains('open') ? 'rotate(180deg)' : '';
+}
+</script>
 
 </body>
 </html>
