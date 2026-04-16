@@ -284,7 +284,7 @@ CREATE TABLE reward_redemption (
 | 字段 | 类型 | 说明 |
 |------|------|------|
 | level | TINYINT | PK,等级 0/1/2/3 |
-| name | VARCHAR(50) | 名称(新人/普通/银卡/金卡) |
+| name | VARCHAR(50) | 名称(V0/V1/V2/V3) |
 | min_deal_count | INT | 近 3 月最低成交台数 |
 | window_months | TINYINT | 统计窗口(月),默认 3 |
 | effective_at | DATETIME | 规则生效时间 |
