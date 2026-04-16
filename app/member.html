@@ -7,42 +7,15 @@
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #1a0e3d; }
-
   .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #fff; position: relative; }
-  @media (min-width: 768px) {
-    body { background: #f5f5f7; padding: 24px 0; }
-    .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; }
-  }
-
-  .hero-bg {
-    background:
-      radial-gradient(ellipse at top left, #8b5cf6 0%, transparent 50%),
-      radial-gradient(ellipse at top right, #6366f1 0%, transparent 50%),
-      linear-gradient(180deg, #2e1065 0%, #1e1b4b 60%, #f8fafc 100%);
-  }
-  .lv-text {
-    background: linear-gradient(180deg, #fff 0%, #e0e7ff 50%, #a5b4fc 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 0 2px 10px rgba(165, 180, 252, .3);
-    font-weight: 900;
-    letter-spacing: -2px;
-  }
-  .benefit-icon-bg {
-    background: linear-gradient(135deg, rgba(139, 92, 246, .15), rgba(99, 102, 241, .1));
-    border: 1px solid rgba(139, 92, 246, .2);
-  }
-  .card-shine {
-    background: linear-gradient(135deg, #5b3fd9 0%, #8b5cf6 100%);
-  }
-  .lv-pill.active {
-    color: #fff;
-    font-weight: 700;
-  }
-  .lv-pill {
-    color: rgba(255,255,255,.5);
-  }
+  @media (min-width: 768px) { body { background: #f5f5f7; padding: 24px 0; } .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; } }
+  .hero-bg { background: radial-gradient(ellipse at top left, #8b5cf6 0%, transparent 50%), radial-gradient(ellipse at top right, #6366f1 0%, transparent 50%), linear-gradient(180deg, #2e1065 0%, #1e1b4b 60%, #f8fafc 100%); }
+  .lv-text { background: linear-gradient(180deg, #fff 0%, #e0e7ff 50%, #a5b4fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; letter-spacing: -2px; }
+  .benefit-icon-bg { background: linear-gradient(135deg, rgba(139,92,246,.15), rgba(99,102,241,.1)); border: 1px solid rgba(139,92,246,.2); }
+  .card-shine { background: linear-gradient(135deg, #5b3fd9 0%, #8b5cf6 100%); }
+  .lv-pill { color: rgba(255,255,255,.5); cursor: pointer; transition: all .2s; }
+  .lv-pill.active { color: #fff; font-weight: 700; }
+  .lv-pill:hover { color: rgba(255,255,255,.8); }
 </style>
 </head>
 <body>
@@ -50,42 +23,28 @@
 <div class="phone-shell">
 
   <div class="hero-bg pt-2">
-    <div class="flex items-center justify-between px-5 py-2 text-white text-sm">
-      <span>19:50</span>
-      <span class="flex items-center gap-1 text-xs">🔔 📶 🔋 85%</span>
-    </div>
-
+    <div class="flex items-center justify-between px-5 py-2 text-white text-sm"><span>19:50</span><span class="text-xs">🔔 📶 🔋 85%</span></div>
     <div class="flex items-center justify-between px-5 pb-4">
-      <button class="text-white text-xl">←</button>
-      <div class="flex items-center gap-3">
-        <button class="text-white text-xl">⋯</button>
-      </div>
+      <a href="home.html" class="text-white text-xl">←</a>
+      <button class="text-white text-xl">⋯</button>
     </div>
 
-    <!-- Level switcher (4 级) -->
-    <div class="flex items-center justify-center gap-8 pb-4 text-sm">
-      <span class="lv-pill">LV0</span>
-      <span class="lv-pill">LV1</span>
-      <span class="lv-pill active relative">
-        LV2
-        <span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full"></span>
-      </span>
-      <span class="lv-pill">LV3</span>
+    <!-- Level switcher: V0-V3 可点击 -->
+    <div class="flex items-center justify-center gap-8 pb-4 text-sm" id="lvSwitcher">
+      <span class="lv-pill" onclick="switchLevel(0)">V0</span>
+      <span class="lv-pill" onclick="switchLevel(1)">V1</span>
+      <span class="lv-pill active" onclick="switchLevel(2)">V2<span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full" id="dot"></span></span>
+      <span class="lv-pill" onclick="switchLevel(3)">V3</span>
     </div>
 
+    <!-- Hero 大等级 -->
     <div class="px-6 pb-10 flex items-end gap-6">
-      <div class="flex-none">
-        <div class="lv-text text-[110px] leading-none">LV2</div>
-      </div>
+      <div class="flex-none"><div class="lv-text text-[110px] leading-none" id="heroLv">V2</div></div>
       <div class="flex-1 text-white pb-3">
-        <div class="flex items-center gap-2 mb-1">
-          <span class="text-2xl font-bold">银卡会员</span>
-        </div>
+        <div class="text-2xl font-bold mb-1" id="heroName">银卡会员</div>
         <div class="text-xs text-indigo-200 mb-3">有效期至 2026-06-30</div>
         <div class="text-xs text-indigo-200">近 3 月成交 <span class="text-white font-semibold">12 台</span> / 金卡需 30 台</div>
-        <div class="mt-2 h-1.5 bg-white/10 rounded-full overflow-hidden">
-          <div class="h-full bg-gradient-to-r from-amber-300 to-yellow-400" style="width: 40%"></div>
-        </div>
+        <div class="mt-2 h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-300 to-yellow-400" style="width: 40%"></div></div>
         <div class="text-[11px] mt-1.5 text-indigo-200">还需成交 <span class="text-amber-300 font-semibold">18 台</span> 升金卡</div>
       </div>
     </div>
@@ -95,9 +54,7 @@
   <div class="px-4 -mt-4 relative z-10">
     <div class="card-shine rounded-2xl p-5 text-white shadow-xl">
       <div class="flex items-center justify-between mb-3">
-        <div class="flex items-center gap-2">
-          <span class="text-xs opacity-80">🪙 我的金币</span>
-        </div>
+        <span class="text-xs opacity-80">🪙 我的金币</span>
         <a href="coins.html" class="text-xs opacity-90">查看明细 ›</a>
       </div>
       <div class="flex items-end justify-between">
@@ -110,95 +67,17 @@
     </div>
   </div>
 
-  <!-- 等级直达权益(LV2 已享) -->
-  <div class="px-4 mt-6">
+  <!-- 可享权益 -->
+  <div class="px-4 mt-6" id="benefitsSection">
     <div class="flex items-center justify-between mb-3">
       <div class="flex items-center gap-2">
         <div class="h-4 w-0.5 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-full"></div>
-        <span class="text-sm font-bold text-slate-800">银卡专享(等级直达)</span>
-      </div>
-      <span class="text-[10px] text-emerald-600 px-2 py-0.5 bg-emerald-50 rounded-full">已开通</span>
-    </div>
-    <div class="grid grid-cols-4 gap-3">
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🎧</div>
-        <div class="text-xs text-slate-700 mt-2">1V1 客服</div>
-        <div class="text-[10px] text-emerald-600">已享</div>
-      </div>
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">👨‍💼</div>
-        <div class="text-xs text-slate-700 mt-2">销售顾问</div>
-        <div class="text-[10px] text-emerald-600">已享</div>
-      </div>
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🏷️</div>
-        <div class="text-xs text-slate-700 mt-2">9.5 折权益</div>
-        <div class="text-[10px] text-violet-600 font-semibold">可兑换</div>
-      </div>
-      <div class="text-center opacity-50">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl relative">
-          🚛
-          <span class="absolute bottom-0 right-0 text-[9px] bg-slate-700 text-white px-1 rounded">🔒LV3</span>
-        </div>
-        <div class="text-xs text-slate-700 mt-2">代送车</div>
-        <div class="text-[10px] text-slate-400">升 LV3</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 数据查询权益(可金币兑换) -->
-  <div class="px-4 mt-5">
-    <div class="flex items-center justify-between mb-3">
-      <div class="flex items-center gap-2">
-        <div class="h-4 w-0.5 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-full"></div>
-        <span class="text-sm font-bold text-slate-800">数据查询(金币兑换)</span>
+        <span class="text-sm font-bold text-slate-800" id="benefitsTitle">可享 6 项权益</span>
       </div>
       <a href="mall.html" class="text-xs text-violet-600">全部 ›</a>
     </div>
-    <div class="grid grid-cols-4 gap-3">
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🔍</div>
-        <div class="text-xs text-slate-700 mt-2">中标价</div>
-        <div class="text-[10px] text-slate-400">200金币</div>
-      </div>
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">📊</div>
-        <div class="text-xs text-slate-700 mt-2">行情查询</div>
-        <div class="text-[10px] text-slate-400">200金币</div>
-      </div>
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">📜</div>
-        <div class="text-xs text-slate-700 mt-2">历史数据</div>
-        <div class="text-[10px] text-slate-400">200金币</div>
-      </div>
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🎯</div>
-        <div class="text-xs text-slate-700 mt-2">保留价</div>
-        <div class="text-[10px] text-slate-400">200金币</div>
-      </div>
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🛠️</div>
-        <div class="text-xs text-slate-700 mt-2">维保出险</div>
-        <div class="text-[10px] text-slate-400">300金币</div>
-      </div>
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">🚗</div>
-        <div class="text-xs text-slate-700 mt-2">碰撞报告</div>
-        <div class="text-[10px] text-slate-400">200金币</div>
-      </div>
-      <div class="text-center">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">📄</div>
-        <div class="text-xs text-slate-700 mt-2">行驶证</div>
-        <div class="text-[10px] text-slate-400">100金币</div>
-      </div>
-      <div class="text-center opacity-50">
-        <div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl relative">
-          ↩️
-          <span class="absolute bottom-0 right-0 text-[9px] bg-slate-700 text-white px-1 rounded">🔒LV3</span>
-        </div>
-        <div class="text-xs text-slate-700 mt-2">无理由退车</div>
-        <div class="text-[10px] text-slate-400">升 LV3</div>
-      </div>
+    <div class="grid grid-cols-4 gap-3" id="benefitsGrid">
+      <!-- V2 权益(JS 动态切换) -->
     </div>
   </div>
 
@@ -207,67 +86,47 @@
     <div class="grid grid-cols-2 gap-3">
       <a href="level.html" class="bg-white border border-slate-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
         <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-xl">📈</div>
-        <div>
-          <div class="text-sm font-semibold text-slate-800">等级成长</div>
-          <div class="text-xs text-slate-500">距金卡差 18 台</div>
-        </div>
+        <div><div class="text-sm font-semibold text-slate-800">等级成长</div><div class="text-xs text-slate-500">距金卡差 18 台</div></div>
       </a>
       <a href="my-rewards.html" class="bg-white border border-slate-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
         <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-xl">🎫</div>
-        <div>
-          <div class="text-sm font-semibold text-slate-800">我的权益</div>
-          <div class="text-xs text-slate-500">3 张可用</div>
-        </div>
+        <div><div class="text-sm font-semibold text-slate-800">我的权益</div><div class="text-xs text-slate-500">3 张可用</div></div>
       </a>
     </div>
   </div>
 
-  <!-- 会员精选推荐 -->
+  <!-- V2 会员精选推荐 -->
   <div class="px-4 mt-6 pb-8">
-    <div class="flex items-center justify-between mb-3">
-      <div class="flex items-center gap-2">
-        <div class="h-4 w-0.5 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-full"></div>
-        <span class="text-sm font-bold text-slate-800">LV2 会员精选推荐</span>
-      </div>
+    <div class="flex items-center gap-2 mb-3">
+      <div class="h-4 w-0.5 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-full"></div>
+      <span class="text-sm font-bold text-slate-800" id="recoTitle">V2 会员精选推荐</span>
     </div>
     <div class="grid grid-cols-2 gap-3">
       <div class="bg-gradient-to-br from-violet-100 to-indigo-50 rounded-2xl p-4 border border-violet-100">
         <div class="text-sm font-bold text-slate-800 mb-1">过户 9.5 折卡</div>
         <div class="text-xs text-slate-500 mb-3">过户/复检 9.5 折优惠</div>
-        <div class="flex items-center justify-between">
-          <span class="text-[11px] px-2 py-0.5 bg-violet-600 text-white rounded-full">200 金币</span>
-          <span class="text-xl">🏷️</span>
-        </div>
+        <span class="text-[11px] px-2 py-0.5 bg-violet-600 text-white rounded-full">200 金币</span>
       </div>
       <div class="bg-gradient-to-br from-amber-100 to-yellow-50 rounded-2xl p-4 border border-amber-100">
         <div class="text-sm font-bold text-slate-800 mb-1">车辆中标价查询</div>
         <div class="text-xs text-slate-500 mb-3">查历史成交参考价</div>
-        <div class="flex items-center justify-between">
-          <span class="text-[11px] px-2 py-0.5 bg-amber-500 text-white rounded-full">200 金币</span>
-          <span class="text-xl">🔍</span>
-        </div>
+        <span class="text-[11px] px-2 py-0.5 bg-amber-500 text-white rounded-full">200 金币</span>
       </div>
       <div class="bg-gradient-to-br from-emerald-100 to-teal-50 rounded-2xl p-4 border border-emerald-100">
         <div class="text-sm font-bold text-slate-800 mb-1">行情查询卡</div>
         <div class="text-xs text-slate-500 mb-3">实时市场行情</div>
-        <div class="flex items-center justify-between">
-          <span class="text-[11px] px-2 py-0.5 bg-teal-500 text-white rounded-full">200 金币</span>
-          <span class="text-xl">📊</span>
-        </div>
+        <span class="text-[11px] px-2 py-0.5 bg-teal-500 text-white rounded-full">200 金币</span>
       </div>
       <div class="bg-gradient-to-br from-pink-100 to-rose-50 rounded-2xl p-4 border border-rose-100">
         <div class="text-sm font-bold text-slate-800 mb-1">保留价查询</div>
         <div class="text-xs text-slate-500 mb-3">查车源底价</div>
-        <div class="flex items-center justify-between">
-          <span class="text-[11px] px-2 py-0.5 bg-rose-500 text-white rounded-full">200 金币</span>
-          <span class="text-xl">🎯</span>
-        </div>
+        <span class="text-[11px] px-2 py-0.5 bg-rose-500 text-white rounded-full">200 金币</span>
       </div>
     </div>
   </div>
 
   <div class="sticky bottom-0 bg-white border-t border-slate-100 px-2 py-2 grid grid-cols-5 text-[11px] text-slate-500">
-    <a class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">🏠</span>首页</a>
+    <a href="home.html" class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">🏠</span>首页</a>
     <a class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">🚗</span>全部车源</a>
     <a class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">🎯</span>专场</a>
     <a class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">❤️</span>关注</a>
@@ -279,6 +138,54 @@
 <div class="hidden md:block fixed top-4 left-4 z-50">
   <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
 </div>
+
+<script>
+// 各等级权益数据
+const levelData = {
+  0: { name: '新人会员', lv: 'V0', benefits: [
+    {icon:'🔍',label:'基础查询'}, {icon:'📊',label:'行情查询'}, {icon:'📄',label:'行驶证查询'}
+  ]},
+  1: { name: '普通会员', lv: 'V1', benefits: [
+    {icon:'🎧',label:'1V1 客服'}, {icon:'👨‍💼',label:'销售顾问'}, {icon:'🔍',label:'基础查询'},
+    {icon:'📜',label:'历史数据'}, {icon:'🎯',label:'保留价'}, {icon:'🚗',label:'碰撞报告'},
+    {icon:'🛠️',label:'维保出险'}, {icon:'📊',label:'行情查询'}
+  ]},
+  2: { name: '银卡会员', lv: 'V2', benefits: [
+    {icon:'🎧',label:'1V1 客服'}, {icon:'👨‍💼',label:'销售顾问'}, {icon:'🏷️',label:'9.5 折'},
+    {icon:'🔍',label:'基础查询'}, {icon:'📜',label:'历史数据'}, {icon:'🎯',label:'保留价'},
+    {icon:'🚗',label:'碰撞报告'}, {icon:'🛠️',label:'维保出险'}
+  ]},
+  3: { name: '金卡会员', lv: 'V3', benefits: [
+    {icon:'🎧',label:'1V1 客服'}, {icon:'👨‍💼',label:'销售顾问'}, {icon:'🏷️',label:'8 折'},
+    {icon:'↩️',label:'无理由退车'}, {icon:'🚛',label:'代送车上门'}, {icon:'🅿️',label:'免费停车'},
+    {icon:'🔍',label:'全量查询'}, {icon:'📜',label:'历史数据'}
+  ]}
+};
+
+function switchLevel(idx) {
+  // 更新 pills
+  document.querySelectorAll('#lvSwitcher .lv-pill').forEach((p, i) => {
+    p.classList.toggle('active', i === idx);
+  });
+  // 更新 hero
+  const d = levelData[idx];
+  document.getElementById('heroLv').textContent = d.lv;
+  document.getElementById('heroName').textContent = d.name;
+  document.getElementById('benefitsTitle').textContent = '可享 ' + d.benefits.length + ' 项权益';
+  document.getElementById('recoTitle').textContent = d.lv + ' 会员精选推荐';
+  // 更新权益网格
+  const grid = document.getElementById('benefitsGrid');
+  grid.innerHTML = d.benefits.map(b =>
+    '<div class="text-center">' +
+      '<div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">' + b.icon + '</div>' +
+      '<div class="text-xs text-slate-700 mt-2">' + b.label + '</div>' +
+    '</div>'
+  ).join('');
+}
+
+// 初始化 V2
+switchLevel(2);
+</script>
 
 </body>
 </html>
