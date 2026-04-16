@@ -230,9 +230,9 @@ https://api.wpcar.example/membership/v1
         "grant_type": "REDEEM",
         "stock_left": 50,
         "validity_days": 30,
-        "description": "LV3 金卡会员专享",
+        "description": "V3 金卡会员专享",
         "redeemable": false,
-        "unavailable_reason": "需 LV3 金卡及以上"
+        "unavailable_reason": "需 V3 金卡及以上"
       }
     ]
   }
@@ -397,10 +397,10 @@ https://api.wpcar.example/membership/v1
   "code": 0,
   "data": {
     "member_distribution": {
-      "LV0": 125003,
-      "LV1": 58921,
-      "LV2": 12035,
-      "LV3": 3910
+      "V0": 125003,
+      "V1": 58921,
+      "V2": 12035,
+      "V3": 3910
     },
     "today": {
       "coin_issued": 52300,
