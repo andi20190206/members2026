@@ -3,108 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>登录 · 唯普汽车</title>
+<title>登录 · 唯车转</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f0f0; }
-  .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #fff; position: relative; }
-  @media (min-width: 768px) { body { background: #f5f5f7; padding: 24px 0; } .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; } }
-  .login-tab { padding: 8px 0; font-size: 18px; font-weight: bold; color: #94a3b8; position: relative; cursor: pointer; }
-  .login-tab.active { color: #1e293b; }
-  .login-tab.active::after { content: ''; position: absolute; bottom: -4px; left: 0; right: 20%; height: 3px; background: #ef4444; border-radius: 2px; }
-  .captcha-img { background: repeating-linear-gradient(45deg, #f1f5f9, #f1f5f9 4px, #e2e8f0 4px, #e2e8f0 8px); font-family: 'Georgia', serif; font-style: italic; letter-spacing: 3px; color: #64748b; }
+  .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #fff; position: relative; overflow: hidden; }
+  @media (min-width: 768px) { body { background: #f5f5f7; padding: 24px 0; } .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); } }
+  /* 装饰圆圈 */
+  .deco-bg::before { content: ''; position: absolute; top: -80px; right: -60px; width: 240px; height: 240px; border-radius: 50%; background: radial-gradient(circle, #fed7aa 0%, #fde68a 40%, transparent 70%); opacity: .6; z-index: 0; }
+  .deco-bg::after { content: ''; position: absolute; top: 100px; right: -30px; width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, #fecaca 0%, transparent 70%); opacity: .5; z-index: 0; }
+  .deco-dots { position: absolute; top: 190px; right: 30px; width: 80px; height: 80px; z-index: 0; opacity: .4;
+    background-image: radial-gradient(#cbd5e1 1.5px, transparent 1.5px);
+    background-size: 10px 10px; }
+  .deco-dot-circle { position: absolute; top: 230px; left: 40px; width: 10px; height: 10px; border-radius: 50%; background: #fbbf24; z-index: 0; opacity: .5; }
+  .brand-logo { width: 80px; height: 80px; border-radius: 24px; background: linear-gradient(135deg, #f97316 0%, #dc2626 100%); display: flex; align-items: center; justify-content: center; color: #fff; box-shadow: 0 8px 24px rgba(249, 115, 22, .35); }
 </style>
 </head>
 <body>
 
-<div class="phone-shell">
+<div class="phone-shell deco-bg">
+  <div class="deco-dots"></div>
+  <div class="deco-dot-circle"></div>
 
   <!-- Status -->
-  <div class="flex items-center justify-between px-5 py-2 text-slate-800 text-sm">
-    <span>9:41</span>
+  <div class="relative z-10 flex items-center justify-between px-5 py-2 text-slate-800 text-sm">
+    <span>13:31</span>
     <span class="flex items-center gap-1"><i data-lucide="signal" class="w-3.5 h-3.5"></i><i data-lucide="wifi" class="w-3.5 h-3.5"></i><i data-lucide="battery-full" class="w-3.5 h-3.5"></i></span>
   </div>
 
   <!-- 返回 -->
-  <div class="px-5 py-4">
-    <a href="profile.html" class="text-slate-800"><i data-lucide="chevron-left" class="w-6 h-6"></i></a>
+  <div class="relative z-10 px-5 py-4">
+    <a href="profile.html" class="text-slate-800"><i data-lucide="chevron-left" class="w-6 h-6" style="stroke-width:2.5"></i></a>
   </div>
 
-  <!-- Tab -->
-  <div class="px-6 mb-8 flex items-center gap-8">
-    <span class="login-tab active" onclick="switchLoginTab(0, this)">手机号登录</span>
-    <span class="text-slate-200 text-2xl">|</span>
-    <span class="login-tab" onclick="switchLoginTab(1, this)">用户名登录</span>
+  <!-- 品牌 + 欢迎语 -->
+  <div class="relative z-10 px-8 pt-6">
+    <div class="brand-logo mb-8">
+      <span class="text-3xl font-black tracking-tight">唯</span>
+    </div>
+    <h1 class="text-4xl font-black text-slate-900 mb-3">嗨,欢迎回来</h1>
+    <p class="text-sm text-slate-500">登录后更精彩,车源好货即将开启</p>
   </div>
 
-  <!-- 表单 -->
-  <div class="px-6 space-y-5">
-
-    <!-- 手机号 -->
-    <div id="phoneField" class="border-b border-slate-200 pb-3 flex items-center gap-2">
-      <i data-lucide="smartphone" class="w-4 h-4 text-slate-400"></i>
-      <input class="flex-1 text-sm outline-none placeholder-slate-400" placeholder="请输入手机号码" type="tel" id="phoneInput">
-      <button class="w-6 h-6 rounded-full bg-sky-500 text-white text-[10px] flex items-center justify-center">文<sub>A</sub></button>
+  <!-- 手机号输入 -->
+  <div class="relative z-10 px-8 mt-14">
+    <div class="bg-slate-50 rounded-2xl px-5 py-4 flex items-center gap-4">
+      <button class="flex items-center gap-1 text-slate-800 font-semibold text-lg">
+        +86
+        <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400"></i>
+      </button>
+      <span class="w-px h-6 bg-slate-300"></span>
+      <input id="phoneInput" class="flex-1 bg-transparent outline-none text-xl font-semibold text-slate-900 placeholder-slate-300" placeholder="请输入手机号" type="tel" maxlength="13">
     </div>
-
-    <!-- 用户名(默认隐藏) -->
-    <div id="usernameField" class="hidden border-b border-slate-200 pb-3 flex items-center gap-2">
-      <i data-lucide="user" class="w-4 h-4 text-slate-400"></i>
-      <input class="flex-1 text-sm outline-none placeholder-slate-400" placeholder="请输入用户名" type="text">
-    </div>
-
-    <!-- 密码(用户名模式) -->
-    <div id="passwordField" class="hidden border-b border-slate-200 pb-3 flex items-center gap-2">
-      <i data-lucide="lock" class="w-4 h-4 text-slate-400"></i>
-      <input class="flex-1 text-sm outline-none placeholder-slate-400" placeholder="请输入密码" type="password">
-    </div>
-
-    <!-- 图形验证码(手机号模式) -->
-    <div id="captchaField" class="border-b border-slate-200 pb-3 flex items-center gap-2">
-      <i data-lucide="message-square" class="w-4 h-4 text-slate-400"></i>
-      <input class="flex-1 text-sm outline-none placeholder-slate-400" placeholder="请输入图形验证码" type="text">
-      <div class="captcha-img px-4 py-1.5 text-base font-bold rounded">76py</div>
-    </div>
-
-    <!-- 短信验证码(手机号模式) -->
-    <div id="smsField" class="border-b border-slate-200 pb-3 flex items-center gap-2">
-      <i data-lucide="message-square" class="w-4 h-4 text-slate-400"></i>
-      <input id="smsInput" class="flex-1 text-sm outline-none placeholder-slate-400" placeholder="请输入验证码" type="text">
-      <button id="smsBtn" onclick="sendCode()" class="text-sm font-bold text-slate-800">获取验证码</button>
-    </div>
-
   </div>
 
-  <!-- 一键填充 Mock -->
-  <div class="px-6 mt-4">
-    <button onclick="fillMock()" class="w-full py-2 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-700 font-medium flex items-center justify-center gap-1.5">
-      <i data-lucide="wrench" class="w-3.5 h-3.5"></i>一键填充测试数据(Demo 用)
+  <!-- Mock 填充 -->
+  <div class="relative z-10 px-8 mt-3">
+    <button onclick="document.getElementById('phoneInput').value='130 1604 4608'" class="w-full py-2 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-700 font-medium flex items-center justify-center gap-1.5">
+      <i data-lucide="wrench" class="w-3.5 h-3.5"></i>一键填充测试手机号(Demo 用)
     </button>
   </div>
 
-  <!-- 登录按钮 -->
-  <div class="px-6 mt-8">
-    <a href="profile-loggedin.html" class="block w-full py-3.5 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full text-center text-base font-bold shadow-lg">
-      登录
-    </a>
-    <div class="text-center text-xs text-slate-400 mt-3" id="hintText">未注册手机验证后自动登录</div>
-  </div>
-
   <!-- 协议 -->
-  <div class="px-6 mt-6 flex items-start gap-2">
+  <div class="relative z-10 px-8 mt-8 flex items-start gap-2">
     <input type="checkbox" checked class="mt-0.5 accent-red-500">
-    <span class="text-xs text-slate-500">我已阅读并同意<a class="text-sky-500">"用户协议"</a>及<a class="text-sky-500">"隐私政策"</a></span>
+    <span class="text-xs text-slate-600 leading-relaxed">阅读并同意 <a class="text-orange-500">服务协议及唯车转基本功能个人信息处理规则</a></span>
   </div>
 
-  <!-- 占位 -->
-  <div class="flex-1" style="min-height:180px"></div>
+  <!-- 下一步 -->
+  <div class="relative z-10 px-8 mt-6">
+    <a href="profile-loggedin.html" class="block w-full py-4 bg-slate-900 hover:bg-slate-800 text-white rounded-full text-center text-base font-semibold shadow-xl">
+      下一步
+    </a>
+    <div class="text-right mt-4">
+      <a class="text-sm text-slate-500">登录遇到问题</a>
+    </div>
+  </div>
 
-  <!-- 底部导航 -->
-  <div class="sticky bottom-0 bg-white border-t border-slate-100 px-2 py-2 grid grid-cols-4 text-[11px] text-slate-500">
-    <a href="home.html" class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="home" class="w-5 h-5"></i>首页</a>
-    <a class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="car" class="w-5 h-5"></i>全部车源</a>
-    <a class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="target" class="w-5 h-5"></i>专场车源</a>
-    <a href="profile.html" class="flex flex-col items-center gap-0.5 py-1 text-red-500 font-semibold"><i data-lucide="user" class="w-5 h-5"></i>个人中心</a>
+  <!-- 其他登录方式 -->
+  <div class="absolute bottom-16 left-0 right-0 z-10 px-8">
+    <div class="flex items-center justify-center gap-6">
+      <button class="flex flex-col items-center gap-1.5">
+        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-sky-400 to-blue-600 flex items-center justify-center text-white shadow-lg">
+          <svg class="w-7 h-7" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+        </div>
+        <span class="text-[10px] text-slate-500">支付宝</span>
+      </button>
+      <button class="flex flex-col items-center gap-1.5">
+        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white shadow-lg">
+          <i data-lucide="message-circle" class="w-7 h-7"></i>
+        </div>
+        <span class="text-[10px] text-slate-500">微信</span>
+      </button>
+      <button class="flex flex-col items-center gap-1.5">
+        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-red-500 to-rose-700 flex items-center justify-center text-white shadow-lg">
+          <i data-lucide="badge-check" class="w-7 h-7"></i>
+        </div>
+        <span class="text-[10px] text-slate-500">身份认证</span>
+      </button>
+      <button class="flex flex-col items-center gap-1.5">
+        <div class="w-14 h-14 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white shadow-lg">
+          <i data-lucide="smartphone" class="w-7 h-7"></i>
+        </div>
+        <span class="text-[10px] text-slate-500">手机号</span>
+      </button>
+    </div>
   </div>
 
 </div>
@@ -114,53 +117,7 @@
 </div>
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<script>
-lucide.createIcons();
-
-function switchLoginTab(idx, el) {
-  document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
-  el.classList.add('active');
-  if (idx === 0) {
-    document.getElementById('phoneField').classList.remove('hidden');
-    document.getElementById('captchaField').classList.remove('hidden');
-    document.getElementById('smsField').classList.remove('hidden');
-    document.getElementById('usernameField').classList.add('hidden');
-    document.getElementById('passwordField').classList.add('hidden');
-    document.getElementById('hintText').textContent = '未注册手机验证后自动登录';
-  } else {
-    document.getElementById('phoneField').classList.add('hidden');
-    document.getElementById('captchaField').classList.add('hidden');
-    document.getElementById('smsField').classList.add('hidden');
-    document.getElementById('usernameField').classList.remove('hidden');
-    document.getElementById('passwordField').classList.remove('hidden');
-    document.getElementById('hintText').textContent = '使用用户名和密码登录';
-  }
-}
-
-function sendCode() {
-  const btn = document.getElementById('smsBtn');
-  let sec = 59;
-  btn.disabled = true;
-  btn.classList.add('opacity-50');
-  btn.textContent = '已发送 (' + sec + 's)';
-  const timer = setInterval(() => {
-    sec--;
-    if (sec <= 0) {
-      clearInterval(timer);
-      btn.disabled = false;
-      btn.classList.remove('opacity-50');
-      btn.textContent = '获取验证码';
-    } else {
-      btn.textContent = '已发送 (' + sec + 's)';
-    }
-  }, 1000);
-}
-
-function fillMock() {
-  document.getElementById('phoneInput').value = '138****2841';
-  document.getElementById('smsInput').value = '8888';
-}
-</script>
+<script>lucide.createIcons();</script>
 
 </body>
 </html>
