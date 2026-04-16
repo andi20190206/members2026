@@ -41,7 +41,6 @@
     <div class="px-6 pb-10 flex items-end gap-6">
       <div class="flex-none"><div class="lv-text text-[110px] leading-none" id="heroLv">V2</div></div>
       <div class="flex-1 text-white pb-3">
-        <div class="text-2xl font-bold mb-1" id="heroName">V2</div>
         <div class="text-xs text-indigo-200 mb-3">有效期至 2026-06-30</div>
         <div class="text-xs text-indigo-200">近 3 月成交 <span class="text-white font-semibold">12 台</span> / V3 需 30 台</div>
         <div class="mt-2 h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-300 to-yellow-400" style="width: 40%"></div></div>
@@ -170,7 +169,6 @@ function switchLevel(idx) {
   // 更新 hero
   const d = levelData[idx];
   document.getElementById('heroLv').textContent = d.lv;
-  document.getElementById('heroName').textContent = d.name;
   document.getElementById('benefitsTitle').textContent = '可享 ' + d.benefits.length + ' 项权益';
   document.getElementById('recoTitle').textContent = d.lv + ' 会员精选推荐';
   // 更新权益网格
