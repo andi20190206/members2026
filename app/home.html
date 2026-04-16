@@ -52,13 +52,13 @@
   <!-- Status bar -->
   <div class="flex items-center justify-between px-5 py-2 bg-white text-slate-800 text-sm">
     <span>9:41</span>
-    <span class="flex items-center gap-1 text-xs">📶 📶 🔋</span>
+    <span class="flex items-center gap-1"><i data-lucide="signal" class="w-3.5 h-3.5"></i><i data-lucide="wifi" class="w-3.5 h-3.5"></i><i data-lucide="battery-full" class="w-3.5 h-3.5"></i></span>
   </div>
 
   <!-- 搜索框 -->
   <div class="px-4 py-2 bg-white">
     <div class="bg-slate-100 rounded-full px-4 py-2.5 flex items-center gap-2 text-sm text-slate-400">
-      <span>🔍</span>
+      <i data-lucide="search" class="w-4 h-4"></i>
       <span>搜一搜 品牌/车系/车型</span>
     </div>
   </div>
@@ -67,19 +67,19 @@
   <div class="bg-white px-4 py-3">
     <div class="grid grid-cols-4 gap-2 text-center">
       <div>
-        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-red-100 to-orange-100 flex items-center justify-center text-2xl">💰</div>
+        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-red-100 to-orange-100 flex items-center justify-center text-red-500"><i data-lucide="hand-coins" class="w-6 h-6"></i></div>
         <div class="text-xs text-slate-700 mt-1.5">我要卖车</div>
       </div>
       <div>
-        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center text-2xl">⭐</div>
+        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-orange-100 to-amber-100 flex items-center justify-center text-amber-500"><i data-lucide="star" class="w-6 h-6"></i></div>
         <div class="text-xs text-slate-700 mt-1.5">我的订阅</div>
       </div>
       <div>
-        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center text-2xl">🌏</div>
+        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-blue-100 to-cyan-100 flex items-center justify-center text-sky-500"><i data-lucide="globe" class="w-6 h-6"></i></div>
         <div class="text-xs text-slate-700 mt-1.5">唯普国际版</div>
       </div>
       <div>
-        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-sky-100 to-blue-100 flex items-center justify-center text-2xl">📋</div>
+        <div class="w-12 h-12 mx-auto rounded-xl bg-gradient-to-br from-sky-100 to-blue-100 flex items-center justify-center text-blue-500"><i data-lucide="clipboard-list" class="w-6 h-6"></i></div>
         <div class="text-xs text-slate-700 mt-1.5">唯车转报告</div>
       </div>
     </div>
@@ -94,7 +94,7 @@
 
         <!-- 内容 -->
         <div class="relative z-10 flex items-center gap-3 h-full">
-          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-3xl shadow-lg flex-none">👑</div>
+          <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-amber-900 shadow-lg flex-none"><i data-lucide="crown" class="w-7 h-7"></i></div>
           <div class="flex-1 min-w-0">
             <div class="text-xl font-black tracking-tight leading-tight">会员权益大升级</div>
             <div class="text-[11px] text-indigo-100 mt-0.5">4 级会员 · 金币奖励 · 专属客服 · 代送上门</div>
@@ -287,19 +287,19 @@
   <!-- 底部导航 -->
   <div class="sticky bottom-0 bg-white border-t border-slate-100 px-2 py-2 grid grid-cols-5 text-[11px]">
     <a href="home.html" class="flex flex-col items-center gap-0.5 py-1 text-red-500 font-semibold">
-      <span class="text-xl">🏠</span>首页
+      <i data-lucide="home" class="w-5 h-5"></i>首页
     </a>
     <a class="flex flex-col items-center gap-0.5 py-1 text-slate-500">
-      <span class="text-xl">🔨</span>竞价大厅
+      <i data-lucide="gavel" class="w-5 h-5"></i>竞价大厅
     </a>
     <a class="flex flex-col items-center gap-0.5 py-1 text-slate-500">
-      <span class="text-xl">🚗</span>专场车源
+      <i data-lucide="car" class="w-5 h-5"></i>专场车源
     </a>
     <a class="flex flex-col items-center gap-0.5 py-1 text-slate-500">
-      <span class="text-xl">❤️</span>关注订阅
+      <i data-lucide="heart" class="w-5 h-5"></i>关注订阅
     </a>
     <a href="member.html" class="flex flex-col items-center gap-0.5 py-1 text-slate-500">
-      <span class="text-xl">😊</span>我的
+      <i data-lucide="user" class="w-5 h-5"></i>我的
     </a>
   </div>
 
@@ -309,16 +309,16 @@
 <div id="vipPopup" class="fixed inset-0 z-50 flex items-center justify-center p-6" style="background:rgba(0,0,0,.55);backdrop-filter:blur(3px)">
   <div class="relative w-full max-w-xs">
     <!-- 关闭 -->
-    <button onclick="document.getElementById('vipPopup').style.display='none'" class="absolute -top-10 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-white/60 text-white/80 flex items-center justify-center text-lg z-10">✕</button>
+    <button onclick="document.getElementById('vipPopup').style.display='none'" class="absolute -top-10 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full border-2 border-white/60 text-white/80 flex items-center justify-center z-10"><i data-lucide="x" class="w-4 h-4"></i></button>
 
     <!-- 弹窗主体 -->
     <div class="rounded-3xl overflow-hidden shadow-2xl">
       <!-- 顶部紫金渐变 -->
       <div class="bg-gradient-to-br from-violet-600 via-purple-700 to-indigo-800 p-5 text-center text-white relative overflow-hidden">
-        <div class="absolute top-2 left-4 text-yellow-300 text-sm" style="animation:sp 2s ease-in-out infinite">✨</div>
-        <div class="absolute top-6 right-6 text-pink-300 text-xs" style="animation:sp 2s ease-in-out infinite;animation-delay:.7s">⭐</div>
+        <div class="absolute top-2 left-4 text-yellow-300" style="animation:sp 2s ease-in-out infinite"><i data-lucide="sparkles" class="w-4 h-4"></i></div>
+        <div class="absolute top-6 right-6 text-pink-300" style="animation:sp 2s ease-in-out infinite;animation-delay:.7s"><i data-lucide="star" class="w-3.5 h-3.5"></i></div>
         <div class="absolute -top-1 right-2 bg-gradient-to-br from-amber-400 to-yellow-500 text-amber-900 text-[10px] font-bold px-3 py-1 rounded-bl-xl rounded-tr-2xl shadow">重磅</div>
-        <div class="text-4xl mb-2">👑</div>
+        <div class="mb-2 inline-flex text-amber-300"><i data-lucide="crown" class="w-10 h-10"></i></div>
         <div class="text-xl font-black">会员权益大升级</div>
         <div class="text-xs text-indigo-200 mt-1">全新 4 级会员体系 · 行为即奖励</div>
       </div>
@@ -352,6 +352,9 @@
 <div class="hidden md:block fixed top-4 left-4 z-50">
   <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
 </div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
 
 </body>
 </html>

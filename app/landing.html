@@ -23,13 +23,13 @@
 <div class="phone-shell">
   <!-- Hero -->
   <div class="hero-bg">
-    <div class="flex items-center justify-between px-5 py-2 text-white text-sm"><span>9:41</span><span class="text-xs">📶 🔋</span></div>
-    <div class="flex items-center justify-between px-5 py-2"><a href="home.html" class="text-white text-xl">←</a><button onclick="document.getElementById('shareModal').classList.remove('hidden')" class="text-white/70 text-xs">分享</button></div>
-    <div class="absolute top-16 left-8 text-yellow-300 text-2xl sparkle">✨</div>
-    <div class="absolute top-24 right-12 text-pink-300 text-xl sparkle" style="animation-delay:.5s">⭐</div>
+    <div class="flex items-center justify-between px-5 py-2 text-white text-sm"><span>9:41</span><span class="flex items-center gap-1"><i data-lucide="wifi" class="w-3 h-3"></i><i data-lucide="battery-full" class="w-3 h-3"></i></span></div>
+    <div class="flex items-center justify-between px-5 py-2"><a href="home.html" class="text-white"><i data-lucide="chevron-left" class="w-6 h-6"></i></a><button onclick="document.getElementById('shareModal').classList.remove('hidden')" class="text-white/70 text-xs flex items-center gap-1"><i data-lucide="share-2" class="w-3.5 h-3.5"></i>分享</button></div>
+    <div class="absolute top-16 left-8 text-yellow-300 sparkle"><i data-lucide="sparkles" class="w-6 h-6"></i></div>
+    <div class="absolute top-24 right-12 text-pink-300 sparkle" style="animation-delay:.5s"><i data-lucide="star" class="w-5 h-5"></i></div>
     <div class="px-6 pt-4 pb-14 text-center relative">
-      <span class="text-[11px] px-3 py-1 bg-white/10 border border-white/20 rounded-full text-amber-200 font-medium">🎉 2026 · 全新权益体系</span>
-      <div class="text-5xl my-3 float inline-block">👑</div>
+      <span class="text-[11px] px-3 py-1 bg-white/10 border border-white/20 rounded-full text-amber-200 font-medium inline-flex items-center gap-1"><i data-lucide="party-popper" class="w-3 h-3"></i>2026 · 全新权益体系</span>
+      <div class="my-3 float inline-block text-amber-300"><i data-lucide="crown" class="w-14 h-14" style="stroke-width:1.5"></i></div>
       <h1 class="hero-title text-4xl mb-2">会员权益大升级</h1>
       <p class="text-sm text-indigo-200 px-4">出价有奖 · 成交返金 · 权益直达<br>4 级会员体系重磅上线</p>
     </div>
@@ -37,25 +37,25 @@
 
   <!-- 3 亮点 -->
   <div class="px-4 -mt-8 relative z-10 grid grid-cols-3 gap-2">
-    <div class="bg-white rounded-2xl p-3 text-center shadow-md border border-violet-50"><div class="text-2xl">🪙</div><div class="text-xs font-bold text-slate-800 mt-1">行为即奖励</div><div class="text-[10px] text-slate-500">出价/转发/成交</div></div>
-    <div class="bg-white rounded-2xl p-3 text-center shadow-md border border-violet-50"><div class="text-2xl">🎁</div><div class="text-xs font-bold text-slate-800 mt-1">权益直达</div><div class="text-[10px] text-slate-500">达标即享</div></div>
-    <div class="bg-white rounded-2xl p-3 text-center shadow-md border border-violet-50"><div class="text-2xl">📈</div><div class="text-xs font-bold text-slate-800 mt-1">成长可见</div><div class="text-[10px] text-slate-500">每月自动定级</div></div>
+    <div class="bg-white rounded-2xl p-3 text-center shadow-md border border-violet-50"><div class="text-amber-500 flex justify-center"><i data-lucide="coins" class="w-7 h-7"></i></div><div class="text-xs font-bold text-slate-800 mt-1">行为即奖励</div><div class="text-[10px] text-slate-500">出价/转发/成交</div></div>
+    <div class="bg-white rounded-2xl p-3 text-center shadow-md border border-violet-50"><div class="text-rose-500 flex justify-center"><i data-lucide="gift" class="w-7 h-7"></i></div><div class="text-xs font-bold text-slate-800 mt-1">权益直达</div><div class="text-[10px] text-slate-500">达标即享</div></div>
+    <div class="bg-white rounded-2xl p-3 text-center shadow-md border border-violet-50"><div class="text-emerald-500 flex justify-center"><i data-lucide="trending-up" class="w-7 h-7"></i></div><div class="text-xs font-bold text-slate-800 mt-1">成长可见</div><div class="text-[10px] text-slate-500">每月自动定级</div></div>
   </div>
 
   <!-- 金币获取 -->
   <div class="px-4 mt-6">
-    <div class="flex items-center gap-2 mb-3"><div class="h-4 w-1 bg-gradient-to-b from-amber-500 to-orange-500 rounded-full"></div><h2 class="text-sm font-bold text-slate-800">🪙 金币怎么拿?</h2></div>
+    <div class="flex items-center gap-2 mb-3"><div class="h-4 w-1 bg-gradient-to-b from-amber-500 to-orange-500 rounded-full"></div><h2 class="text-sm font-bold text-slate-800 flex items-center gap-1.5"><i data-lucide="coins" class="w-4 h-4 text-amber-500"></i>金币怎么拿?</h2></div>
     <div class="bg-amber-50 rounded-2xl p-4 border border-amber-100 space-y-3">
-      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-xl">🔨</div><div class="flex-1"><div class="text-sm font-bold text-slate-800">出价</div><div class="text-[10px] text-slate-500">登录后出价,同车去重</div></div><span class="coin-badge text-white text-xs font-bold px-2.5 py-1 rounded-full">+1</span></div>
-      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-xl">📢</div><div class="flex-1"><div class="text-sm font-bold text-slate-800">转发朋友圈</div><div class="text-[10px] text-slate-500">登录后转发,同车去重</div></div><span class="coin-badge text-white text-xs font-bold px-2.5 py-1 rounded-full">+2</span></div>
-      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-xl">💰</div><div class="flex-1"><div class="text-sm font-bold text-slate-800">成交</div><div class="text-[10px] text-slate-500">过户/付款完成后发放</div></div><span class="coin-badge text-white text-xs font-bold px-2.5 py-1 rounded-full">+50/台</span></div>
-      <div class="text-center text-[10px] text-amber-700 pt-2 border-t border-amber-200">💡 金币有效期 12 个自然月 · 可在会员商城兑换权益卡</div>
+      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-sky-500"><i data-lucide="gavel" class="w-5 h-5"></i></div><div class="flex-1"><div class="text-sm font-bold text-slate-800">出价</div><div class="text-[10px] text-slate-500">登录后出价,同车去重</div></div><span class="coin-badge text-white text-xs font-bold px-2.5 py-1 rounded-full">+1</span></div>
+      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-violet-500"><i data-lucide="megaphone" class="w-5 h-5"></i></div><div class="flex-1"><div class="text-sm font-bold text-slate-800">转发朋友圈</div><div class="text-[10px] text-slate-500">登录后转发,同车去重</div></div><span class="coin-badge text-white text-xs font-bold px-2.5 py-1 rounded-full">+2</span></div>
+      <div class="flex items-center gap-3"><div class="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-emerald-500"><i data-lucide="wallet" class="w-5 h-5"></i></div><div class="flex-1"><div class="text-sm font-bold text-slate-800">成交</div><div class="text-[10px] text-slate-500">过户/付款完成后发放</div></div><span class="coin-badge text-white text-xs font-bold px-2.5 py-1 rounded-full">+50/台</span></div>
+      <div class="text-center text-[10px] text-amber-700 pt-2 border-t border-amber-200 flex items-center justify-center gap-1"><i data-lucide="lightbulb" class="w-3 h-3"></i>金币有效期 12 个自然月 · 可在会员商城兑换权益卡</div>
     </div>
   </div>
 
-  <!-- ✅ 4 级权益对比表(核心) -->
+  <!-- 4 级权益对比表(核心) -->
   <div class="px-4 mt-6">
-    <div class="flex items-center gap-2 mb-3"><div class="h-4 w-1 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-full"></div><h2 class="text-sm font-bold text-slate-800">📋 各等级权益一览</h2></div>
+    <div class="flex items-center gap-2 mb-3"><div class="h-4 w-1 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-full"></div><h2 class="text-sm font-bold text-slate-800 flex items-center gap-1.5"><i data-lucide="clipboard-list" class="w-4 h-4 text-violet-500"></i>各等级权益一览</h2></div>
     <div class="rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
       <!-- 表头 -->
       <div class="grid grid-cols-5 bg-gradient-to-r from-violet-600 to-indigo-700 text-white text-[11px] font-bold">
@@ -118,7 +118,7 @@
 
   <!-- 规则说明 -->
   <div class="px-4 mt-6">
-    <div class="flex items-center gap-2 mb-3"><div class="h-4 w-1 bg-slate-400 rounded-full"></div><h2 class="text-sm font-bold text-slate-800">📌 规则说明</h2></div>
+    <div class="flex items-center gap-2 mb-3"><div class="h-4 w-1 bg-slate-400 rounded-full"></div><h2 class="text-sm font-bold text-slate-800 flex items-center gap-1.5"><i data-lucide="pin" class="w-4 h-4 text-slate-500"></i>规则说明</h2></div>
     <div class="bg-slate-50 rounded-2xl p-4 space-y-2 text-xs text-slate-600">
       <div class="flex gap-2"><span class="text-violet-500">•</span><span><strong>定级周期</strong>:每月 1 日,按近 3 个月累计成交台数自动重算</span></div>
       <div class="flex gap-2"><span class="text-violet-500">•</span><span><strong>登录前提</strong>:必须登录状态下行为才计入金币发放</span></div>
@@ -132,7 +132,7 @@
   <div class="px-4 mt-6 pb-24">
     <button onclick="document.getElementById('loginModal').classList.remove('hidden')" class="block w-full">
       <div class="rounded-2xl bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 p-5 text-white text-center shadow-xl">
-        <div class="text-lg font-black">👑 查看我的会员等级</div>
+        <div class="text-lg font-black flex items-center justify-center gap-2"><i data-lucide="crown" class="w-5 h-5"></i>查看我的会员等级</div>
         <div class="text-xs opacity-90 mt-1">领取你的专属权益</div>
       </div>
     </button>
@@ -153,11 +153,11 @@
       </div>
       <div class="p-6 grid grid-cols-2 gap-6">
         <button onclick="shareToWechat()" class="flex flex-col items-center gap-2">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-3xl shadow-lg">💬</div>
+          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center text-white shadow-lg"><i data-lucide="message-circle" class="w-7 h-7"></i></div>
           <span class="text-xs text-slate-700">微信朋友圈</span>
         </button>
         <button onclick="copyLink()" class="flex flex-col items-center gap-2">
-          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-violet-400 to-indigo-600 flex items-center justify-center text-3xl shadow-lg">🔗</div>
+          <div class="w-14 h-14 rounded-full bg-gradient-to-br from-violet-400 to-indigo-600 flex items-center justify-center text-white shadow-lg"><i data-lucide="link" class="w-7 h-7"></i></div>
           <span class="text-xs text-slate-700">复制链接</span>
         </button>
       </div>
@@ -169,7 +169,7 @@
   <div id="loginModal" class="hidden fixed inset-0 z-50 login-overlay flex items-center justify-center p-6">
     <div class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl">
       <div class="bg-gradient-to-r from-violet-600 to-indigo-600 p-6 text-white text-center">
-        <div class="text-3xl mb-2">🔐</div>
+        <div class="mb-2 inline-flex"><i data-lucide="lock-keyhole" class="w-8 h-8"></i></div>
         <div class="text-lg font-bold">需要登录</div>
         <div class="text-xs opacity-90 mt-1">查看会员权益需先登录唯普账号</div>
       </div>
@@ -180,7 +180,7 @@
           <button onclick="this.textContent='已发送(59s)';this.disabled=true;this.classList.add('opacity-50')" class="flex-none px-3 py-3 border border-violet-300 text-violet-600 rounded-xl text-xs font-medium whitespace-nowrap">获取验证码</button>
         </div>
         <!-- Mock 填充按钮 -->
-        <button onclick="document.getElementById('mockPhone').value='138****2841';document.getElementById('mockCode').value='8888';this.textContent='✓ 已填充'" class="w-full py-2 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-700 font-medium">🔧 一键填充测试数据(Demo 用)</button>
+        <button onclick="document.getElementById('mockPhone').value='138****2841';document.getElementById('mockCode').value='8888';this.textContent='✓ 已填充'" class="w-full py-2 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-700 font-medium inline-flex items-center justify-center gap-1.5"><i data-lucide="wrench" class="w-3.5 h-3.5"></i>一键填充测试数据(Demo 用)</button>
         <div class="flex gap-3">
           <button onclick="document.getElementById('loginModal').classList.add('hidden')" class="flex-1 py-3 border border-slate-200 rounded-xl text-sm text-slate-600">取消</button>
           <a href="member.html" class="flex-1 py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-bold text-center block">立即登录</a>
@@ -191,7 +191,9 @@
 
 </div>
 <div class="hidden md:block fixed top-4 left-4 z-50"><a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a></div>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
+lucide.createIcons();
 function shareToWechat() {
   alert('请使用微信扫一扫或点击右上角「···」分享到朋友圈');
   document.getElementById('shareModal').classList.add('hidden');

@@ -23,10 +23,10 @@
 <div class="phone-shell">
 
   <div class="hero-bg pt-2">
-    <div class="flex items-center justify-between px-5 py-2 text-white text-sm"><span>19:50</span><span class="text-xs">🔔 📶 🔋 85%</span></div>
+    <div class="flex items-center justify-between px-5 py-2 text-white text-sm"><span>19:50</span><span class="flex items-center gap-1"><i data-lucide="bell" class="w-3 h-3"></i><i data-lucide="wifi" class="w-3 h-3"></i><i data-lucide="battery-full" class="w-3 h-3"></i><span class="text-xs">85%</span></span></div>
     <div class="flex items-center justify-between px-5 pb-4">
-      <a href="home.html" class="text-white text-xl">←</a>
-      <button class="text-white text-xl">⋯</button>
+      <a href="home.html" class="text-white"><i data-lucide="chevron-left" class="w-6 h-6"></i></a>
+      <button class="text-white"><i data-lucide="more-horizontal" class="w-5 h-5"></i></button>
     </div>
 
     <!-- Level switcher: V0-V3 可点击 -->
@@ -53,7 +53,7 @@
   <div class="px-4 -mt-4 relative z-10">
     <div class="card-shine rounded-2xl p-5 text-white shadow-xl">
       <div class="flex items-center justify-between mb-3">
-        <span class="text-xs opacity-80">🪙 我的金币</span>
+        <span class="text-xs opacity-80 flex items-center gap-1"><i data-lucide="coins" class="w-3.5 h-3.5 text-amber-300"></i>我的金币</span>
         <a href="coins.html" class="text-xs opacity-90">查看明细 ›</a>
       </div>
       <div class="flex items-end justify-between">
@@ -84,11 +84,11 @@
   <div class="px-4 mt-6">
     <div class="grid grid-cols-2 gap-3">
       <a href="level.html" class="bg-white border border-slate-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
-        <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-xl">📈</div>
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-500"><i data-lucide="trending-up" class="w-5 h-5"></i></div>
         <div><div class="text-sm font-semibold text-slate-800">等级成长</div><div class="text-xs text-slate-500">距 V3 差 18 台</div></div>
       </a>
       <a href="my-rewards.html" class="bg-white border border-slate-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
-        <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-xl">🎫</div>
+        <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-500"><i data-lucide="ticket" class="w-5 h-5"></i></div>
         <div><div class="text-sm font-semibold text-slate-800">我的权益</div><div class="text-xs text-slate-500">3 张可用</div></div>
       </a>
     </div>
@@ -125,11 +125,11 @@
   </div>
 
   <div class="sticky bottom-0 bg-white border-t border-slate-100 px-2 py-2 grid grid-cols-5 text-[11px] text-slate-500">
-    <a href="home.html" class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">🏠</span>首页</a>
-    <a class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">🚗</span>全部车源</a>
-    <a class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">🎯</span>专场</a>
-    <a class="flex flex-col items-center gap-0.5 py-1"><span class="text-xl">❤️</span>关注</a>
-    <a class="flex flex-col items-center gap-0.5 py-1 text-violet-600 font-semibold"><span class="text-xl">👑</span>会员</a>
+    <a href="home.html" class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="home" class="w-5 h-5"></i>首页</a>
+    <a class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="car" class="w-5 h-5"></i>全部车源</a>
+    <a class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="target" class="w-5 h-5"></i>专场</a>
+    <a class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="heart" class="w-5 h-5"></i>关注</a>
+    <a class="flex flex-col items-center gap-0.5 py-1 text-violet-600 font-semibold"><i data-lucide="crown" class="w-5 h-5"></i>会员</a>
   </div>
 
 </div>
@@ -138,51 +138,50 @@
   <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
 </div>
 
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
-// 各等级权益数据
+// 各等级权益数据(lucide 图标名)
 const levelData = {
-  0: { name: 'V0', lv: 'V0', benefits: [
-    {icon:'🔍',label:'基础查询'}, {icon:'📊',label:'行情查询'}, {icon:'📄',label:'行驶证查询'}
+  0: { lv: 'V0', benefits: [
+    {icon:'search',label:'基础查询'}, {icon:'bar-chart-3',label:'行情查询'}, {icon:'file-text',label:'行驶证查询'}
   ]},
-  1: { name: 'V1', lv: 'V1', benefits: [
-    {icon:'🎧',label:'1V1 客服'}, {icon:'👨‍💼',label:'销售顾问'}, {icon:'🔍',label:'基础查询'},
-    {icon:'📜',label:'历史数据'}, {icon:'🎯',label:'保留价'}, {icon:'🚗',label:'碰撞报告'},
-    {icon:'🛠️',label:'维保出险'}, {icon:'📊',label:'行情查询'}
+  1: { lv: 'V1', benefits: [
+    {icon:'headphones',label:'1V1 客服'}, {icon:'briefcase',label:'销售顾问'}, {icon:'search',label:'基础查询'},
+    {icon:'scroll-text',label:'历史数据'}, {icon:'target',label:'保留价'}, {icon:'car-front',label:'碰撞报告'},
+    {icon:'wrench',label:'维保出险'}, {icon:'bar-chart-3',label:'行情查询'}
   ]},
-  2: { name: 'V2', lv: 'V2', benefits: [
-    {icon:'🎧',label:'1V1 客服'}, {icon:'👨‍💼',label:'销售顾问'}, {icon:'🏷️',label:'9.5 折'},
-    {icon:'🔍',label:'基础查询'}, {icon:'📜',label:'历史数据'}, {icon:'🎯',label:'保留价'},
-    {icon:'🚗',label:'碰撞报告'}, {icon:'🛠️',label:'维保出险'}
+  2: { lv: 'V2', benefits: [
+    {icon:'headphones',label:'1V1 客服'}, {icon:'briefcase',label:'销售顾问'}, {icon:'tag',label:'9.5 折'},
+    {icon:'search',label:'基础查询'}, {icon:'scroll-text',label:'历史数据'}, {icon:'target',label:'保留价'},
+    {icon:'car-front',label:'碰撞报告'}, {icon:'wrench',label:'维保出险'}
   ]},
-  3: { name: 'V3', lv: 'V3', benefits: [
-    {icon:'🎧',label:'1V1 客服'}, {icon:'👨‍💼',label:'销售顾问'}, {icon:'🏷️',label:'8 折'},
-    {icon:'↩️',label:'无理由退车'}, {icon:'🚛',label:'代送车上门'}, {icon:'🅿️',label:'免费停车'},
-    {icon:'🔍',label:'全量查询'}, {icon:'📜',label:'历史数据'}
+  3: { lv: 'V3', benefits: [
+    {icon:'headphones',label:'1V1 客服'}, {icon:'briefcase',label:'销售顾问'}, {icon:'tag',label:'8 折'},
+    {icon:'undo-2',label:'无理由退车'}, {icon:'truck',label:'代送车上门'}, {icon:'square-parking',label:'免费停车'},
+    {icon:'search',label:'全量查询'}, {icon:'scroll-text',label:'历史数据'}
   ]}
 };
 
 function switchLevel(idx) {
-  // 更新 pills
   document.querySelectorAll('#lvSwitcher .lv-pill').forEach((p, i) => {
     p.classList.toggle('active', i === idx);
   });
-  // 更新 hero
   const d = levelData[idx];
   document.getElementById('heroLv').textContent = d.lv;
   document.getElementById('benefitsTitle').textContent = '可享 ' + d.benefits.length + ' 项权益';
   document.getElementById('recoTitle').textContent = d.lv + ' 会员精选推荐';
-  // 更新权益网格
   const grid = document.getElementById('benefitsGrid');
   grid.innerHTML = d.benefits.map(b =>
     '<div class="text-center">' +
-      '<div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-2xl">' + b.icon + '</div>' +
+      '<div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-violet-600"><i data-lucide="' + b.icon + '" class="w-6 h-6"></i></div>' +
       '<div class="text-xs text-slate-700 mt-2">' + b.label + '</div>' +
     '</div>'
   ).join('');
+  lucide.createIcons();
 }
 
-// 初始化 V2
 switchLevel(2);
+lucide.createIcons();
 </script>
 
 </body>
