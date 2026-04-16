@@ -154,8 +154,13 @@
         <div class="text-xs opacity-90 mt-1">查看会员权益需先登录唯普账号</div>
       </div>
       <div class="p-6 space-y-3">
-        <input class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm" placeholder="请输入手机号" type="tel">
-        <input class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm" placeholder="请输入验证码" type="text">
+        <input id="mockPhone" class="w-full px-4 py-3 border border-slate-200 rounded-xl text-sm" placeholder="请输入手机号" type="tel">
+        <div class="flex gap-2">
+          <input id="mockCode" class="flex-1 px-4 py-3 border border-slate-200 rounded-xl text-sm" placeholder="请输入验证码" type="text">
+          <button onclick="this.textContent='已发送(59s)';this.disabled=true;this.classList.add('opacity-50')" class="flex-none px-3 py-3 border border-violet-300 text-violet-600 rounded-xl text-xs font-medium whitespace-nowrap">获取验证码</button>
+        </div>
+        <!-- Mock 填充按钮 -->
+        <button onclick="document.getElementById('mockPhone').value='138****2841';document.getElementById('mockCode').value='8888';this.textContent='✓ 已填充'" class="w-full py-2 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-700 font-medium">🔧 一键填充测试数据(Demo 用)</button>
         <div class="flex gap-3">
           <button onclick="document.getElementById('loginModal').classList.add('hidden')" class="flex-1 py-3 border border-slate-200 rounded-xl text-sm text-slate-600">取消</button>
           <a href="member.html" class="flex-1 py-3 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-xl text-sm font-bold text-center block">立即登录</a>
