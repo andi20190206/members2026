@@ -16,16 +16,18 @@
       linear-gradient(180deg, #0b0617 0%, #1e1030 60%, #2a1559 100%);
     position: relative; overflow: hidden;
   }
-  .profile-hero::before {
-    content: ''; position: absolute; top: 20px; right: -30px; width: 200px; height: 200px;
-    background: radial-gradient(circle, rgba(168, 85, 247, .12) 0%, transparent 70%);
-    border-radius: 50%;
-  }
   .member-banner {
     background: linear-gradient(120deg, #1a0a42 0%, #3b1978 35%, #5b2ca8 65%, #7a3dd1 100%);
     position: relative; overflow: hidden;
   }
-  .benefit-icon-card { background: linear-gradient(135deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.02) 100%); border: 1px solid rgba(255,255,255,.08); backdrop-filter: blur(10px); }
+  .benefit-card {
+    flex: 0 0 88px;
+    background: linear-gradient(135deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,.02) 100%);
+    border: 1px solid rgba(255,255,255,.08);
+    backdrop-filter: blur(10px);
+  }
+  .hscroll::-webkit-scrollbar { display: none; }
+  .hscroll { -ms-overflow-style: none; scrollbar-width: none; }
 </style>
 </head>
 <body>
@@ -33,14 +35,14 @@
 <div class="phone-shell">
 
   <!-- 顶部深色英雄区 -->
-  <div class="profile-hero text-white pb-6">
+  <div class="profile-hero text-white pb-5">
 
     <div class="relative z-10 flex items-center justify-between px-5 py-2 text-sm">
       <span>13:30</span>
       <span class="flex items-center gap-1 opacity-80"><i data-lucide="signal" class="w-3.5 h-3.5"></i><i data-lucide="wifi" class="w-3.5 h-3.5"></i><i data-lucide="battery-full" class="w-3.5 h-3.5"></i></span>
     </div>
 
-    <div class="relative z-10 flex items-center justify-between px-5 py-4">
+    <div class="relative z-10 flex items-center justify-between px-5 py-3">
       <div></div>
       <div class="flex items-center gap-6">
         <a class="flex flex-col items-center gap-0.5"><i data-lucide="message-circle" class="w-6 h-6"></i><span class="text-[10px] opacity-90">消息</span></a>
@@ -48,96 +50,122 @@
       </div>
     </div>
 
-    <!-- 登录/注册卡片 -->
+    <!-- 登录/注册 -->
     <a href="login.html" class="relative z-10 block px-5 flex items-center gap-4">
-      <div class="w-20 h-20 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white/60">
-        <i data-lucide="user" class="w-10 h-10"></i>
+      <div class="w-16 h-16 rounded-full bg-white/10 backdrop-blur border border-white/20 flex items-center justify-center text-white/60">
+        <i data-lucide="user" class="w-8 h-8"></i>
       </div>
       <div class="flex-1">
-        <div class="text-2xl font-bold mb-1">登录 / 注册</div>
+        <div class="text-xl font-bold mb-1">登录 / 注册</div>
         <div class="text-xs opacity-70">点击登录,享受更多精彩信息</div>
       </div>
       <i data-lucide="chevron-right" class="w-5 h-5 opacity-60"></i>
     </a>
 
-    <!-- 会员升级引导 Banner -->
-    <a href="landing.html" class="block relative z-10 mx-4 mt-5 rounded-3xl member-banner p-5 shadow-2xl">
-      <div class="relative z-10 flex items-center justify-between mb-4">
-        <div class="flex items-baseline gap-3">
-          <span class="text-2xl font-black tracking-tight text-white">会员权益大升级</span>
+    <!-- 会员权益大升级 Banner(参考已登录样式) -->
+    <a href="landing.html" class="block relative z-10 mx-4 mt-4 rounded-3xl member-banner p-4 shadow-2xl">
+      <div class="relative z-10 flex items-center justify-between mb-3">
+        <div class="flex items-baseline gap-2">
+          <span class="text-2xl font-black text-white">会员权益大升级</span>
         </div>
-        <div class="inline-flex items-center gap-1 bg-white/15 backdrop-blur text-xs font-semibold px-3 py-1.5 rounded-full text-white">
-          立即了解 <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+        <div class="inline-flex items-center gap-1 bg-white/15 backdrop-blur text-xs font-semibold px-2.5 py-1 rounded-full text-white">
+          立即了解 <i data-lucide="chevron-right" class="w-3 h-3"></i>
         </div>
       </div>
-      <div class="relative z-10 text-[11px] text-indigo-200 mb-4">登录后开启 V0~V3 4 级会员体系,行为即奖励 · 权益直达</div>
-      <!-- 4 项权益预览 -->
-      <div class="relative z-10 grid grid-cols-4 gap-3">
-        <div class="benefit-icon-card rounded-2xl p-3 text-center">
-          <div class="w-10 h-10 mx-auto flex items-center justify-center text-amber-300 mb-1.5"><i data-lucide="coins" class="w-6 h-6" style="stroke-width:1.5"></i></div>
-          <div class="text-xs font-semibold text-white">成交奖励</div>
-          <div class="text-[10px] text-indigo-200 mt-0.5">+50 金币/台</div>
+      <div class="relative z-10 text-[11px] text-indigo-200 mb-3">登录后开启 V0~V3 4 级会员体系,行为即奖励 · 权益直达</div>
+      <!-- 权益横滑 -->
+      <div class="relative z-10 hscroll flex gap-2 overflow-x-auto pb-1">
+        <div class="benefit-card rounded-xl p-2.5 text-center">
+          <div class="h-8 flex items-center justify-center text-amber-300"><i data-lucide="coins" class="w-5 h-5"></i></div>
+          <div class="text-[11px] font-semibold text-white mt-1">成交奖励</div>
+          <div class="text-[9px] text-indigo-200">+50 金币/台</div>
         </div>
-        <div class="benefit-icon-card rounded-2xl p-3 text-center">
-          <div class="w-10 h-10 mx-auto flex items-center justify-center text-emerald-300 mb-1.5"><i data-lucide="tag" class="w-6 h-6" style="stroke-width:1.5"></i></div>
-          <div class="text-xs font-semibold text-white">最高 8 折</div>
-          <div class="text-[10px] text-indigo-200 mt-0.5">过户 / 复检</div>
+        <div class="benefit-card rounded-xl p-2.5 text-center">
+          <div class="h-8 flex items-center justify-center text-emerald-300"><i data-lucide="tag" class="w-5 h-5"></i></div>
+          <div class="text-[11px] font-semibold text-white mt-1">最高 8 折</div>
+          <div class="text-[9px] text-indigo-200">过户/复检</div>
         </div>
-        <div class="benefit-icon-card rounded-2xl p-3 text-center">
-          <div class="w-10 h-10 mx-auto flex items-center justify-center text-sky-300 mb-1.5"><i data-lucide="headphones" class="w-6 h-6" style="stroke-width:1.5"></i></div>
-          <div class="text-xs font-semibold text-white">1V1 客服</div>
-          <div class="text-[10px] text-indigo-200 mt-0.5">V1 起享</div>
+        <div class="benefit-card rounded-xl p-2.5 text-center">
+          <div class="h-8 flex items-center justify-center text-sky-300"><i data-lucide="headphones" class="w-5 h-5"></i></div>
+          <div class="text-[11px] font-semibold text-white mt-1">1V1 客服</div>
+          <div class="text-[9px] text-indigo-200">V1 起享</div>
         </div>
-        <div class="benefit-icon-card rounded-2xl p-3 text-center">
-          <div class="w-10 h-10 mx-auto flex items-center justify-center text-violet-300 mb-1.5"><i data-lucide="truck" class="w-6 h-6" style="stroke-width:1.5"></i></div>
-          <div class="text-xs font-semibold text-white">代送上门</div>
-          <div class="text-[10px] text-indigo-200 mt-0.5">V3 专享</div>
+        <div class="benefit-card rounded-xl p-2.5 text-center">
+          <div class="h-8 flex items-center justify-center text-violet-300"><i data-lucide="briefcase" class="w-5 h-5"></i></div>
+          <div class="text-[11px] font-semibold text-white mt-1">销售顾问</div>
+          <div class="text-[9px] text-indigo-200">1 对 1</div>
+        </div>
+        <div class="benefit-card rounded-xl p-2.5 text-center">
+          <div class="h-8 flex items-center justify-center text-pink-300"><i data-lucide="truck" class="w-5 h-5"></i></div>
+          <div class="text-[11px] font-semibold text-white mt-1">代送上门</div>
+          <div class="text-[9px] text-indigo-200">V3 专享</div>
+        </div>
+        <div class="benefit-card rounded-xl p-2.5 text-center">
+          <div class="h-8 flex items-center justify-center text-orange-300"><i data-lucide="undo-2" class="w-5 h-5"></i></div>
+          <div class="text-[11px] font-semibold text-white mt-1">无理由退车</div>
+          <div class="text-[9px] text-indigo-200">V3 专享</div>
         </div>
       </div>
     </a>
 
   </div>
 
-  <!-- 快捷入口 -->
-  <div class="px-4 -mt-4 relative z-10">
+  <!-- 我的竞价 -->
+  <div class="px-4 -mt-3 relative z-10">
     <div class="bg-white rounded-2xl p-4 shadow-sm">
-      <div class="grid grid-cols-5 gap-2 text-center">
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="clipboard-list" class="w-7 h-7 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">全部订单</span></a>
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="clock" class="w-7 h-7 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">待出发</span></a>
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="wallet" class="w-7 h-7 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">待支付</span></a>
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="receipt" class="w-7 h-7 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">开发票</span></a>
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="headphones" class="w-7 h-7 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">客服</span></a>
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-sm font-bold text-slate-800">我的竞价</span>
+        <a class="text-xs text-slate-500 flex items-center">全部 <i data-lucide="chevron-right" class="w-3 h-3"></i></a>
+      </div>
+      <div class="grid grid-cols-4 gap-2 text-center">
+        <a class="flex flex-col items-center gap-1"><i data-lucide="gavel" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">进行中</span></a>
+        <a class="flex flex-col items-center gap-1"><i data-lucide="hourglass" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">已结束</span></a>
+        <a class="flex flex-col items-center gap-1"><i data-lucide="clipboard-check" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">已拍下</span></a>
+        <a class="flex flex-col items-center gap-1"><i data-lucide="heart" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">关注</span></a>
       </div>
     </div>
   </div>
 
-  <!-- 我的竞价 -->
+  <!-- 我的订单 -->
   <div class="px-4 mt-3">
     <div class="bg-white rounded-2xl p-4 shadow-sm">
-      <div class="text-sm font-bold text-slate-800 mb-3">我的竞价</div>
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-sm font-bold text-slate-800">我的订单</span>
+        <a class="text-xs text-slate-500 flex items-center">全部订单 <i data-lucide="chevron-right" class="w-3 h-3"></i></a>
+      </div>
       <div class="grid grid-cols-4 gap-2 text-center">
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="gavel" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">进行中</span></a>
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="hourglass" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">已结束</span></a>
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="clipboard-check" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">已拍下</span></a>
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="heart" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">关注</span></a>
+        <a class="flex flex-col items-center gap-1"><i data-lucide="wallet" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">待支付</span></a>
+        <a class="flex flex-col items-center gap-1"><i data-lucide="clipboard-check" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">待确认</span></a>
+        <a class="flex flex-col items-center gap-1"><i data-lucide="lock" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">已冻结</span></a>
+        <a class="flex flex-col items-center gap-1"><i data-lucide="list" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">全部订单</span></a>
       </div>
     </div>
+  </div>
+
+  <!-- 我的衍生服务订单 -->
+  <div class="px-4 mt-3">
+    <a class="bg-white rounded-2xl p-4 shadow-sm flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <i data-lucide="package" class="w-5 h-5 text-slate-700"></i>
+        <span class="text-sm font-bold text-slate-800">我的衍生服务订单</span>
+      </div>
+      <i data-lucide="chevron-right" class="w-4 h-4 text-slate-400"></i>
+    </a>
   </div>
 
   <!-- 我的服务 -->
   <div class="px-4 mt-3 pb-24">
     <div class="bg-white rounded-2xl p-4 shadow-sm">
       <div class="text-sm font-bold text-slate-800 mb-3">我的服务</div>
-      <div class="grid grid-cols-4 gap-4 text-center">
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="file-search" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">查维保</span></a>
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="shield-check" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">维保出险</span></a>
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="help-circle" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">帮助中心</span></a>
-        <a class="flex flex-col items-center gap-1.5"><i data-lucide="headphones" class="w-6 h-6 text-slate-700" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">联系客服</span></a>
+      <div class="grid grid-cols-4 gap-2 text-center">
+        <a class="flex flex-col items-center gap-1"><i data-lucide="file-search" class="w-6 h-6 text-red-500" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">查维保</span></a>
+        <a class="flex flex-col items-center gap-1"><i data-lucide="shield-check" class="w-6 h-6 text-red-500" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">维保出险</span><span class="text-[9px] text-slate-400">旧版</span></a>
+        <a class="flex flex-col items-center gap-1"><i data-lucide="help-circle" class="w-6 h-6 text-red-500" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">帮助中心</span></a>
+        <a class="flex flex-col items-center gap-1"><i data-lucide="headphones" class="w-6 h-6 text-red-500" style="stroke-width:1.5"></i><span class="text-xs text-slate-700">联系客服</span></a>
       </div>
     </div>
   </div>
 
-  <!-- 底部导航 -->
   <div class="sticky bottom-0 bg-white border-t border-slate-100 px-2 py-2 grid grid-cols-4 text-[11px] text-slate-500">
     <a href="home.html" class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="home" class="w-5 h-5"></i>首页</a>
     <a class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="car" class="w-5 h-5"></i>全部车源</a>
