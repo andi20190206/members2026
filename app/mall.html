@@ -24,12 +24,12 @@
   <div class="hero-bg pt-2">
     <div class="flex items-center justify-between px-5 py-2 text-white text-sm">
       <span>19:50</span>
-      <span class="text-xs">🔔 📶 🔋 85%</span>
+      <span class="flex items-center gap-1"><i data-lucide="bell" class="w-3 h-3"></i><i data-lucide="wifi" class="w-3 h-3"></i><i data-lucide="battery-full" class="w-3 h-3"></i><span class="text-xs">85%</span></span>
     </div>
     <div class="flex items-center justify-between px-5 pb-4">
-      <a href="member.html" class="text-white text-xl">←</a>
+      <a href="member.html" class="text-white"><i data-lucide="chevron-left" class="w-6 h-6"></i></a>
       <span class="text-white text-base font-semibold">权益商城</span>
-      <a href="my-rewards.html" class="text-white text-xs">🎫 我的</a>
+      <a href="my-rewards.html" class="text-white text-xs flex items-center gap-1"><i data-lucide="ticket" class="w-3.5 h-3.5"></i>我的</a>
     </div>
 
     <div class="mx-4 pb-6">
@@ -49,17 +49,17 @@
   <div class="px-4 -mt-2 relative z-10 mb-4">
     <div class="flex gap-2 overflow-x-auto pb-2">
       <button class="cat active px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap shadow-sm" onclick="filterCat('all', this)">全部</button>
-      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200" onclick="filterCat('query', this)">📊 数据查询</button>
-      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200" onclick="filterCat('discount', this)">🏷️ 交易折扣</button>
-      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200" onclick="filterCat('refund', this)">↩️ 无偿退车</button>
-      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200" onclick="filterCat('service', this)">🎧 等级直达</button>
+      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200" onclick="filterCat('query', this)"><i data-lucide='bar-chart-3' class='w-3 h-3 inline mr-0.5'></i>数据查询</button>
+      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200" onclick="filterCat('discount', this)"><i data-lucide='tag' class='w-3 h-3 inline mr-0.5'></i>交易折扣</button>
+      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200" onclick="filterCat('refund', this)"><i data-lucide='undo-2' class='w-3 h-3 inline mr-0.5'></i>无偿退车</button>
+      <button class="cat px-4 py-1.5 rounded-full text-xs font-medium whitespace-nowrap border border-slate-200" onclick="filterCat('service', this)"><i data-lucide='headphones' class='w-3 h-3 inline mr-0.5'></i>等级直达</button>
     </div>
   </div>
 
   <!-- Banner -->
   <div class="px-4 mb-4">
     <div class="rounded-2xl bg-gradient-to-r from-amber-400 to-orange-500 p-4 flex items-center gap-3 text-white">
-      <span class="text-3xl">🎉</span>
+      <i data-lucide="party-popper" class="w-7 h-7"></i>
       <div class="flex-1">
         <div class="text-sm font-bold">新人首次服务包</div>
         <div class="text-[11px] opacity-90">V0 专享 · 1 金币即可兑换</div>
@@ -70,13 +70,13 @@
 
   <!-- 数据查询类 -->
   <div class="cat-section px-4 mb-2" data-cat="query">
-    <div class="text-xs font-semibold text-slate-500 mb-2">📊 数据查询(金币兑换)</div>
+    <div class="text-xs font-semibold text-slate-500 mb-2 flex items-center gap-1"><i data-lucide="bar-chart-3" class="w-3 h-3"></i>数据查询(金币兑换)</div>
   </div>
   <div class="cat-section px-4 pb-2" data-cat="query">
     <div class="grid grid-cols-2 gap-3">
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
-        <div class="h-24 bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-4xl">🔍</div>
+        <div class="h-24 bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white"><i data-lucide="search" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">车辆中标价查询卡</div>
           <div class="text-[10px] text-slate-400 mt-1">V0 及以上可兑换</div>
@@ -89,7 +89,7 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
-        <div class="h-24 bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-4xl">📊</div>
+        <div class="h-24 bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white"><i data-lucide="bar-chart-3" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">交易行情查询卡</div>
           <div class="text-[10px] text-slate-400 mt-1">V0 及以上可兑换</div>
@@ -102,7 +102,7 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
-        <div class="h-24 bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-4xl">📜</div>
+        <div class="h-24 bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white"><i data-lucide="scroll-text" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">历史数据查询卡</div>
           <div class="flex items-center justify-between mt-3">
@@ -114,7 +114,7 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
-        <div class="h-24 bg-gradient-to-br from-fuchsia-400 to-pink-500 flex items-center justify-center text-4xl">🎯</div>
+        <div class="h-24 bg-gradient-to-br from-fuchsia-400 to-pink-500 flex items-center justify-center text-white"><i data-lucide="target" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">保留价查询卡</div>
           <div class="flex items-center justify-between mt-3">
@@ -126,7 +126,7 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
-        <div class="h-24 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-4xl">🛠️</div>
+        <div class="h-24 bg-gradient-to-br from-orange-400 to-red-500 flex items-center justify-center text-white"><i data-lucide="wrench" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">出险维保数据卡</div>
           <div class="flex items-center justify-between mt-3">
@@ -138,7 +138,7 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
-        <div class="h-24 bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-4xl">🚗</div>
+        <div class="h-24 bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-white"><i data-lucide="car-front" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">碰撞报告查询卡</div>
           <div class="flex items-center justify-between mt-3">
@@ -154,14 +154,14 @@
 
   <!-- 交易折扣 -->
   <div class="cat-section px-4 mt-4 mb-2" data-cat="discount">
-    <div class="text-xs font-semibold text-slate-500 mb-2">🏷️ 交易折扣(金币兑换)</div>
+    <div class="text-xs font-semibold text-slate-500 mb-2 flex items-center gap-1"><i data-lucide="tag" class="w-3 h-3"></i>交易折扣(金币兑换)</div>
   </div>
   <div class="cat-section px-4 pb-2" data-cat="discount">
     <div class="grid grid-cols-2 gap-3">
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative ring-2 ring-violet-200">
         <div class="absolute top-2 right-2 px-1.5 py-0.5 bg-amber-400 text-amber-900 text-[9px] rounded z-10 font-bold">推荐</div>
-        <div class="h-24 bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center text-4xl">🏷️</div>
+        <div class="h-24 bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center text-white"><i data-lucide="tag" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">过户 9.5 折卡</div>
           <div class="flex items-center justify-between mt-3">
@@ -173,8 +173,8 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative opacity-60">
-        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10">🔒 V3</div>
-        <div class="h-24 bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-4xl">🏷️</div>
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10 inline-flex items-center gap-0.5"><i data-lucide="lock" class="w-2.5 h-2.5"></i>V3</div>
+        <div class="h-24 bg-gradient-to-br from-amber-300 to-yellow-500 flex items-center justify-center text-white"><i data-lucide="tag" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">过户 8 折卡</div>
           <div class="text-[10px] text-slate-400 mt-1">V3专享</div>
@@ -190,14 +190,14 @@
 
   <!-- 无偿退车 -->
   <div class="cat-section px-4 mt-4 mb-2" data-cat="refund">
-    <div class="text-xs font-semibold text-slate-500 mb-2">↩️ 无偿退车(金币兑换)</div>
+    <div class="text-xs font-semibold text-slate-500 mb-2 flex items-center gap-1"><i data-lucide="undo-2" class="w-3 h-3"></i>无偿退车(金币兑换)</div>
   </div>
   <div class="cat-section px-4 pb-2" data-cat="refund">
     <div class="grid grid-cols-2 gap-3">
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative opacity-60">
-        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10">🔒 V3</div>
-        <div class="h-24 bg-gradient-to-br from-rose-400 to-red-500 flex items-center justify-center text-4xl">↩️</div>
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10 inline-flex items-center gap-0.5"><i data-lucide="lock" class="w-2.5 h-2.5"></i>V3</div>
+        <div class="h-24 bg-gradient-to-br from-rose-400 to-red-500 flex items-center justify-center text-white"><i data-lucide="undo-2" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">无理由退车 1 台卡</div>
           <div class="text-[10px] text-slate-400 mt-1">V3专享</div>
@@ -213,13 +213,13 @@
 
   <!-- 等级直达 -->
   <div class="cat-section px-4 mt-4 mb-2" data-cat="service">
-    <div class="text-xs font-semibold text-slate-500 mb-2">🎧 等级直达(无需金币)</div>
+    <div class="text-xs font-semibold text-slate-500 mb-2 flex items-center gap-1"><i data-lucide="headphones" class="w-3 h-3"></i>等级直达(无需金币)</div>
   </div>
   <div class="cat-section px-4 pb-8" data-cat="service">
     <div class="grid grid-cols-2 gap-3">
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
-        <div class="h-24 bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-4xl">🎧</div>
+        <div class="h-24 bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-white"><i data-lucide="headphones" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">1V1 专属客服</div>
           <div class="text-[10px] text-emerald-600 mt-1 font-medium">✓ 已享(V1+)</div>
@@ -231,7 +231,7 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm">
-        <div class="h-24 bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-4xl">👨‍💼</div>
+        <div class="h-24 bg-gradient-to-br from-blue-400 to-indigo-500 flex items-center justify-center text-white"><i data-lucide="briefcase" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">专属销售顾问</div>
           <div class="text-[10px] text-emerald-600 mt-1 font-medium">✓ 已享(V1+)</div>
@@ -243,8 +243,8 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative opacity-60">
-        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10">🔒 V3</div>
-        <div class="h-24 bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-4xl">🚛</div>
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10 inline-flex items-center gap-0.5"><i data-lucide="lock" class="w-2.5 h-2.5"></i>V3</div>
+        <div class="h-24 bg-gradient-to-br from-orange-400 to-amber-500 flex items-center justify-center text-white"><i data-lucide="truck" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">代送车上门</div>
           <div class="text-[10px] text-slate-400 mt-1">含代物流 · V3专享</div>
@@ -256,8 +256,8 @@
       </div>
 
       <div class="bg-white rounded-2xl overflow-hidden shadow-sm relative opacity-60">
-        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10">🔒 V3</div>
-        <div class="h-24 bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-4xl">🅿️</div>
+        <div class="absolute top-2 left-2 px-1.5 py-0.5 bg-amber-500 text-white text-[9px] rounded z-10 inline-flex items-center gap-0.5"><i data-lucide="lock" class="w-2.5 h-2.5"></i>V3</div>
+        <div class="h-24 bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white"><i data-lucide="square-parking" class="w-10 h-10"></i></div>
         <div class="p-3">
           <div class="text-sm font-semibold text-slate-800">免费停车服务</div>
           <div class="text-[10px] text-slate-400 mt-1">V3专享</div>
@@ -279,7 +279,7 @@
 <div id="redeemModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-6" style="background:rgba(0,0,0,.55);backdrop-filter:blur(3px)">
   <div class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl">
     <div class="bg-gradient-to-r from-violet-600 to-indigo-600 p-5 text-white text-center">
-      <div class="text-3xl mb-1">🎁</div>
+      <div class="mb-1 inline-flex"><i data-lucide="gift" class="w-7 h-7"></i></div>
       <div class="text-base font-bold">确认兑换</div>
     </div>
     <div class="p-5">
@@ -309,18 +309,19 @@
   <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
 </div>
 
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
+lucide.createIcons();
 // 当前用户金币余额
 let currentBalance = 356;
 
 function filterCat(cat, el) {
-  // 更新 tab 状态
   document.querySelectorAll('.cat').forEach(c => c.classList.remove('active'));
   el.classList.add('active');
-  // 筛选 section
   document.querySelectorAll('.cat-section').forEach(s => {
     s.style.display = (cat === 'all' || s.dataset.cat === cat) ? '' : 'none';
   });
+  lucide.createIcons();
 }
 
 function showRedeemModal(btn) {
