@@ -8,61 +8,37 @@
 <style>
   body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #1a0e3d; }
   .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #f8fafc; position: relative; }
-  @media (min-width: 768px) {
-    body { background: #f5f5f7; padding: 24px 0; }
-    .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; }
-  }
+  @media (min-width: 768px) { body { background: #f5f5f7; padding: 24px 0; } .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; } }
   .hero-bg { background: linear-gradient(180deg, #2e1065 0%, #4c1d95 60%, #f8fafc 100%); }
+  .tab { cursor: pointer; }
   .tab.active { color: #8b5cf6; font-weight: 600; position: relative; }
-  .tab.active::after {
-    content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%);
-    width: 24px; height: 3px; background: #8b5cf6; border-radius: 3px;
-  }
-  /* 票券造型 */
-  .ticket {
-    position: relative;
-    background: linear-gradient(135deg, #fff 0%, #faf5ff 100%);
-  }
-  .ticket::before, .ticket::after {
-    content: ''; position: absolute; top: 50%; transform: translateY(-50%);
-    width: 16px; height: 16px; background: #f8fafc; border-radius: 50%;
-  }
-  .ticket::before { left: -8px; }
-  .ticket::after { right: -8px; }
-  .ticket.used { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); opacity: .6; }
+  .tab.active::after { content: ''; position: absolute; bottom: -8px; left: 50%; transform: translateX(-50%); width: 24px; height: 3px; background: #8b5cf6; border-radius: 3px; }
+  .ticket { position: relative; background: linear-gradient(135deg, #fff 0%, #faf5ff 100%); }
+  .ticket::before, .ticket::after { content: ''; position: absolute; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; background: #f8fafc; border-radius: 50%; }
+  .ticket::before { left: -8px; } .ticket::after { right: -8px; }
+  .ticket.used { background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); opacity: .7; }
   .ticket.expired { background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); opacity: .7; }
+  .toast { animation: toastIn .3s ease, toastOut .3s ease 1.5s forwards; }
+  @keyframes toastIn { from { opacity:0; transform:translateY(20px) } to { opacity:1; transform:translateY(0) } }
+  @keyframes toastOut { from { opacity:1 } to { opacity:0 } }
 </style>
 </head>
 <body>
 
 <div class="phone-shell">
 
-  <!-- Header -->
   <div class="hero-bg pt-2">
-    <div class="flex items-center justify-between px-5 py-2 text-white text-sm">
-      <span>19:50</span>
-      <span class="text-xs">🔔 📶 🔋 85%</span>
-    </div>
+    <div class="flex items-center justify-between px-5 py-2 text-white text-sm"><span>19:50</span><span class="text-xs">🔔 📶 🔋 85%</span></div>
     <div class="flex items-center justify-between px-5 pb-4">
       <a href="member.html" class="text-white text-xl">←</a>
       <span class="text-white text-base font-semibold">我的权益卡</span>
       <a href="mall.html" class="text-white text-xs">去商城 ›</a>
     </div>
 
-    <!-- 统计 -->
     <div class="mx-4 pb-6 grid grid-cols-3 gap-2 text-center text-white">
-      <div class="bg-white/10 backdrop-blur rounded-xl py-3 border border-white/10">
-        <div class="text-2xl font-bold">3</div>
-        <div class="text-[11px] opacity-80">未使用</div>
-      </div>
-      <div class="bg-white/10 backdrop-blur rounded-xl py-3 border border-white/10">
-        <div class="text-2xl font-bold">12</div>
-        <div class="text-[11px] opacity-80">已使用</div>
-      </div>
-      <div class="bg-white/10 backdrop-blur rounded-xl py-3 border border-white/10">
-        <div class="text-2xl font-bold">2</div>
-        <div class="text-[11px] opacity-80">已过期</div>
-      </div>
+      <div class="bg-white/10 backdrop-blur rounded-xl py-3 border border-white/10"><div class="text-2xl font-bold">3</div><div class="text-[11px] opacity-80">未使用</div></div>
+      <div class="bg-white/10 backdrop-blur rounded-xl py-3 border border-white/10"><div class="text-2xl font-bold">12</div><div class="text-[11px] opacity-80">已使用</div></div>
+      <div class="bg-white/10 backdrop-blur rounded-xl py-3 border border-white/10"><div class="text-2xl font-bold">2</div><div class="text-[11px] opacity-80">已过期</div></div>
     </div>
   </div>
 
@@ -70,122 +46,190 @@
   <div class="px-4 -mt-2 relative z-10">
     <div class="bg-white rounded-2xl px-4">
       <div class="flex gap-6 py-3 text-sm text-slate-600">
-        <span class="tab active">可使用 (3)</span>
-        <span class="tab">已使用</span>
-        <span class="tab">已失效</span>
+        <span class="tab active" onclick="switchTab(0)">可使用 (3)</span>
+        <span class="tab" onclick="switchTab(1)">已使用</span>
+        <span class="tab" onclick="switchTab(2)">已失效</span>
       </div>
     </div>
   </div>
 
-  <!-- 票券列表 -->
-  <div class="px-4 pt-4 pb-8 space-y-4">
+  <!-- Tab 0: 可使用 -->
+  <div id="tab0" class="px-4 pt-4 pb-8 space-y-4">
 
-    <!-- 可用:紧急过期 -->
     <div class="ticket rounded-2xl shadow-sm border border-violet-100 overflow-hidden">
       <div class="flex items-stretch">
         <div class="w-24 bg-gradient-to-br from-rose-400 to-pink-500 flex flex-col items-center justify-center text-white">
-          <span class="text-3xl">↩️</span>
-          <span class="text-[10px] mt-1">LV2 专享</span>
+          <span class="text-3xl">↩️</span><span class="text-[10px] mt-1">LV2 专享</span>
         </div>
         <div class="flex-1 p-4 border-r-2 border-dashed border-slate-200">
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-base font-bold text-slate-800">无理由退车 1 次卡</span>
-          </div>
+          <div class="text-base font-bold text-slate-800 mb-1">无理由退车 1 次卡</div>
           <div class="text-xs text-slate-500">成交后 7 日内可申请无理由退车</div>
-          <div class="flex items-center gap-2 mt-2">
-            <span class="text-[10px] px-1.5 py-0.5 bg-rose-50 text-rose-600 rounded">⏰ 3 天后过期</span>
-          </div>
+          <div class="mt-2"><span class="text-[10px] px-1.5 py-0.5 bg-rose-50 text-rose-600 rounded">⏰ 3 天后过期</span></div>
           <div class="text-[10px] text-slate-400 mt-1">兑换时间 · 2026-04-10 · 消耗 500 金币</div>
         </div>
-        <div class="w-20 flex flex-col items-center justify-center gap-2">
-          <button class="px-3 py-1.5 bg-gradient-to-r from-violet-500 to-indigo-600 text-white rounded-full text-xs font-medium">使用</button>
+        <div class="w-20 flex flex-col items-center justify-center">
+          <button onclick="useReward(this)" class="px-3 py-1.5 bg-gradient-to-r from-violet-500 to-indigo-600 text-white rounded-full text-xs font-medium">使用</button>
         </div>
       </div>
     </div>
 
-    <!-- 可用 -->
     <div class="ticket rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
       <div class="flex items-stretch">
         <div class="w-24 bg-gradient-to-br from-sky-400 to-blue-500 flex flex-col items-center justify-center text-white">
-          <span class="text-3xl">🔍</span>
-          <span class="text-[10px] mt-1">查询卡</span>
+          <span class="text-3xl">🔍</span><span class="text-[10px] mt-1">查询卡</span>
         </div>
         <div class="flex-1 p-4 border-r-2 border-dashed border-slate-200">
           <div class="text-base font-bold text-slate-800 mb-1">车辆中标价查询卡</div>
           <div class="text-xs text-slate-500">单次查询单台车历史中标参考价</div>
-          <div class="flex items-center gap-2 mt-2">
-            <span class="text-[10px] px-1.5 py-0.5 bg-emerald-50 text-emerald-600 rounded">有效至 2026-05-09</span>
-          </div>
+          <div class="mt-2"><span class="text-[10px] px-1.5 py-0.5 bg-emerald-50 text-emerald-600 rounded">有效至 2026-05-09</span></div>
           <div class="text-[10px] text-slate-400 mt-1">兑换时间 · 2026-04-09 · 消耗 200 金币</div>
         </div>
-        <div class="w-20 flex flex-col items-center justify-center gap-2">
-          <button class="px-3 py-1.5 bg-violet-600 text-white rounded-full text-xs font-medium">使用</button>
+        <div class="w-20 flex flex-col items-center justify-center">
+          <button onclick="useReward(this)" class="px-3 py-1.5 bg-violet-600 text-white rounded-full text-xs font-medium">使用</button>
         </div>
       </div>
     </div>
 
-    <!-- 可用 -->
     <div class="ticket rounded-2xl shadow-sm border border-slate-100 overflow-hidden">
       <div class="flex items-stretch">
         <div class="w-24 bg-gradient-to-br from-pink-400 to-rose-500 flex flex-col items-center justify-center text-white">
-          <span class="text-3xl">🏷️</span>
-          <span class="text-[10px] mt-1">折扣券</span>
+          <span class="text-3xl">🏷️</span><span class="text-[10px] mt-1">折扣券</span>
         </div>
         <div class="flex-1 p-4 border-r-2 border-dashed border-slate-200">
           <div class="text-base font-bold text-slate-800 mb-1">过户 9.5 折 / 复检 9.5 折</div>
           <div class="text-xs text-slate-500">过户/复检手续费 9.5 折(二选一)</div>
-          <div class="flex items-center gap-2 mt-2">
-            <span class="text-[10px] px-1.5 py-0.5 bg-emerald-50 text-emerald-600 rounded">有效至 2026-05-15</span>
-          </div>
+          <div class="mt-2"><span class="text-[10px] px-1.5 py-0.5 bg-emerald-50 text-emerald-600 rounded">有效至 2026-05-15</span></div>
           <div class="text-[10px] text-slate-400 mt-1">兑换时间 · 2026-04-15 · 消耗 200 金币</div>
         </div>
-        <div class="w-20 flex flex-col items-center justify-center gap-2">
-          <button class="px-3 py-1.5 bg-violet-600 text-white rounded-full text-xs font-medium">使用</button>
+        <div class="w-20 flex flex-col items-center justify-center">
+          <button onclick="useReward(this)" class="px-3 py-1.5 bg-violet-600 text-white rounded-full text-xs font-medium">使用</button>
         </div>
       </div>
     </div>
 
-    <!-- 已使用示例(折叠展示) -->
-    <div class="pt-4">
-      <div class="text-xs text-slate-400 mb-3 font-medium">最近使用</div>
-
-      <div class="ticket used rounded-2xl border border-slate-100 overflow-hidden mb-3">
-        <div class="flex items-stretch">
-          <div class="w-24 bg-gradient-to-br from-slate-300 to-slate-400 flex flex-col items-center justify-center text-white">
-            <span class="text-3xl">📊</span>
-            <span class="text-[10px] mt-1">已使用</span>
-          </div>
-          <div class="flex-1 p-4">
-            <div class="text-sm font-bold text-slate-600 mb-1">交易行情查询卡</div>
-            <div class="text-xs text-slate-400">2026-04-08 已使用</div>
-          </div>
-        </div>
+    <!-- 温馨提示(标题和内容分行) -->
+    <div class="bg-violet-50 border border-violet-100 rounded-xl p-4 mt-6">
+      <div class="text-xs font-bold text-violet-800 mb-1.5">💡 温馨提示</div>
+      <div class="text-[11px] text-violet-600 leading-relaxed space-y-1">
+        <div>· 权益卡仅限本人使用,不可转让、折现、退换</div>
+        <div>· 降级后对应等级权益将自动失效</div>
+        <div>· 退车/退款对应权益同步作废</div>
+        <div>· 权益兑换受库存限制,先兑先得</div>
       </div>
-
-      <div class="ticket expired rounded-2xl border border-rose-100 overflow-hidden">
-        <div class="flex items-stretch">
-          <div class="w-24 bg-gradient-to-br from-red-300 to-rose-400 flex flex-col items-center justify-center text-white">
-            <span class="text-3xl">⏳</span>
-            <span class="text-[10px] mt-1">已过期</span>
-          </div>
-          <div class="flex-1 p-4">
-            <div class="text-sm font-bold text-slate-600 mb-1">行驶证查询卡</div>
-            <div class="text-xs text-slate-400">2026-03-20 已过期(未使用)</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="bg-violet-50 border border-violet-100 rounded-xl p-3 text-center text-[11px] text-violet-700 mt-6">
-      💡 温馨提示:权益卡仅限本人使用,不可转让;降级后对应等级权益将自动失效
     </div>
   </div>
 
+  <!-- Tab 1: 已使用 -->
+  <div id="tab1" class="px-4 pt-4 pb-8 space-y-3 hidden">
+
+    <div class="ticket used rounded-2xl border border-slate-100 overflow-hidden">
+      <div class="flex items-stretch">
+        <div class="w-24 bg-gradient-to-br from-slate-300 to-slate-400 flex flex-col items-center justify-center text-white">
+          <span class="text-3xl">📊</span><span class="text-[10px] mt-1">已使用</span>
+        </div>
+        <div class="flex-1 p-4">
+          <div class="text-sm font-bold text-slate-600 mb-1">交易行情查询卡</div>
+          <div class="text-xs text-slate-400">使用时间:2026-04-08 15:23</div>
+          <div class="text-xs text-slate-400 mt-0.5">兑换时间:2026-04-05 · 消耗 200 金币</div>
+        </div>
+        <div class="w-16 flex items-center justify-center"><span class="text-[10px] text-slate-400 px-2 py-1 border border-slate-200 rounded-full">已用</span></div>
+      </div>
+    </div>
+
+    <div class="ticket used rounded-2xl border border-slate-100 overflow-hidden">
+      <div class="flex items-stretch">
+        <div class="w-24 bg-gradient-to-br from-slate-300 to-slate-400 flex flex-col items-center justify-center text-white">
+          <span class="text-3xl">🔍</span><span class="text-[10px] mt-1">已使用</span>
+        </div>
+        <div class="flex-1 p-4">
+          <div class="text-sm font-bold text-slate-600 mb-1">车辆中标价查询卡</div>
+          <div class="text-xs text-slate-400">使用时间:2026-03-28 11:05</div>
+          <div class="text-xs text-slate-400 mt-0.5">兑换时间:2026-03-25 · 消耗 200 金币</div>
+        </div>
+        <div class="w-16 flex items-center justify-center"><span class="text-[10px] text-slate-400 px-2 py-1 border border-slate-200 rounded-full">已用</span></div>
+      </div>
+    </div>
+
+    <div class="ticket used rounded-2xl border border-slate-100 overflow-hidden">
+      <div class="flex items-stretch">
+        <div class="w-24 bg-gradient-to-br from-slate-300 to-slate-400 flex flex-col items-center justify-center text-white">
+          <span class="text-3xl">🛠️</span><span class="text-[10px] mt-1">已使用</span>
+        </div>
+        <div class="flex-1 p-4">
+          <div class="text-sm font-bold text-slate-600 mb-1">出险维保数据卡</div>
+          <div class="text-xs text-slate-400">使用时间:2026-03-15 09:40</div>
+          <div class="text-xs text-slate-400 mt-0.5">兑换时间:2026-03-10 · 消耗 300 金币</div>
+        </div>
+        <div class="w-16 flex items-center justify-center"><span class="text-[10px] text-slate-400 px-2 py-1 border border-slate-200 rounded-full">已用</span></div>
+      </div>
+    </div>
+
+    <div class="text-center text-xs text-slate-400 py-4">— 仅展示近 30 天 —</div>
+  </div>
+
+  <!-- Tab 2: 已失效 -->
+  <div id="tab2" class="px-4 pt-4 pb-8 space-y-3 hidden">
+
+    <div class="ticket expired rounded-2xl border border-rose-100 overflow-hidden">
+      <div class="flex items-stretch">
+        <div class="w-24 bg-gradient-to-br from-red-300 to-rose-400 flex flex-col items-center justify-center text-white">
+          <span class="text-3xl">⏳</span><span class="text-[10px] mt-1">已过期</span>
+        </div>
+        <div class="flex-1 p-4">
+          <div class="text-sm font-bold text-slate-600 mb-1">行驶证查询卡</div>
+          <div class="text-xs text-slate-400">过期时间:2026-03-20(未使用)</div>
+          <div class="text-xs text-slate-400 mt-0.5">兑换时间:2026-02-20 · 消耗 100 金币</div>
+        </div>
+        <div class="w-16 flex items-center justify-center"><span class="text-[10px] text-rose-400 px-2 py-1 border border-rose-200 rounded-full">过期</span></div>
+      </div>
+    </div>
+
+    <div class="ticket expired rounded-2xl border border-rose-100 overflow-hidden">
+      <div class="flex items-stretch">
+        <div class="w-24 bg-gradient-to-br from-red-300 to-rose-400 flex flex-col items-center justify-center text-white">
+          <span class="text-3xl">⏳</span><span class="text-[10px] mt-1">降级失效</span>
+        </div>
+        <div class="flex-1 p-4">
+          <div class="text-sm font-bold text-slate-600 mb-1">过户 9.5 折卡</div>
+          <div class="text-xs text-slate-400">失效原因:等级降级(LV2→LV1)</div>
+          <div class="text-xs text-slate-400 mt-0.5">兑换时间:2026-01-10 · 消耗 200 金币</div>
+        </div>
+        <div class="w-16 flex items-center justify-center"><span class="text-[10px] text-rose-400 px-2 py-1 border border-rose-200 rounded-full">失效</span></div>
+      </div>
+    </div>
+
+    <div class="text-center text-xs text-slate-400 py-4">— 仅展示近 90 天 —</div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div id="toast" class="fixed bottom-24 left-1/2 -translate-x-1/2 hidden z-50">
+  <div class="toast bg-slate-800 text-white px-6 py-3 rounded-full text-sm shadow-xl">✓ 权益已激活,正在跳转全部车源...</div>
 </div>
 
 <div class="hidden md:block fixed top-4 left-4 z-50">
   <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
 </div>
+
+<script>
+function switchTab(idx) {
+  document.querySelectorAll('.tab').forEach((t, i) => {
+    t.classList.toggle('active', i === idx);
+  });
+  [0,1,2].forEach(i => {
+    document.getElementById('tab' + i).classList.toggle('hidden', i !== idx);
+  });
+}
+
+function useReward(btn) {
+  // 显示 toast
+  const toast = document.getElementById('toast');
+  toast.classList.remove('hidden');
+  // 1.8s 后跳转到全部车源
+  setTimeout(() => { window.location.href = 'home.html'; }, 1800);
+}
+</script>
 
 </body>
 </html>
