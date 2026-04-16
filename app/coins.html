@@ -33,7 +33,7 @@
     <div class="flex items-center justify-between px-5 pb-3">
       <a href="member.html" class="text-white text-xl">←</a>
       <span class="text-white text-base font-semibold">金币明细</span>
-      <button class="text-white text-xs">规则说明</button>
+      <button onclick="document.getElementById('ruleModal').classList.remove('hidden')" class="text-white text-xs">规则说明</button>
     </div>
 
     <!-- 余额概览 -->
@@ -72,12 +72,12 @@
   <!-- Tabs -->
   <div class="px-4 bg-white border-b border-slate-100">
     <div class="flex gap-6 py-3 text-sm text-slate-600 overflow-x-auto">
-      <span class="tab active">全部</span>
-      <span class="tab">出价</span>
-      <span class="tab">转发</span>
-      <span class="tab">成交</span>
-      <span class="tab">消耗</span>
-      <span class="tab">过期</span>
+      <span class="tab active" onclick="filterTx('all', this)">全部</span>
+      <span class="tab" onclick="filterTx('bid', this)">出价</span>
+      <span class="tab" onclick="filterTx('share', this)">转发</span>
+      <span class="tab" onclick="filterTx('deal', this)">成交</span>
+      <span class="tab" onclick="filterTx('spend', this)">消耗</span>
+      <span class="tab" onclick="filterTx('expire', this)">过期</span>
     </div>
   </div>
 
@@ -88,7 +88,7 @@
     <div class="text-xs text-slate-400 py-2 font-medium">今天 · 2026-04-15</div>
 
     <div class="bg-white rounded-2xl overflow-hidden shadow-sm mb-3">
-      <div class="flex items-center gap-3 p-4 border-b border-slate-50">
+      <div class="tx-row flex items-center gap-3 p-4 border-b border-slate-50" data-type="deal">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white">💰</div>
         <div class="flex-1">
           <div class="text-sm font-medium text-slate-800">成交奖励</div>
@@ -99,7 +99,7 @@
           <div class="text-[10px] text-slate-400">有效期至 2027-04-15</div>
         </div>
       </div>
-      <div class="flex items-center gap-3 p-4 border-b border-slate-50">
+      <div class="tx-row flex items-center gap-3 p-4 border-b border-slate-50" data-type="share">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-400 to-purple-500 flex items-center justify-center text-white">📢</div>
         <div class="flex-1">
           <div class="text-sm font-medium text-slate-800">转发朋友圈</div>
@@ -110,7 +110,7 @@
           <div class="text-[10px] text-slate-400">有效期至 2027-04-15</div>
         </div>
       </div>
-      <div class="flex items-center gap-3 p-4">
+      <div class="tx-row flex items-center gap-3 p-4" data-type="bid">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white">🔨</div>
         <div class="flex-1">
           <div class="text-sm font-medium text-slate-800">出价奖励</div>
@@ -127,7 +127,7 @@
     <div class="text-xs text-slate-400 py-2 font-medium">昨天 · 2026-04-14</div>
 
     <div class="bg-white rounded-2xl overflow-hidden shadow-sm mb-3">
-      <div class="flex items-center gap-3 p-4 border-b border-slate-50">
+      <div class="tx-row flex items-center gap-3 p-4 border-b border-slate-50" data-type="spend">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-400 to-pink-500 flex items-center justify-center text-white">🎁</div>
         <div class="flex-1">
           <div class="text-sm font-medium text-slate-800">兑换权益</div>
@@ -138,7 +138,7 @@
           <div class="text-[10px] text-slate-400">余额 306</div>
         </div>
       </div>
-      <div class="flex items-center gap-3 p-4 border-b border-slate-50">
+      <div class="tx-row flex items-center gap-3 p-4 border-b border-slate-50" data-type="deal">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white">💰</div>
         <div class="flex-1">
           <div class="text-sm font-medium text-slate-800">成交奖励</div>
@@ -149,7 +149,7 @@
           <div class="text-[10px] text-slate-400">有效期至 2027-04-14</div>
         </div>
       </div>
-      <div class="flex items-center gap-3 p-4">
+      <div class="tx-row flex items-center gap-3 p-4" data-type="bid">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white">🔨</div>
         <div class="flex-1">
           <div class="text-sm font-medium text-slate-800">出价奖励 × 3</div>
@@ -166,7 +166,7 @@
     <div class="text-xs text-slate-400 py-2 font-medium">2026-04-10</div>
 
     <div class="bg-white rounded-2xl overflow-hidden shadow-sm mb-3">
-      <div class="flex items-center gap-3 p-4 border-b border-slate-50">
+      <div class="tx-row flex items-center gap-3 p-4 border-b border-slate-50" data-type="expire">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-400 to-slate-500 flex items-center justify-center text-white">⏳</div>
         <div class="flex-1">
           <div class="text-sm font-medium text-slate-800">金币过期清零</div>
@@ -177,7 +177,7 @@
           <div class="text-[10px] text-slate-400">余额 369</div>
         </div>
       </div>
-      <div class="flex items-center gap-3 p-4">
+      <div class="tx-row flex items-center gap-3 p-4" data-type="deal">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white">💰</div>
         <div class="flex-1">
           <div class="text-sm font-medium text-slate-800">成交奖励</div>
@@ -196,9 +196,64 @@
 
 </div>
 
+<!-- 规则说明弹窗 -->
+<div id="ruleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-6" style="background:rgba(0,0,0,.55);backdrop-filter:blur(3px)">
+  <div class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl">
+    <div class="bg-gradient-to-r from-violet-600 to-indigo-600 p-5 text-white text-center">
+      <div class="text-3xl mb-1">📖</div>
+      <div class="text-lg font-bold">金币规则说明</div>
+    </div>
+    <div class="p-5 max-h-[70vh] overflow-y-auto">
+      <div class="text-sm font-bold text-slate-800 mb-2">🪙 金币怎么获得?</div>
+      <div class="space-y-2 mb-4">
+        <div class="flex items-center gap-3 p-2.5 bg-sky-50 rounded-lg">
+          <div class="text-2xl">🔨</div>
+          <div class="flex-1"><div class="text-sm font-medium text-slate-800">出价</div><div class="text-[11px] text-slate-500">登录后出价,同一车辆只发一次</div></div>
+          <div class="text-sky-600 font-bold text-sm">+1</div>
+        </div>
+        <div class="flex items-center gap-3 p-2.5 bg-violet-50 rounded-lg">
+          <div class="text-2xl">📢</div>
+          <div class="flex-1"><div class="text-sm font-medium text-slate-800">转发朋友圈</div><div class="text-[11px] text-slate-500">登录后转发,同一车辆只发一次</div></div>
+          <div class="text-violet-600 font-bold text-sm">+2</div>
+        </div>
+        <div class="flex items-center gap-3 p-2.5 bg-emerald-50 rounded-lg">
+          <div class="text-2xl">💰</div>
+          <div class="flex-1"><div class="text-sm font-medium text-slate-800">成交</div><div class="text-[11px] text-slate-500">过户/付款完成后发放</div></div>
+          <div class="text-emerald-600 font-bold text-sm">+50</div>
+        </div>
+      </div>
+      <div class="text-sm font-bold text-slate-800 mb-2">⏳ 金币有效期</div>
+      <div class="text-xs text-slate-600 space-y-1 mb-4">
+        <div>· 自获得当月起 <strong>12 个自然月</strong> 内有效</div>
+        <div>· 到期自动清零(FIFO 先进先出)</div>
+      </div>
+      <div class="text-sm font-bold text-slate-800 mb-2">🎁 使用场景</div>
+      <div class="text-xs text-slate-600 space-y-1">
+        <div>· 仅限唯车转小程序内兑换权益卡</div>
+        <div>· 不可转让、提现、兑换现金</div>
+      </div>
+    </div>
+    <div class="p-4 border-t border-slate-100">
+      <button onclick="document.getElementById('ruleModal').classList.add('hidden')" class="w-full py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-full text-sm font-bold">我知道了</button>
+    </div>
+  </div>
+</div>
+
 <div class="hidden md:block fixed top-4 left-4 z-50">
   <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
 </div>
+
+<script>
+function filterTx(type, el) {
+  // 更新 tab 状态
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  // 筛选行
+  document.querySelectorAll('.tx-row').forEach(row => {
+    row.style.display = (type === 'all' || row.dataset.type === type) ? '' : 'none';
+  });
+}
+</script>
 
 </body>
 </html>
