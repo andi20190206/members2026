@@ -68,6 +68,27 @@
   .fee-link { color: #409eff; cursor: pointer; }
   .fee-link:hover { text-decoration: underline; }
 
+  /* Member level pill & popover */
+  .buyer-cell { display: inline-flex; align-items: center; gap: 4px; justify-content: center; }
+  .lv-pill { display: inline-flex; align-items: center; justify-content: center; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; color: #fff; line-height: 16px; cursor: pointer; }
+  .lv-pill:hover { opacity: .85; }
+  .lv-popover-mask { position: fixed; inset: 0; z-index: 998; display: none; }
+  .lv-popover-mask.open { display: block; }
+  .lv-popover { position: fixed; z-index: 999; background: #fff; border: 1px solid #ebeef5; border-radius: 6px; box-shadow: 0 4px 20px rgba(0,0,0,.12); width: 320px; overflow: hidden; }
+  .lv-popover .lv-head { padding: 14px 16px; color: #fff; display: flex; align-items: center; justify-content: space-between; }
+  .lv-popover .lv-head .lv-name { font-size: 15px; font-weight: 600; }
+  .lv-popover .lv-head .lv-code { font-size: 22px; font-weight: 700; opacity: .95; }
+  .lv-popover .lv-coin { padding: 12px 16px; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; background: #fafbfc; }
+  .lv-popover .lv-coin-label { font-size: 12px; color: #909399; }
+  .lv-popover .lv-coin-num { font-size: 20px; font-weight: 600; color: #e6a23c; line-height: 1.2; }
+  .lv-popover .lv-coin-yuan { font-size: 11px; color: #909399; margin-top: 2px; }
+  .lv-popover .lv-benefits { padding: 10px 16px 14px; max-height: 280px; overflow-y: auto; }
+  .lv-popover .lv-benefits-title { font-size: 12px; color: #909399; margin-bottom: 6px; }
+  .lv-popover .benefit-row { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; }
+  .lv-popover .benefit-row i { color: #8b5cf6; flex-shrink: 0; margin-top: 2px; }
+  .lv-popover .benefit-row .benefit-label { font-size: 13px; color: #303133; font-weight: 500; }
+  .lv-popover .benefit-row .benefit-desc { font-size: 11px; color: #909399; margin-top: 1px; line-height: 1.4; }
+
   /* Pagination */
   .el-pagination { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 14px 16px; color: #606266; font-size: 13px; }
   .pager-btn { min-width: 28px; height: 28px; padding: 0 6px; border-radius: 2px; background: #f4f4f5; color: #606266; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border: none; font-size: 12px; }
@@ -283,19 +304,24 @@
   <a href="../index.html" class="px-3 py-1 bg-white border border-slate-200 rounded shadow-sm text-xs text-slate-600 hover:bg-slate-50">← Demo 导航</a>
 </div>
 
+<!-- Member level popover -->
+<div id="lvMask" class="lv-popover-mask"></div>
+<div id="lvPopover" class="lv-popover" style="display:none"></div>
+
+<script src="../shared/member-config.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
   const orders = [
-    { plate: "粤AT1014", model: "比速 M3 2017款 1.5T 豪华型", deal: "2026-04-14 14:00", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "2", store: "唯普广州Saas新模式体验店", buyer: "t7", total: "2350.00", price: "1600.00", fee: "750.00" },
-    { plate: "鲁AF64114", model: "坦克 坦克400新能源 2.0T DHT Hi4", deal: "2026-04-13 10:37", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "测试", store: "长城02", buyer: "张三143", total: "11499.00", price: "10199.00", fee: "1300.00" },
-    { plate: "湘A213LK", model: "丰田 bZ3 2023款 616km 长续航PRO", deal: "2026-04-10 16:30", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "测试", store: "查验测试3", buyer: "张三", total: "502500.00", price: "500200.00", fee: "2300.00" },
-    { plate: "湘N7E851", model: "哈弗 哈弗H1 1.5L 手动 豪华型", deal: "2026-04-10 14:13", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "测试", store: "长城02", buyer: "张三", total: "7500.00", price: "6200.00", fee: "1300.00" },
-    { plate: "浙A121KA", model: "大众 Arteon 2022款 2.0T Shooting Brake R-Line", deal: "2026-04-09 16:00", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "测试", store: "查验测试3", buyer: "麦依", total: "43720.00", price: "41420.00", fee: "2300.00" },
-    { plate: "津A12345", model: "比亚迪 宋PLUS 2020款 1.5T 自动豪华型", deal: "2026-04-09 15:44", payStatus: "已收车款", payTime: "2026-04-09 15:45", orderStatus: "已完成已清算", orderTime: "2026-04-09 15:45", scrap: "否", seller: "肖少薇", store: "演示门店", buyer: "产品测试1", total: "11300.00", price: "9000.00", fee: "2300.00" },
-    { plate: "粤AT1013", model: "本田 CR-Z(进口) 2012款 hybrid", deal: "2026-04-09 11:35", payStatus: "已收车款", payTime: "2026-04-09 11:38", orderStatus: "已完成已清算", orderTime: "2026-04-09 11:38", scrap: "否", seller: "2", store: "唯普广州Saas新模式体验店", buyer: "唯普t3", total: "2250.00", price: "1500.00", fee: "750.00" },
-    { plate: "粤AT1012", model: "北汽制造 勇士皮卡 2022款 2.4T柴油四驱 3695轴距分体双排三翻YCY24140-60A", deal: "2026-04-08 17:18", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "2", store: "唯普广州Saas新模式体验店", buyer: "唯普t3", total: "2050.00", price: "1400.00", fee: "650.00" },
-    { plate: "粤AT1011", model: "长城 C50 2016款 1.5T 手动舒适型", deal: "2026-04-08 16:52", payStatus: "已收车款", payTime: "2026-04-08 17:24", orderStatus: "已完成已清算", orderTime: "2026-04-08 17:24", scrap: "否", seller: "2", store: "唯普广州Saas新模式体验店", buyer: "唯普t3", total: "2050.00", price: "1300.00", fee: "750.00" },
-    { plate: "粤AT1009", model: "富奇 富奇 2001款 3.4 自动", deal: "2026-04-08 15:16", payStatus: "已收车款", payTime: "2026-04-08 15:27", orderStatus: "已完成已清算", orderTime: "2026-04-08 15:27", scrap: "否", seller: "2", store: "唯普广州Saas新模式体验店", buyer: "唯普t3", total: "20000.00", price: "19200.00", fee: "800.00" },
+    { plate: "粤AT1014", model: "比速 M3 2017款 1.5T 豪华型", deal: "2026-04-14 14:00", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "2", store: "唯普广州Saas新模式体验店", buyer: "t7", buyerLevel: "V0", buyerCoins: 0, total: "2350.00", price: "1600.00", fee: "750.00" },
+    { plate: "鲁AF64114", model: "坦克 坦克400新能源 2.0T DHT Hi4", deal: "2026-04-13 10:37", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "测试", store: "长城02", buyer: "张三143", buyerLevel: "V2", buyerCoins: 850, total: "11499.00", price: "10199.00", fee: "1300.00" },
+    { plate: "湘A213LK", model: "丰田 bZ3 2023款 616km 长续航PRO", deal: "2026-04-10 16:30", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "测试", store: "查验测试3", buyer: "张三", buyerLevel: "V3", buyerCoins: 1280, total: "502500.00", price: "500200.00", fee: "2300.00" },
+    { plate: "湘N7E851", model: "哈弗 哈弗H1 1.5L 手动 豪华型", deal: "2026-04-10 14:13", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "测试", store: "长城02", buyer: "张三", buyerLevel: "V3", buyerCoins: 1280, total: "7500.00", price: "6200.00", fee: "1300.00" },
+    { plate: "浙A121KA", model: "大众 Arteon 2022款 2.0T Shooting Brake R-Line", deal: "2026-04-09 16:00", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "测试", store: "查验测试3", buyer: "麦依", buyerLevel: "V1", buyerCoins: 210, total: "43720.00", price: "41420.00", fee: "2300.00" },
+    { plate: "津A12345", model: "比亚迪 宋PLUS 2020款 1.5T 自动豪华型", deal: "2026-04-09 15:44", payStatus: "已收车款", payTime: "2026-04-09 15:45", orderStatus: "已完成已清算", orderTime: "2026-04-09 15:45", scrap: "否", seller: "肖少薇", store: "演示门店", buyer: "产品测试1", buyerLevel: "V2", buyerCoins: 620, total: "11300.00", price: "9000.00", fee: "2300.00" },
+    { plate: "粤AT1013", model: "本田 CR-Z(进口) 2012款 hybrid", deal: "2026-04-09 11:35", payStatus: "已收车款", payTime: "2026-04-09 11:38", orderStatus: "已完成已清算", orderTime: "2026-04-09 11:38", scrap: "否", seller: "2", store: "唯普广州Saas新模式体验店", buyer: "唯普t3", buyerLevel: "V1", buyerCoins: 160, total: "2250.00", price: "1500.00", fee: "750.00" },
+    { plate: "粤AT1012", model: "北汽制造 勇士皮卡 2022款 2.4T柴油四驱 3695轴距分体双排三翻YCY24140-60A", deal: "2026-04-08 17:18", payStatus: "未收车款", orderStatus: "订单未完成", scrap: "否", seller: "2", store: "唯普广州Saas新模式体验店", buyer: "唯普t3", buyerLevel: "V1", buyerCoins: 160, total: "2050.00", price: "1400.00", fee: "650.00" },
+    { plate: "粤AT1011", model: "长城 C50 2016款 1.5T 手动舒适型", deal: "2026-04-08 16:52", payStatus: "已收车款", payTime: "2026-04-08 17:24", orderStatus: "已完成已清算", orderTime: "2026-04-08 17:24", scrap: "否", seller: "2", store: "唯普广州Saas新模式体验店", buyer: "唯普t3", buyerLevel: "V1", buyerCoins: 160, total: "2050.00", price: "1300.00", fee: "750.00" },
+    { plate: "粤AT1009", model: "富奇 富奇 2001款 3.4 自动", deal: "2026-04-08 15:16", payStatus: "已收车款", payTime: "2026-04-08 15:27", orderStatus: "已完成已清算", orderTime: "2026-04-08 15:27", scrap: "否", seller: "2", store: "唯普广州Saas新模式体验店", buyer: "唯普t3", buyerLevel: "V1", buyerCoins: 160, total: "20000.00", price: "19200.00", fee: "800.00" },
   ];
 
   const isPaid = (o) => o.payStatus === "已收车款";
@@ -307,9 +333,12 @@
       total: o.total, price: o.price, fee: o.fee,
       payStatus: o.payStatus, orderStatus: o.orderStatus,
       seller: o.seller, store: o.store, buyer: o.buyer,
+      buyerLevel: o.buyerLevel || "V0", buyerCoins: o.buyerCoins || 0,
     });
     return `bms-order-detail.html?${params.toString()}`;
   };
+
+  const getLevel = (code) => window.MEMBER_CONFIG.getLevelByCode(code);
 
   const body = document.getElementById("orderBody");
   body.innerHTML = orders.map((o, i) => `
@@ -337,7 +366,12 @@
       <td>${o.scrap}</td>
       <td>${o.seller}</td>
       <td>${o.store}</td>
-      <td>${o.buyer}</td>
+      <td>
+        <span class="buyer-cell">
+          ${o.buyer}
+          ${o.buyerLevel ? `<span class="lv-pill" data-lv-row="${i}" style="background:${getLevel(o.buyerLevel).color}">${o.buyerLevel}</span>` : ''}
+        </span>
+      </td>
       <td>${o.total}</td>
       <td>${o.price}</td>
       <td><span class="fee-link">${o.fee}</span></td>
@@ -345,6 +379,14 @@
   `).join("");
 
   body.addEventListener("click", (e) => {
+    // Clicking the level pill opens popover instead of navigating
+    const pill = e.target.closest(".lv-pill[data-lv-row]");
+    if (pill) {
+      e.stopPropagation();
+      const rowIdx = Number(pill.dataset.lvRow);
+      openLevelPopover(pill, orders[rowIdx]);
+      return;
+    }
     const tr = e.target.closest("tr[data-idx]");
     if (!tr) return;
     const idx = Number(tr.dataset.idx);
@@ -352,6 +394,64 @@
     if (!o) return;
     window.location.href = buildDetailUrl(o);
   });
+
+  // ── Level popover ──
+  const popover = document.getElementById("lvPopover");
+  const mask = document.getElementById("lvMask");
+  mask.addEventListener("click", closeLevelPopover);
+
+  function closeLevelPopover() {
+    popover.style.display = "none";
+    mask.classList.remove("open");
+  }
+
+  function openLevelPopover(anchor, order) {
+    const lv = getLevel(order.buyerLevel);
+    const coins = order.buyerCoins || 0;
+    const yuan = window.MEMBER_CONFIG.yuanFromCoin(coins);
+    const grad = `linear-gradient(135deg, ${lv.gradient[0]}, ${lv.gradient[1]})`;
+    popover.innerHTML = `
+      <div class="lv-head" style="background:${grad}">
+        <div>
+          <div class="lv-name">${lv.name}</div>
+          <div style="font-size:11px;opacity:.85;margin-top:2px">${order.buyer}</div>
+        </div>
+        <div class="lv-code">${lv.short}</div>
+      </div>
+      <div class="lv-coin">
+        <div>
+          <div class="lv-coin-label">唯金币余额</div>
+          <div class="lv-coin-num">${coins} <span style="font-size:12px;color:#909399;font-weight:400">金币</span></div>
+        </div>
+        <div class="lv-coin-yuan">≈ ¥ ${yuan}</div>
+      </div>
+      <div class="lv-benefits">
+        <div class="lv-benefits-title">当前等级权益 · 共 ${lv.benefits.length} 项</div>
+        ${lv.benefits.map(b => `
+          <div class="benefit-row">
+            <i data-lucide="${b.icon}" class="w-4 h-4"></i>
+            <div>
+              <div class="benefit-label">${b.label}</div>
+              <div class="benefit-desc">${b.desc}</div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
+    // Position near the pill
+    popover.style.display = "block";
+    mask.classList.add("open");
+    const rect = anchor.getBoundingClientRect();
+    const popW = 320;
+    let left = rect.left + rect.width / 2 - popW / 2;
+    left = Math.max(8, Math.min(left, window.innerWidth - popW - 8));
+    const popH = popover.offsetHeight;
+    let top = rect.bottom + 6;
+    if (top + popH > window.innerHeight - 8) top = rect.top - popH - 6;
+    popover.style.left = left + "px";
+    popover.style.top = top + "px";
+    lucide.createIcons();
+  }
 
   lucide.createIcons();
 </script>

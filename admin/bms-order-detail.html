@@ -47,6 +47,34 @@
   .dropdown-wrap.open .dropdown-menu { display: block; }
   .dropdown-menu a { display: block; padding: 8px 16px; color: #606266; font-size: 13px; cursor: pointer; }
   .dropdown-menu a:hover { background: #ecf5ff; color: #409eff; }
+
+  .lv-pill { display: inline-flex; align-items: center; justify-content: center; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; color: #fff; line-height: 16px; }
+
+  /* Member benefits block */
+  .mb-block { background: #fff; border-radius: 2px; padding: 20px; }
+  .mb-head { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; }
+  .mb-head .mb-title { font-size: 15px; font-weight: 600; color: #303133; }
+  .mb-head .mb-sub { font-size: 12px; color: #909399; }
+  .mb-col-title { font-size: 13px; color: #909399; margin-bottom: 10px; font-weight: 500; }
+  .mb-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px dashed #f0f0f0; }
+  .mb-item:last-child { border-bottom: none; }
+  .mb-item .mb-check { width: 18px; height: 18px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+  .mb-item .mb-check.used { background: #e1f3d8; color: #67c23a; }
+  .mb-item .mb-check.unused { background: #f4f4f5; color: #c0c4cc; }
+  .mb-item .mb-label { font-size: 13px; color: #303133; font-weight: 500; }
+  .mb-item .mb-desc { font-size: 11px; color: #909399; margin-top: 2px; line-height: 1.5; }
+  .mb-item.faded .mb-label { color: #909399; font-weight: 400; }
+  .mb-tag { display: inline-flex; padding: 1px 7px; font-size: 11px; border-radius: 3px; margin-left: 6px; }
+  .mb-tag-amber { background: #fdf6ec; color: #e6a23c; border: 1px solid #faecd8; }
+  .mb-tag-violet { background: #f3e8ff; color: #8b5cf6; border: 1px solid #e9d5ff; }
+  .mb-tag-green { background: #f0f9eb; color: #67c23a; border: 1px solid #e1f3d8; }
+
+  .mb-quota { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px dashed #f0f0f0; }
+  .mb-quota:last-child { border-bottom: none; }
+  .mb-quota-label { font-size: 13px; color: #303133; }
+  .mb-quota-desc { font-size: 11px; color: #909399; margin-top: 2px; }
+  .mb-quota-value { font-size: 13px; color: #303133; font-weight: 500; }
+  .mb-quota-value .mb-remain { color: #e6a23c; font-weight: 600; }
 </style>
 </head>
 <body>
@@ -223,10 +251,11 @@
         <div class="party-label">应付款</div>
         <div id="buyerPay" class="party-value mt-2">¥ 11,499.00</div>
         <div class="mt-4 space-y-2 text-xs">
-          <div class="flex justify-between">
-            <span><span class="info-label">买家:</span> <span class="info-link">张三143</span></span>
+          <div class="flex justify-between items-center">
+            <span><span class="info-label">买家:</span> <span id="buyerName" class="info-link">张三143</span> <span id="buyerLvPill" class="lv-pill ml-1"></span></span>
             <span class="tag-verified">已验证</span>
           </div>
+          <div><span class="info-label">唯金币余额:</span> <span id="buyerCoins" class="info-value" style="color:#e6a23c;font-weight:600">0 金币</span> <span id="buyerCoinsYuan" class="info-label">(≈ ¥ 0.00)</span></div>
           <div><span class="info-label">可用余额:</span> <span class="info-value">48,000.00</span></div>
           <div><span class="info-label">总金额:</span> <span class="info-value">50,000.00</span></div>
           <div><span class="info-label">最近入金记录:</span> <span class="info-link">查看</span></div>
@@ -277,6 +306,25 @@
       </div>
     </div>
 
+    <!-- 本单享受的会员权益 -->
+    <div class="mb-block mt-3">
+      <div class="mb-head">
+        <i data-lucide="crown" class="w-5 h-5 text-violet-500"></i>
+        <span class="mb-title">会员权益使用</span>
+        <span class="mb-sub">· 买家 <span id="mbBuyerName">-</span> <span id="mbBuyerLv" class="lv-pill"></span></span>
+      </div>
+      <div class="grid grid-cols-2 gap-8">
+        <div>
+          <div class="mb-col-title">本单享受的权益</div>
+          <div id="mbUsedList"></div>
+        </div>
+        <div>
+          <div class="mb-col-title">本周期配额使用情况 <span style="color:#c0c4cc">(2026-02 ~ 2026-04)</span></div>
+          <div id="mbQuotaList"></div>
+        </div>
+      </div>
+    </div>
+
   </main>
 </div>
 
@@ -284,6 +332,7 @@
   <a href="../index.html" class="px-3 py-1 bg-white border border-slate-200 rounded shadow-sm text-xs text-slate-600 hover:bg-slate-50">← Demo 导航</a>
 </div>
 
+<script src="../shared/member-config.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
   // Populate from query params so each row in list opens its own detail
@@ -299,6 +348,9 @@
   const fee = Number(get("fee", "1300.00"));
   const payStatus = get("payStatus", "未收车款");
   const orderStatus = get("orderStatus", "订单未完成");
+  const buyer = get("buyer", "张三143");
+  const buyerLevel = get("buyerLevel", "V2");
+  const buyerCoins = Number(get("buyerCoins", "850"));
 
   document.getElementById("hdrPlate").textContent = plate;
   document.getElementById("hdrModel").textContent = model;
@@ -309,11 +361,108 @@
   document.getElementById("storePay").textContent = fmt(price);
   document.getElementById("profit").textContent = fmt(fee);
 
-  // Order status display: 未付款 if 未收车款, otherwise 已付款
+  // Order status display
   let statusText = "未付款";
   if (payStatus === "已收车款" && orderStatus === "已完成已清算") statusText = "已完成";
   else if (payStatus === "已收车款") statusText = "已付款";
   document.getElementById("orderStatus").textContent = statusText;
+
+  // ── Buyer card: level pill + coin balance ──
+  const lv = window.MEMBER_CONFIG.getLevelByCode(buyerLevel);
+  document.getElementById("buyerName").textContent = buyer;
+  const pill = document.getElementById("buyerLvPill");
+  pill.textContent = lv.short;
+  pill.style.background = lv.color;
+  const coinEl = document.getElementById("buyerCoins");
+  coinEl.textContent = `${buyerCoins.toLocaleString()} 金币`;
+  document.getElementById("buyerCoinsYuan").textContent = `(≈ ¥ ${window.MEMBER_CONFIG.yuanFromCoin(buyerCoins)})`;
+
+  // ── Member benefits on this order ──
+  document.getElementById("mbBuyerName").textContent = buyer;
+  const mbLv = document.getElementById("mbBuyerLv");
+  mbLv.textContent = lv.short;
+  mbLv.style.background = lv.color;
+
+  // Compute what this order gets based on level + order completion state
+  const isCompleted = (payStatus === "已收车款" && orderStatus === "已完成已清算");
+  const coinReward = 50; // from config: 成交车辆 +50 金币
+  const coinExpireAt = (() => {
+    const d = new Date(deal.replace(/-/g, "/"));
+    d.setMonth(d.getMonth() + 12);
+    return d.toISOString().slice(0, 7);
+  })();
+
+  const used = [];
+  // 1) 成交金币奖励 - all levels
+  used.push({
+    used: isCompleted,
+    label: `成交车辆奖励 +${coinReward} 金币`,
+    desc: isCompleted
+      ? `已发放 · 有效期至 ${coinExpireAt} · 约 ¥ ${window.MEMBER_CONFIG.yuanFromCoin(coinReward)}`
+      : `待订单完成并清算后发放 · 约 ¥ ${window.MEMBER_CONFIG.yuanFromCoin(coinReward)}`,
+    tag: { cls: "mb-tag-amber", text: `+${coinReward} 金币` }
+  });
+
+  // 2) 金币兑换折扣(根据等级)
+  if (buyerLevel === "V2") {
+    used.push({ used: true, label: "唯金币 95 折兑换", desc: "购买平台权益卡可享 95 折 · 银卡会员专享", tag: { cls: "mb-tag-violet", text: "95 折" } });
+  } else if (buyerLevel === "V3") {
+    used.push({ used: true, label: "唯金币 8 折兑换", desc: "购买平台权益卡可享 8 折 · 金卡会员专享", tag: { cls: "mb-tag-violet", text: "8 折" } });
+  } else {
+    used.push({ used: true, label: "唯金币 1:1 兑换", desc: "按 1 金币 = 0.093 元等值兑换权益卡" });
+  }
+
+  // 3) 1V1 客服 - V1+
+  if (["V1", "V2", "V3"].includes(buyerLevel)) {
+    used.push({ used: true, label: "1V1 客服支持", desc: "已分配专属客服 · 小李(T4321)" });
+  }
+
+  // 4) 保留价查询 - V1+
+  if (["V1", "V2", "V3"].includes(buyerLevel)) {
+    used.push({ used: true, label: "保留价查询", desc: "本单出价前已使用保留价查询 1 次" });
+  }
+
+  // 5) 过户费减免 - 未使用(可升级提示)
+  used.push({ used: false, label: "过户费减免 100 元(权益卡)", desc: "本单未使用,可用 500 金币兑换该权益卡后叠加抵扣" });
+
+  // 6) 无偿退车 - V2/V3 可选
+  if (["V2", "V3"].includes(buyerLevel)) {
+    used.push({ used: false, label: "无偿退车", desc: "本单未发起 · 本周期仍剩 1 次使用机会" });
+  }
+
+  document.getElementById("mbUsedList").innerHTML = used.map(u => `
+    <div class="mb-item ${u.used ? '' : 'faded'}">
+      <span class="mb-check ${u.used ? 'used' : 'unused'}">
+        <i data-lucide="${u.used ? 'check' : 'minus'}" class="w-3 h-3"></i>
+      </span>
+      <div class="flex-1">
+        <div class="mb-label">${u.label}${u.tag ? `<span class="mb-tag ${u.tag.cls}">${u.tag.text}</span>` : ''}</div>
+        <div class="mb-desc">${u.desc}</div>
+      </div>
+    </div>
+  `).join("");
+
+  // ── 本周期配额 ──
+  const periodCoin = 120; // 本周期已累计金币
+  const quota = [
+    { label: "本周期累计获得金币", desc: "2026-02 ~ 2026-04 期内", value: `<span class="mb-remain">${periodCoin}</span> 金币` },
+    { label: "本周期成交台数", desc: lv.thresholdText, value: buyerLevel === "V0" ? "0 台" : (buyerLevel === "V1" ? "2 台" : (buyerLevel === "V2" ? "5 台" : "12 台")) },
+  ];
+  if (["V2", "V3"].includes(buyerLevel)) {
+    quota.push({ label: "无偿退车配额", desc: "每定级周期 1 台", value: '<span class="mb-remain">1</span> / 1 台' });
+  }
+  quota.push({ label: "专属销售顾问", desc: lv.code === "LV0" ? "V1 及以上解锁" : "已绑定: 顾问王 (13900001234)", value: lv.code === "LV0" ? "未开通" : "已开通" });
+  quota.push({ label: "历史数据 / 保留价查询", desc: lv.code === "LV0" ? "V1 及以上解锁" : "无限次", value: lv.code === "LV0" ? "未开通" : "已开通" });
+
+  document.getElementById("mbQuotaList").innerHTML = quota.map(q => `
+    <div class="mb-quota">
+      <div>
+        <div class="mb-quota-label">${q.label}</div>
+        <div class="mb-quota-desc">${q.desc}</div>
+      </div>
+      <div class="mb-quota-value">${q.value}</div>
+    </div>
+  `).join("");
 
   document.title = `订单详情 · ${plate} · 唯普汽车`;
 
