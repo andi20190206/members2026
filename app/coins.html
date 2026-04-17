@@ -196,39 +196,15 @@
 
 </div>
 
-<!-- 规则说明弹窗 -->
-<div id="ruleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-6" style="background:rgba(0,0,0,.55);backdrop-filter:blur(3px)">
+<!-- 规则说明弹窗(由 shared/member-config.js 动态渲染) -->
+<div id="ruleModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background:rgba(0,0,0,.55);backdrop-filter:blur(3px)">
   <div class="bg-white rounded-3xl w-full max-w-sm overflow-hidden shadow-2xl">
-    <div class="bg-gradient-to-r from-violet-600 to-indigo-600 p-5 text-white text-center">
-      <div class="mb-1 inline-flex"><i data-lucide="book-open" class="w-8 h-8"></i></div>
-      <div class="text-lg font-bold">金币规则说明</div>
+    <div class="bg-gradient-to-r from-violet-600 to-indigo-600 p-4 text-white flex items-center justify-between">
+      <div class="flex items-center gap-2"><i data-lucide="book-open" class="w-5 h-5"></i><span class="text-base font-bold">唯金币获取规则</span></div>
+      <button onclick="document.getElementById('ruleModal').classList.add('hidden')" class="text-white"><i data-lucide="x" class="w-5 h-5"></i></button>
     </div>
-    <div class="p-5 max-h-[70vh] overflow-y-auto">
-      <div class="text-sm font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i data-lucide="coins" class="w-4 h-4 text-amber-500"></i>金币怎么获得?</div>
-      <div class="space-y-2 mb-4">
-        <div class="flex items-center gap-3 p-2.5 bg-sky-50 rounded-lg">
-          <div class="text-sky-500"><i data-lucide="gavel" class="w-6 h-6"></i></div>
-          <div class="flex-1"><div class="text-sm font-medium text-slate-800">出价</div><div class="text-[11px] text-slate-500">登录后出价,同一车辆只发一次</div></div>
-          <div class="text-sky-600 font-bold text-sm">+1</div>
-        </div>
-        <div class="flex items-center gap-3 p-2.5 bg-violet-50 rounded-lg">
-          <div class="text-violet-500"><i data-lucide="megaphone" class="w-6 h-6"></i></div>
-          <div class="flex-1"><div class="text-sm font-medium text-slate-800">转发朋友圈</div><div class="text-[11px] text-slate-500">登录后转发,同一车辆只发一次</div></div>
-          <div class="text-violet-600 font-bold text-sm">+2</div>
-        </div>
-        <div class="flex items-center gap-3 p-2.5 bg-emerald-50 rounded-lg">
-          <div class="text-emerald-500"><i data-lucide="wallet" class="w-6 h-6"></i></div>
-          <div class="flex-1"><div class="text-sm font-medium text-slate-800">成交</div><div class="text-[11px] text-slate-500">过户/付款完成后发放</div></div>
-          <div class="text-emerald-600 font-bold text-sm">+50</div>
-        </div>
-      </div>
-      <div class="text-sm font-bold text-slate-800 mb-2 flex items-center gap-1.5"><i data-lucide="hourglass" class="w-4 h-4 text-slate-500"></i>金币有效期</div>
-      <div class="text-xs text-slate-600 space-y-1">
-        <div>· 自获得当月起 <strong>12 个自然月</strong> 内有效</div>
-        <div>· 到期自动清零</div>
-      </div>
-    </div>
-    <div class="p-4 border-t border-slate-100">
+    <div class="p-4 max-h-[72vh] overflow-y-auto" id="ruleModalBody"></div>
+    <div class="p-3 border-t border-slate-100">
       <button onclick="document.getElementById('ruleModal').classList.add('hidden')" class="w-full py-2.5 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-full text-sm font-bold">我知道了</button>
     </div>
   </div>
@@ -240,7 +216,38 @@
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="_smart-back.js"></script>
+<script src="../shared/member-config.js"></script>
 <script>
+(function () {
+  var CFG = window.MEMBER_CONFIG;
+  if (!CFG) return;
+  document.getElementById('ruleModalBody').innerHTML =
+    '<div class="mb-3 p-3 bg-amber-50 border border-amber-100 rounded-lg text-xs text-amber-800"><strong>1 金币 ≈ ' + CFG.coin.unitYuan + ' 元</strong>,可用于兑换平台权益卡</div>' +
+    CFG.coinEarning.map(function (g) {
+      return '<div class="mb-4">' +
+               '<div class="text-xs font-bold text-slate-700 mb-2 flex items-center gap-1.5"><i data-lucide="' + g.icon + '" class="w-3.5 h-3.5 text-' + g.color + '-500"></i>' + g.category + '</div>' +
+               '<div class="space-y-1.5">' +
+                 g.items.map(function (it) {
+                   return '<div class="flex items-start gap-2 p-2.5 bg-slate-50 rounded-lg">' +
+                            '<div class="flex-1 min-w-0">' +
+                              '<div class="text-xs text-slate-800 font-medium leading-snug">' + it.action + '</div>' +
+                              (it.desc ? '<div class="text-[10px] text-slate-500 mt-0.5 leading-snug">' + it.desc + '</div>' : '') +
+                            '</div>' +
+                            '<div class="text-right flex-none whitespace-nowrap">' +
+                              '<div class="text-sm font-bold text-amber-600">+' + it.coin + '</div>' +
+                              '<div class="text-[9px] text-slate-400">' + it.unit + '</div>' +
+                            '</div>' +
+                          '</div>';
+                 }).join('') +
+               '</div>' +
+             '</div>';
+    }).join('') +
+    '<div class="mt-3 p-3 bg-slate-900 text-white rounded-lg text-xs">' +
+      '<div class="font-semibold mb-1 flex items-center gap-1.5"><i data-lucide="hourglass" class="w-3.5 h-3.5"></i>金币有效期</div>' +
+      '<div class="text-slate-300 leading-relaxed">' + CFG.coin.validityDesc + ',到期自动清零</div>' +
+    '</div>';
+  lucide.createIcons();
+})();
 lucide.createIcons();
 function filterTx(type, el) {
   // 更新 tab 状态
