@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>订单详情 · 业务数据 · 唯普汽车</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif; background: #f0f2f5; color: #303133; font-size: 13px; }
+
+  .ant-header { height: 50px; background: #fff; border-bottom: 1px solid #e4e7ed; }
+  .breadcrumb-current { color: #303133; font-weight: 500; }
+
+  .ant-card { background: #fff; border-radius: 2px; }
+
+  .el-btn { display: inline-flex; align-items: center; gap: 4px; height: 32px; padding: 0 14px; border-radius: 4px; font-size: 13px; cursor: pointer; border: 1px solid #dcdfe6; background: #fff; color: #606266; box-sizing: border-box; }
+  .el-btn:hover { color: #409eff; border-color: #c6e2ff; background: #ecf5ff; }
+
+  .info-label { color: #909399; font-size: 13px; }
+  .info-value { color: #303133; font-size: 13px; }
+  .info-link { color: #409eff; cursor: pointer; }
+  .info-link:hover { text-decoration: underline; }
+
+  .el-tabs { border-bottom: 1px solid #e4e7ed; }
+  .el-tab { display: inline-flex; align-items: center; height: 40px; padding: 0 20px; font-size: 14px; color: #303133; cursor: pointer; position: relative; }
+  .el-tab:hover { color: #409eff; }
+  .el-tab.active { color: #409eff; font-weight: 500; }
+  .el-tab.active::after { content: ""; position: absolute; left: 20px; right: 20px; bottom: -1px; height: 2px; background: #409eff; }
+
+  .fee-label { color: #909399; font-size: 13px; }
+  .fee-value { color: #303133; font-size: 20px; font-weight: 500; margin-top: 8px; }
+  .fee-value-large { color: #303133; font-size: 24px; font-weight: 500; margin-top: 8px; }
+
+  .tooltip-wrap { position: relative; cursor: pointer; }
+  .tooltip-wrap .tooltip-body { display: none; position: absolute; top: 100%; right: 0; margin-top: 8px; background: #fff; border: 1px solid #ebeef5; border-radius: 4px; padding: 12px 16px; box-shadow: 0 2px 12px 0 rgba(0,0,0,.1); z-index: 10; white-space: nowrap; font-size: 13px; line-height: 22px; color: #606266; }
+  .tooltip-wrap.open .tooltip-body { display: block; }
+
+  .party-label { color: #909399; }
+  .party-value { color: #303133; font-size: 22px; font-weight: 500; }
+
+  .tag-after { display: inline-flex; align-items: center; padding: 2px 10px; font-size: 12px; color: #606266; background: #f4f4f5; border: 1px solid #e9e9eb; border-radius: 4px; }
+  .tag-verified { color: #67c23a; font-size: 12px; }
+  .tag-unverified { color: #67c23a; font-size: 12px; }
+
+  .dropdown-wrap { position: relative; }
+  .dropdown-menu { display: none; position: absolute; top: 100%; right: 0; margin-top: 4px; background: #fff; border: 1px solid #ebeef5; border-radius: 4px; box-shadow: 0 2px 12px 0 rgba(0,0,0,.1); min-width: 140px; z-index: 10; padding: 6px 0; }
+  .dropdown-wrap.open .dropdown-menu { display: block; }
+  .dropdown-menu a { display: block; padding: 8px 16px; color: #606266; font-size: 13px; cursor: pointer; }
+  .dropdown-menu a:hover { background: #ecf5ff; color: #409eff; }
+</style>
+</head>
+<body>
+
+<div class="flex min-h-screen flex-col">
+
+  <!-- Header -->
+  <header class="ant-header flex items-center justify-between px-4">
+    <div class="flex items-center gap-4 text-sm text-slate-600">
+      <i data-lucide="menu" class="w-5 h-5 cursor-pointer text-slate-500"></i>
+      <div class="flex items-center gap-1">
+        <i data-lucide="home" class="w-3.5 h-3.5 text-slate-400"></i>
+        <a href="bms-orders.html" class="hover:text-blue-500">首页</a>
+        <span class="text-slate-300">/</span>
+        <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-slate-400"></i>
+        <a href="bms-orders.html" class="hover:text-blue-500">业务数据</a>
+        <span class="text-slate-300">/</span>
+        <a href="bms-orders.html" class="hover:text-blue-500">订单列表</a>
+        <span class="text-slate-300">/</span>
+        <span class="breadcrumb-current">订单详情</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <i data-lucide="download" class="w-4 h-4 text-blue-500 cursor-pointer"></i>
+      <div class="flex items-center gap-2 cursor-pointer">
+        <div class="w-7 h-7 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center">
+          <i data-lucide="user" class="w-4 h-4 text-slate-500"></i>
+        </div>
+        <span class="text-sm text-slate-600">cpylj</span>
+        <i data-lucide="chevron-down" class="w-3 h-3 text-slate-400"></i>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 p-4 overflow-auto">
+
+    <!-- Top header card -->
+    <div class="ant-card p-5 mb-3">
+      <div class="flex items-start justify-between">
+        <div class="flex items-start gap-4">
+          <div class="w-12 h-12 rounded flex items-center justify-center" style="background:#fbbf24">
+            <i data-lucide="file-text" class="w-6 h-6 text-white"></i>
+          </div>
+          <div>
+            <div class="flex items-center gap-4">
+              <h1 id="hdrPlate" class="text-xl font-semibold text-slate-800">鲁AF64114</h1>
+              <span id="hdrDeal" class="text-sm text-slate-400">2026-04-13 10:37</span>
+            </div>
+            <div id="hdrModel" class="text-sm text-slate-500 mt-1">坦克 坦克400新能源 2.0T DHT Hi4</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="dropdown-wrap" id="moreWrap">
+            <button class="el-btn" onclick="document.getElementById('moreWrap').classList.toggle('open')">
+              更多<i data-lucide="chevron-down" class="w-3 h-3"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a>复制订单号</a>
+              <a>作废订单</a>
+              <a>导出详情</a>
+            </div>
+          </div>
+          <button class="el-btn">查看拍卖页面</button>
+          <button class="el-btn">查看合同</button>
+          <button class="el-btn">打印收款单</button>
+          <button class="el-btn">打印成交确认书</button>
+        </div>
+      </div>
+
+      <!-- Summary row -->
+      <div class="grid grid-cols-4 gap-6 mt-6">
+        <!-- 订单状态 -->
+        <div>
+          <div class="info-label mb-2">订单状态</div>
+          <div id="orderStatus" class="text-2xl font-semibold text-slate-800">未付款</div>
+        </div>
+
+        <!-- 基础信息 -->
+        <div>
+          <div class="info-label mb-3">基础信息</div>
+          <div class="space-y-2">
+            <div class="flex"><span class="info-label w-20">门店:</span><span class="info-link">长城02</span></div>
+            <div class="flex"><span class="info-label w-20">门店类型:</span><span class="info-value">合营</span></div>
+            <div class="flex"><span class="info-label w-20">评估师:</span><span class="info-value">查验经理001</span></div>
+            <div class="flex"><span class="info-label w-20">检测员:</span><span class="info-value"></span></div>
+            <div class="flex"><span class="info-label w-20">销售渠道:</span><span class="info-value">拍卖大厅</span></div>
+          </div>
+        </div>
+
+        <!-- 过户信息 -->
+        <div>
+          <div class="info-label mb-3">过户信息</div>
+          <div class="space-y-2">
+            <div class="flex"><span class="info-label w-24">过户状态:</span><span class="info-value">未接收</span></div>
+            <div class="flex"><span class="info-label w-24">过户服务站:</span><span class="info-value">唯普白云服务中心</span></div>
+            <div class="flex"><span class="info-label w-24">预约过户时间:</span><span class="info-value"></span></div>
+            <div class="flex mt-2"><span class="info-link">过户详情</span></div>
+          </div>
+        </div>
+
+        <!-- 售后信息 -->
+        <div>
+          <div class="info-label mb-3">售后信息</div>
+          <div class="mb-4"><span class="tag-after">04-15 售后</span></div>
+          <div class="info-label mb-2">调账信息</div>
+          <div><span class="info-link">发起调账</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tabs card -->
+    <div class="ant-card mb-3">
+      <div class="el-tabs px-2">
+        <div class="el-tab active">款项信息</div>
+        <div class="el-tab">基本信息</div>
+        <div class="el-tab">拍卖信息</div>
+        <div class="el-tab">车辆照片</div>
+        <div class="el-tab">收车信息</div>
+        <div class="el-tab">查看记录</div>
+        <div class="el-tab">出价记录</div>
+      </div>
+    </div>
+
+    <!-- Fees row -->
+    <div class="grid grid-cols-12 gap-3 mb-3">
+      <!-- 订单总价 -->
+      <div class="ant-card p-5 col-span-3 flex flex-col justify-between">
+        <div>
+          <div class="fee-label">订单总价</div>
+          <div id="totalPrice" class="fee-value-large">¥ 11,499.00</div>
+        </div>
+        <div class="mt-6"><span class="info-link">结算日志</span></div>
+      </div>
+
+      <!-- 明细 -->
+      <div class="ant-card p-5 col-span-9 relative">
+        <div class="grid grid-cols-5 gap-4">
+          <div>
+            <div class="fee-label">成交价</div>
+            <div id="dealPrice" class="fee-value">¥ 10,199.00</div>
+          </div>
+          <div>
+            <div class="fee-label">手续费</div>
+            <div class="fee-value">¥ 1,000.00</div>
+          </div>
+          <div>
+            <div class="fee-label">平台使用费</div>
+            <div class="fee-value">¥ 300.00</div>
+          </div>
+          <div>
+            <div class="fee-label">评估费</div>
+            <div class="fee-value">¥ 0.00</div>
+          </div>
+          <div class="tooltip-wrap open" id="compFeeWrap" onmouseenter="document.getElementById('compFeeWrap').classList.add('open')" onmouseleave="document.getElementById('compFeeWrap').classList.remove('open')">
+            <div class="fee-label flex items-center gap-1">综合服务费<i data-lucide="info" class="w-3 h-3 text-slate-400"></i></div>
+            <div class="fee-value">¥ 0.00</div>
+            <div class="tooltip-body">
+              <div>过户服务费:0.00元</div>
+              <div>查验费: 0.00元</div>
+              <div>交付费: 0.00元</div>
+              <div>交付服务费: 0.00元</div>
+              <div>其他费用:0.00元</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Parties row -->
+    <div class="grid grid-cols-5 gap-3">
+      <!-- 买家 -->
+      <div class="ant-card p-5">
+        <div class="text-slate-800 font-medium mb-4">买家</div>
+        <div class="party-label">应付款</div>
+        <div id="buyerPay" class="party-value mt-2">¥ 11,499.00</div>
+        <div class="mt-4 space-y-2 text-xs">
+          <div class="flex justify-between">
+            <span><span class="info-label">买家:</span> <span class="info-link">张三143</span></span>
+            <span class="tag-verified">已验证</span>
+          </div>
+          <div><span class="info-label">可用余额:</span> <span class="info-value">48,000.00</span></div>
+          <div><span class="info-label">总金额:</span> <span class="info-value">50,000.00</span></div>
+          <div><span class="info-label">最近入金记录:</span> <span class="info-link">查看</span></div>
+        </div>
+        <div class="mt-4">
+          <button class="el-btn">买家付款</button>
+        </div>
+      </div>
+
+      <!-- 车主/卖家 -->
+      <div class="ant-card p-5">
+        <div class="text-slate-800 font-medium mb-4">车主/卖家</div>
+        <div class="party-label">应收款</div>
+        <div class="party-value mt-2">¥ 0.00</div>
+        <div class="mt-4 text-xs">
+          <div class="flex justify-between">
+            <span><span class="info-label">车主/卖家:</span> <span class="info-value">测试</span></span>
+            <span class="tag-unverified">未验证</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 门店 -->
+      <div class="ant-card p-5">
+        <div class="text-slate-800 font-medium mb-4">门店</div>
+        <div class="party-label">应收款</div>
+        <div id="storePay" class="party-value mt-2">¥ 10,199.00</div>
+        <div class="mt-4 text-xs">
+          <div><span class="info-label">门店:</span> <span class="info-link">CG02</span></div>
+        </div>
+        <div class="mt-6">
+          <button class="el-btn">结算方案</button>
+        </div>
+      </div>
+
+      <!-- 服务商 -->
+      <div class="ant-card p-5">
+        <div class="text-slate-800 font-medium mb-4">服务商</div>
+        <div class="party-label">应收款</div>
+        <div class="party-value mt-2">¥ 0.00</div>
+      </div>
+
+      <!-- 唯普毛利 -->
+      <div class="ant-card p-5">
+        <div class="text-slate-800 font-medium mb-4">唯普毛利</div>
+        <div class="party-label">应收款</div>
+        <div id="profit" class="party-value mt-2">¥ 1,300.00</div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<div class="fixed top-2 right-4 z-50">
+  <a href="../index.html" class="px-3 py-1 bg-white border border-slate-200 rounded shadow-sm text-xs text-slate-600 hover:bg-slate-50">← Demo 导航</a>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  // Populate from query params so each row in list opens its own detail
+  const qs = new URLSearchParams(location.search);
+  const get = (k, def) => qs.get(k) || def;
+  const fmt = (n) => "¥ " + Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  const plate = get("plate", "鲁AF64114");
+  const model = get("model", "坦克 坦克400新能源 2.0T DHT Hi4");
+  const deal = get("deal", "2026-04-13 10:37");
+  const total = Number(get("total", "11499.00"));
+  const price = Number(get("price", "10199.00"));
+  const fee = Number(get("fee", "1300.00"));
+  const payStatus = get("payStatus", "未收车款");
+  const orderStatus = get("orderStatus", "订单未完成");
+
+  document.getElementById("hdrPlate").textContent = plate;
+  document.getElementById("hdrModel").textContent = model;
+  document.getElementById("hdrDeal").textContent = deal;
+  document.getElementById("totalPrice").textContent = fmt(total);
+  document.getElementById("dealPrice").textContent = fmt(price);
+  document.getElementById("buyerPay").textContent = fmt(total);
+  document.getElementById("storePay").textContent = fmt(price);
+  document.getElementById("profit").textContent = fmt(fee);
+
+  // Order status display: 未付款 if 未收车款, otherwise 已付款
+  let statusText = "未付款";
+  if (payStatus === "已收车款" && orderStatus === "已完成已清算") statusText = "已完成";
+  else if (payStatus === "已收车款") statusText = "已付款";
+  document.getElementById("orderStatus").textContent = statusText;
+
+  document.title = `订单详情 · ${plate} · 唯普汽车`;
+
+  lucide.createIcons();
+</script>
+</body>
+</html>

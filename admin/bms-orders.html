@@ -54,6 +54,7 @@
   .el-table { width: 100%; border-collapse: collapse; font-size: 13px; color: #606266; }
   .el-table thead th { background: #f5f7fa; color: #909399; font-weight: 500; padding: 10px 10px; border-bottom: 1px solid #ebeef5; text-align: center; white-space: nowrap; }
   .el-table tbody td { padding: 10px 10px; border-bottom: 1px solid #ebeef5; text-align: center; vertical-align: middle; }
+  .el-table tbody tr { cursor: pointer; }
   .el-table tbody tr:hover { background: #f5f7fa; }
   .plate-cell { display: inline-flex; align-items: center; gap: 4px; color: #606266; }
   .plate-cell svg { color: #e6a23c; }
@@ -300,9 +301,19 @@
   const isPaid = (o) => o.payStatus === "已收车款";
   const isDone = (o) => o.orderStatus === "已完成已清算";
 
+  const buildDetailUrl = (o) => {
+    const params = new URLSearchParams({
+      plate: o.plate, model: o.model, deal: o.deal,
+      total: o.total, price: o.price, fee: o.fee,
+      payStatus: o.payStatus, orderStatus: o.orderStatus,
+      seller: o.seller, store: o.store, buyer: o.buyer,
+    });
+    return `bms-order-detail.html?${params.toString()}`;
+  };
+
   const body = document.getElementById("orderBody");
   body.innerHTML = orders.map(o => `
-    <tr>
+    <tr onclick="location.href='${buildDetailUrl(o)}'">
       <td>
         <span class="plate-cell">
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M5 16 3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/></svg>
