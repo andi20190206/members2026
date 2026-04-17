@@ -13,20 +13,9 @@
   .lv-text { background: linear-gradient(180deg, #fff 0%, #e0e7ff 50%, #a5b4fc 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 900; letter-spacing: -2px; }
   .benefit-icon-bg { background: linear-gradient(135deg, rgba(139,92,246,.15), rgba(99,102,241,.1)); border: 1px solid rgba(139,92,246,.2); }
   .card-shine { background: linear-gradient(135deg, #5b3fd9 0%, #8b5cf6 100%); }
-
-  /* 顶部 Tab 切换 */
-  .main-tab { flex: 1; padding: 14px 0; text-align: center; font-size: 14px; font-weight: 600; color: #64748b; position: relative; cursor: pointer; transition: color .2s; }
-  .main-tab.active { color: #7c3aed; }
-  .main-tab.active::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:32px; height:3px; background:linear-gradient(90deg,#8b5cf6,#6366f1); border-radius:3px; }
-
-  /* 等级卡片 */
-  .lv-card { position: relative; overflow: hidden; }
-  .lv-card::before { content:''; position:absolute; top:-20px; right:-20px; width:80px; height:80px; border-radius:50%; opacity:.12; }
-  .lv-card.lv0::before { background:#94a3b8; }
-  .lv-card.lv1::before { background:#0ea5e9; }
-  .lv-card.lv2::before { background:#8b5cf6; }
-  .lv-card.lv3::before { background:#f59e0b; }
-  .lv-card.current { box-shadow: 0 0 0 2px rgba(139,92,246,.3); }
+  .lv-pill { color: rgba(255,255,255,.5); cursor: pointer; transition: all .2s; }
+  .lv-pill.active { color: #fff; font-weight: 700; }
+  .lv-pill:hover { color: rgba(255,255,255,.8); }
 </style>
 </head>
 <body>
@@ -35,137 +24,107 @@
 
   <div class="hero-bg pt-2">
     <div class="flex items-center justify-between px-5 py-2 text-white text-sm"><span>19:50</span><span class="flex items-center gap-1"><i data-lucide="bell" class="w-3 h-3"></i><i data-lucide="wifi" class="w-3 h-3"></i><i data-lucide="battery-full" class="w-3 h-3"></i><span class="text-xs">85%</span></span></div>
-    <div class="flex items-center justify-between px-5 pb-3">
+    <div class="flex items-center justify-between px-5 pb-4">
       <a onclick="smartBack(this.href);return false" href="home.html" class="text-white cursor-pointer"><i data-lucide="chevron-left" class="w-6 h-6"></i></a>
-      <span class="text-white text-base font-semibold">会员中心</span>
       <button class="text-white"><i data-lucide="more-horizontal" class="w-5 h-5"></i></button>
     </div>
 
+    <!-- Level switcher: V0-V3 可点击 -->
+    <div class="flex items-center justify-center gap-8 pb-4 text-sm" id="lvSwitcher">
+      <span class="lv-pill" onclick="switchLevel(0)">V0</span>
+      <span class="lv-pill" onclick="switchLevel(1)">V1</span>
+      <span class="lv-pill active" onclick="switchLevel(2)">V2<span class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-white rounded-full" id="dot"></span></span>
+      <span class="lv-pill" onclick="switchLevel(3)">V3</span>
+    </div>
+
     <!-- Hero 大等级 -->
-    <div class="px-6 pb-8 flex items-end gap-6">
-      <div class="flex-none"><div class="lv-text text-[96px] leading-none" id="heroLv">V2</div></div>
+    <div class="px-6 pb-10 flex items-end gap-6">
+      <div class="flex-none"><div class="lv-text text-[110px] leading-none" id="heroLv">V2</div></div>
       <div class="flex-1 text-white pb-3">
-        <div class="text-xs text-indigo-200 mb-1" id="heroName">银卡会员</div>
         <div class="text-xs text-indigo-200 mb-3">有效期至 2026-06-30</div>
-        <div class="text-xs text-indigo-200">近 3 月成交 <span class="text-white font-semibold">12 台</span> <span id="heroNextHint"></span></div>
-        <div class="mt-2 h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-300 to-yellow-400" id="heroProgress" style="width: 40%"></div></div>
-        <div class="text-[11px] mt-1.5 text-indigo-200" id="heroNextTip"></div>
+        <div class="text-xs text-indigo-200">近 3 月成交 <span class="text-white font-semibold">12 台</span> / V3 需 30 台</div>
+        <div class="mt-2 h-1.5 bg-white/10 rounded-full overflow-hidden"><div class="h-full bg-gradient-to-r from-amber-300 to-yellow-400" style="width: 40%"></div></div>
+        <div class="text-[11px] mt-1.5 text-indigo-200">还需成交 <span class="text-amber-300 font-semibold">18 台</span> 升 V3</div>
       </div>
     </div>
   </div>
 
-  <!-- 我的唯金币 -->
+  <!-- 金币余额卡 -->
   <div class="px-4 -mt-4 relative z-10">
-    <div class="card-shine rounded-2xl p-4 text-white shadow-xl">
-      <div class="flex items-center justify-between mb-1">
-        <div class="flex items-center gap-2">
-          <i data-lucide="coins" class="w-4 h-4 text-amber-300"></i>
-          <span class="text-sm font-bold">我的唯金币</span>
-        </div>
-        <a href="coins.html" class="text-xs opacity-90 flex items-center">明细 <i data-lucide="chevron-right" class="w-3 h-3"></i></a>
+    <div class="card-shine rounded-2xl p-5 text-white shadow-xl">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs opacity-80 flex items-center gap-1"><i data-lucide="coins" class="w-3.5 h-3.5 text-amber-300"></i>我的金币</span>
+        <a href="coins.html" class="text-xs opacity-90">查看明细 ›</a>
       </div>
-      <div class="flex items-end justify-between mt-2">
+      <div class="flex items-end justify-between">
         <div>
-          <div class="text-3xl font-bold tracking-tight">356</div>
-          <div class="text-[11px] opacity-75 mt-0.5">30 天内 <span class="text-amber-300 font-semibold">50 金币</span> 即将过期</div>
+          <div class="text-4xl font-bold tracking-tight">356</div>
+          <div class="text-xs opacity-75 mt-1">30 天内 <span class="text-amber-300 font-semibold">50 金币</span> 即将过期</div>
         </div>
         <a href="mall.html" class="px-4 py-2 bg-white/20 backdrop-blur rounded-full text-xs font-medium">立即兑换</a>
       </div>
     </div>
   </div>
 
-  <!-- ============ Tabs:等级权益 / 金币规则 ============ -->
-  <div class="sticky top-0 z-20 bg-white border-b border-slate-100 mt-5">
-    <div class="flex">
-      <div class="main-tab active" data-tab="levels" onclick="switchTab('levels')">
-        <i data-lucide="crown" class="w-4 h-4 inline-block align-text-bottom mr-1"></i>各等级权益一览
+  <!-- 可享权益 -->
+  <div class="px-4 mt-6" id="benefitsSection">
+    <div class="flex items-center justify-between mb-3">
+      <div class="flex items-center gap-2">
+        <div class="h-4 w-0.5 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-full"></div>
+        <span class="text-sm font-bold text-slate-800" id="benefitsTitle">可享 6 项权益</span>
       </div>
-      <div class="main-tab" data-tab="coins" onclick="switchTab('coins')">
-        <i data-lucide="coins" class="w-4 h-4 inline-block align-text-bottom mr-1"></i>金币怎么拿
+      <a href="mall.html" class="text-xs text-violet-600">全部 ›</a>
+    </div>
+    <div class="grid grid-cols-4 gap-3" id="benefitsGrid">
+      <!-- V2 权益(JS 动态切换) -->
+    </div>
+  </div>
+
+  <!-- 快捷入口 -->
+  <div class="px-4 mt-6">
+    <div class="grid grid-cols-2 gap-3">
+      <a href="level.html" class="bg-white border border-slate-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+        <div class="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center text-indigo-500"><i data-lucide="trending-up" class="w-5 h-5"></i></div>
+        <div><div class="text-sm font-semibold text-slate-800">等级成长</div><div class="text-xs text-slate-500">距 V3 差 18 台</div></div>
+      </a>
+      <a href="my-rewards.html" class="bg-white border border-slate-100 rounded-2xl p-4 flex items-center gap-3 shadow-sm">
+        <div class="w-10 h-10 rounded-xl bg-rose-50 flex items-center justify-center text-rose-500"><i data-lucide="ticket" class="w-5 h-5"></i></div>
+        <div><div class="text-sm font-semibold text-slate-800">我的权益</div><div class="text-xs text-slate-500">3 张可用</div></div>
+      </a>
+    </div>
+  </div>
+
+  <!-- V2 会员精选推荐 -->
+  <div class="px-4 mt-6 pb-8">
+    <div class="flex items-center gap-2 mb-3">
+      <div class="h-4 w-0.5 bg-gradient-to-b from-violet-500 to-indigo-500 rounded-full"></div>
+      <span class="text-sm font-bold text-slate-800" id="recoTitle">V2 会员精选推荐</span>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div class="bg-gradient-to-br from-violet-100 to-indigo-50 rounded-2xl p-4 border border-violet-100">
+        <div class="text-sm font-bold text-slate-800 mb-1">过户 9.5 折卡</div>
+        <div class="text-xs text-slate-500 mb-3">过户/复检 9.5 折优惠</div>
+        <span class="text-[11px] px-2 py-0.5 bg-violet-600 text-white rounded-full">200 金币</span>
+      </div>
+      <div class="bg-gradient-to-br from-amber-100 to-yellow-50 rounded-2xl p-4 border border-amber-100">
+        <div class="text-sm font-bold text-slate-800 mb-1">车辆中标价查询</div>
+        <div class="text-xs text-slate-500 mb-3">查历史成交参考价</div>
+        <span class="text-[11px] px-2 py-0.5 bg-amber-500 text-white rounded-full">200 金币</span>
+      </div>
+      <div class="bg-gradient-to-br from-emerald-100 to-teal-50 rounded-2xl p-4 border border-emerald-100">
+        <div class="text-sm font-bold text-slate-800 mb-1">行情查询卡</div>
+        <div class="text-xs text-slate-500 mb-3">实时市场行情</div>
+        <span class="text-[11px] px-2 py-0.5 bg-teal-500 text-white rounded-full">200 金币</span>
+      </div>
+      <div class="bg-gradient-to-br from-pink-100 to-rose-50 rounded-2xl p-4 border border-rose-100">
+        <div class="text-sm font-bold text-slate-800 mb-1">保留价查询</div>
+        <div class="text-xs text-slate-500 mb-3">查车源底价</div>
+        <span class="text-[11px] px-2 py-0.5 bg-rose-500 text-white rounded-full">200 金币</span>
       </div>
     </div>
   </div>
 
-  <!-- ============ Tab 1:各等级权益一览 ============ -->
-  <div id="tab-levels" class="tab-panel pb-24">
-
-    <!-- 说明条 -->
-    <div class="mx-4 mt-4 p-3 rounded-xl bg-gradient-to-r from-violet-50 to-indigo-50 border border-violet-100 flex items-start gap-2">
-      <i data-lucide="info" class="w-4 h-4 text-violet-500 mt-0.5 flex-none"></i>
-      <div class="text-[11px] text-slate-600 leading-relaxed">
-        会员等级共 <strong class="text-violet-700">4 档(V0 - V3)</strong>,根据商户<strong>近 3 个月累计成交台数</strong>与<strong>账户金额</strong>评定,<strong>满足任一条件</strong>即可。每月 1 日重新定级,等级越高,权益越丰富。
-      </div>
-    </div>
-
-    <!-- 全部等级卡片 -->
-    <div class="px-4 mt-4 space-y-3" id="levelsAllContainer"></div>
-
-  </div>
-
-  <!-- ============ Tab 2:金币怎么拿 ============ -->
-  <div id="tab-coins" class="tab-panel pb-24 hidden">
-
-    <!-- 什么是唯金币 -->
-    <div class="mx-4 mt-4 p-4 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200">
-      <div class="flex items-center gap-2 mb-2">
-        <div class="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white"><i data-lucide="coins" class="w-4 h-4"></i></div>
-        <span class="text-sm font-bold text-slate-800">什么是唯金币?</span>
-      </div>
-      <div class="text-xs text-slate-600 leading-relaxed">唯金币是唯普汽车平台的<strong>商户积分体系</strong>,根据商户在平台的交易与互动行为发放,可用于<strong>兑换平台权益卡</strong>或享受<strong>折扣</strong>。</div>
-      <div class="grid grid-cols-3 gap-2 mt-3 text-center">
-        <div class="bg-white rounded-lg p-2 border border-amber-100">
-          <div class="text-amber-600 text-sm font-bold">0.093 元</div>
-          <div class="text-[10px] text-slate-500">1 金币等值</div>
-        </div>
-        <div class="bg-white rounded-lg p-2 border border-amber-100">
-          <div class="text-amber-600 text-sm font-bold">12 月</div>
-          <div class="text-[10px] text-slate-500">有效期</div>
-        </div>
-        <div class="bg-white rounded-lg p-2 border border-amber-100">
-          <div class="text-amber-600 text-sm font-bold">FIFO</div>
-          <div class="text-[10px] text-slate-500">先到期先消耗</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- 获取方式 -->
-    <div class="px-4 mt-5">
-      <div class="flex items-center gap-2 mb-3">
-        <div class="h-4 w-0.5 bg-gradient-to-b from-amber-400 to-orange-500 rounded-full"></div>
-        <span class="text-sm font-bold text-slate-800">获取方式</span>
-        <span class="text-[10px] text-slate-400">5 大类 · 14 项行为</span>
-      </div>
-      <div class="space-y-3" id="coinEarningGroups"></div>
-    </div>
-
-    <!-- 消耗方式 -->
-    <div class="px-4 mt-5">
-      <div class="flex items-center gap-2 mb-3">
-        <div class="h-4 w-0.5 bg-gradient-to-b from-rose-500 to-pink-500 rounded-full"></div>
-        <span class="text-sm font-bold text-slate-800">消耗方式</span>
-      </div>
-
-      <!-- 消耗方式 A:按等级折扣兑换 -->
-      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 mb-3">
-        <div class="text-sm font-semibold text-slate-800 mb-2 flex items-center gap-1.5"><i data-lucide="tag" class="w-4 h-4 text-rose-500"></i>按等级享兑换折扣</div>
-        <div class="text-[11px] text-slate-500 mb-3">同一张权益卡,等级越高消耗的金币越少</div>
-        <div class="grid grid-cols-4 gap-2 text-center" id="discountByLevel"></div>
-      </div>
-
-      <!-- 消耗方式 B:权益卡商城 -->
-      <div class="bg-white rounded-2xl border border-slate-100 shadow-sm p-4">
-        <div class="flex items-center justify-between mb-2">
-          <div class="text-sm font-semibold text-slate-800 flex items-center gap-1.5"><i data-lucide="shopping-bag" class="w-4 h-4 text-rose-500"></i>可兑换权益卡</div>
-          <a href="mall.html" class="text-xs text-rose-500 flex items-center">去商城 <i data-lucide="chevron-right" class="w-3 h-3"></i></a>
-        </div>
-        <div class="text-[11px] text-slate-500 mb-3">所有等级商户均可兑换(按等级享折扣)</div>
-        <div class="grid grid-cols-2 gap-2" id="redeemList"></div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="sticky bottom-0 bg-white border-t border-slate-100 px-2 py-2 grid grid-cols-5 text-[11px] text-slate-500 z-30">
+  <div class="sticky bottom-0 bg-white border-t border-slate-100 px-2 py-2 grid grid-cols-5 text-[11px] text-slate-500">
     <a href="home.html" class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="home" class="w-5 h-5"></i>首页</a>
     <a class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="car" class="w-5 h-5"></i>全部车源</a>
     <a class="flex flex-col items-center gap-0.5 py-1"><i data-lucide="target" class="w-5 h-5"></i>专场</a>
@@ -181,145 +140,49 @@
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script src="_smart-back.js"></script>
-<script src="../shared/member-config.js"></script>
 <script>
-(function () {
-  var CFG = window.MEMBER_CONFIG;
-  var CURRENT_DEALS = 12; // Demo:当前商户近 3 月成交台数
-  var currentLv = CFG.getLevelByDeals(CURRENT_DEALS);
-  var currentIdx = CFG.levels.indexOf(currentLv);
+// 各等级权益数据(lucide 图标名)
+const levelData = {
+  0: { lv: 'V0', benefits: [
+    {icon:'search',label:'基础查询'}, {icon:'bar-chart-3',label:'行情查询'}, {icon:'file-text',label:'行驶证查询'}
+  ]},
+  1: { lv: 'V1', benefits: [
+    {icon:'headphones',label:'1V1 客服'}, {icon:'briefcase',label:'销售顾问'}, {icon:'search',label:'基础查询'},
+    {icon:'scroll-text',label:'历史数据'}, {icon:'target',label:'保留价'}, {icon:'car-front',label:'碰撞报告'},
+    {icon:'wrench',label:'维保出险'}, {icon:'bar-chart-3',label:'行情查询'}
+  ]},
+  2: { lv: 'V2', benefits: [
+    {icon:'headphones',label:'1V1 客服'}, {icon:'briefcase',label:'销售顾问'}, {icon:'tag',label:'9.5 折'},
+    {icon:'search',label:'基础查询'}, {icon:'scroll-text',label:'历史数据'}, {icon:'target',label:'保留价'},
+    {icon:'car-front',label:'碰撞报告'}, {icon:'wrench',label:'维保出险'}
+  ]},
+  3: { lv: 'V3', benefits: [
+    {icon:'headphones',label:'1V1 客服'}, {icon:'briefcase',label:'销售顾问'}, {icon:'tag',label:'8 折'},
+    {icon:'undo-2',label:'无理由退车'}, {icon:'truck',label:'代送车上门'}, {icon:'square-parking',label:'免费停车'},
+    {icon:'search',label:'全量查询'}, {icon:'scroll-text',label:'历史数据'}
+  ]}
+};
 
-  // ───── Hero ─────
-  document.getElementById('heroLv').textContent = currentLv.short;
-  document.getElementById('heroName').textContent = currentLv.name;
-  var next = CFG.levels[currentIdx + 1];
-  if (next) {
-    var needed = Math.max(0, (next.threshold.dealsMin || 0) - CURRENT_DEALS);
-    document.getElementById('heroNextHint').textContent = '/ 升 ' + next.short + ' 需 ' + next.threshold.dealsMin + ' 台';
-    document.getElementById('heroNextTip').innerHTML = needed > 0
-      ? '还需成交 <span class="text-amber-300 font-semibold">' + needed + ' 台</span> 升 ' + next.short
-      : '已达 ' + next.short + ' 升级门槛';
-    document.getElementById('heroProgress').style.width = Math.min(100, Math.round(CURRENT_DEALS / next.threshold.dealsMin * 100)) + '%';
-  } else {
-    document.getElementById('heroNextHint').textContent = '· 已是最高等级';
-    document.getElementById('heroNextTip').textContent = '继续保持,享受金卡会员全部权益';
-    document.getElementById('heroProgress').style.width = '100%';
-  }
-
-  // ───── Tab 切换 ─────
-  window.switchTab = function (key) {
-    document.querySelectorAll('.main-tab').forEach(function (el) {
-      el.classList.toggle('active', el.dataset.tab === key);
-    });
-    document.getElementById('tab-levels').classList.toggle('hidden', key !== 'levels');
-    document.getElementById('tab-coins').classList.toggle('hidden', key !== 'coins');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // ───── Tab 1:各等级权益一览(全部 4 个等级完整展示)─────
-  function rangeText(t) {
-    if (t.dealsMax !== undefined && t.dealsMax > 0) return t.dealsMin + '-' + t.dealsMax + ' 台';
-    if (t.dealsMin === 0 && t.dealsMax === 0) return '0 台(无成交)';
-    return '≥ ' + t.dealsMin + ' 台';
-  }
-  document.getElementById('levelsAllContainer').innerHTML = CFG.levels.map(function (lv, i) {
-    var isCurrent = lv.code === currentLv.code;
-    var cardCls = 'lv-card lv' + i + (isCurrent ? ' current' : '');
-    return '<div class="' + cardCls + ' bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">' +
-             // 头部
-             '<div class="flex items-center justify-between px-4 pt-4 pb-3 border-b border-slate-100">' +
-               '<div class="flex items-center gap-3">' +
-                 '<div class="w-12 h-12 rounded-xl flex items-center justify-center text-white font-black text-lg shadow" style="background:linear-gradient(135deg,' + lv.gradient[0] + ',' + lv.gradient[1] + ')">' + lv.short + '</div>' +
-                 '<div>' +
-                   '<div class="text-sm font-bold text-slate-800">' + lv.name + (isCurrent ? ' <span class="ml-1 text-[10px] px-1.5 py-0.5 bg-violet-100 text-violet-700 rounded">当前</span>' : '') + '</div>' +
-                   '<div class="text-[11px] text-slate-500 mt-0.5">' + lv.feature + '</div>' +
-                 '</div>' +
-               '</div>' +
-               '<div class="text-right">' +
-                 '<div class="text-[10px] text-slate-400">商户数</div>' +
-                 '<div class="text-sm font-bold text-slate-700">' + lv.merchantCount.toLocaleString() + '</div>' +
-               '</div>' +
-             '</div>' +
-             // 门槛条件
-             '<div class="px-4 py-3 bg-slate-50/60">' +
-               '<div class="text-[10px] text-slate-400 mb-1.5 font-medium">定级门槛(满足任一即可)</div>' +
-               '<div class="flex items-center gap-2 flex-wrap">' +
-                 '<span class="inline-flex items-center gap-1 px-2 py-1 bg-white border border-slate-200 rounded text-[11px] text-slate-700"><i data-lucide="wallet" class="w-3 h-3 text-emerald-500"></i>账户金额 ' + (lv.threshold.accountMax ? '< ' + lv.threshold.accountMax : '≥ ' + (lv.threshold.accountMin || 0)) + ' 元</span>' +
-                 '<span class="text-[10px] text-slate-400">或</span>' +
-                 '<span class="inline-flex items-center gap-1 px-2 py-1 bg-white border border-slate-200 rounded text-[11px] text-slate-700"><i data-lucide="car" class="w-3 h-3 text-violet-500"></i>近 3 月成交 ' + rangeText(lv.threshold) + '</span>' +
-               '</div>' +
-             '</div>' +
-             // 权益列表
-             '<div class="px-4 py-3">' +
-               '<div class="text-[10px] text-slate-400 mb-2 font-medium">享有权益(' + lv.benefits.length + ' 项)</div>' +
-               '<div class="space-y-1.5">' +
-                 lv.benefits.map(function (b) {
-                   return '<div class="flex items-center gap-2">' +
-                            '<div class="w-7 h-7 rounded-lg benefit-icon-bg flex items-center justify-center text-violet-600 flex-none"><i data-lucide="' + b.icon + '" class="w-3.5 h-3.5"></i></div>' +
-                            '<div class="flex-1 min-w-0">' +
-                              '<div class="text-xs font-medium text-slate-800">' + b.label + '</div>' +
-                              (b.desc ? '<div class="text-[10px] text-slate-400 truncate">' + b.desc + '</div>' : '') +
-                            '</div>' +
-                          '</div>';
-                 }).join('') +
-               '</div>' +
-             '</div>' +
-           '</div>';
-  }).join('');
-
-  // ───── Tab 2:金币获取方式(按 5 大类分组)─────
-  var colorMap = {
-    emerald: { bg: 'from-emerald-50 to-teal-50', border: 'border-emerald-100', text: 'text-emerald-700', icon: 'text-emerald-500' },
-    sky:     { bg: 'from-sky-50 to-blue-50',     border: 'border-sky-100',     text: 'text-sky-700',     icon: 'text-sky-500' },
-    violet:  { bg: 'from-violet-50 to-purple-50', border: 'border-violet-100', text: 'text-violet-700',  icon: 'text-violet-500' },
-    rose:    { bg: 'from-rose-50 to-pink-50',    border: 'border-rose-100',    text: 'text-rose-700',    icon: 'text-rose-500' },
-    amber:   { bg: 'from-amber-50 to-orange-50', border: 'border-amber-100',   text: 'text-amber-700',   icon: 'text-amber-500' }
-  };
-  document.getElementById('coinEarningGroups').innerHTML = CFG.coinEarning.map(function (g) {
-    var c = colorMap[g.color] || colorMap.amber;
-    return '<div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">' +
-             '<div class="px-4 py-2.5 bg-gradient-to-r ' + c.bg + ' ' + c.border + ' border-b flex items-center gap-2">' +
-               '<i data-lucide="' + g.icon + '" class="w-4 h-4 ' + c.icon + '"></i>' +
-               '<span class="text-xs font-bold ' + c.text + '">' + g.category + '</span>' +
-             '</div>' +
-             '<div class="divide-y divide-slate-50">' +
-               g.items.map(function (it) {
-                 return '<div class="flex items-start gap-3 px-4 py-2.5">' +
-                          '<div class="flex-1 min-w-0">' +
-                            '<div class="text-xs text-slate-800 font-medium leading-snug">' + it.action + '</div>' +
-                            (it.desc ? '<div class="text-[10px] text-slate-500 mt-0.5 leading-snug">' + it.desc + '</div>' : '') +
-                          '</div>' +
-                          '<div class="text-right flex-none">' +
-                            '<div class="text-sm font-bold text-amber-600 whitespace-nowrap">+' + it.coin + '</div>' +
-                            '<div class="text-[10px] text-slate-400 whitespace-nowrap">' + it.unit + '</div>' +
-                          '</div>' +
-                        '</div>';
-               }).join('') +
-             '</div>' +
-           '</div>';
-  }).join('');
-
-  // ───── 消耗方式 A:各等级兑换折扣 ─────
-  var discountMap = { LV0: '1:1', LV1: '1:1', LV2: '95 折', LV3: '8 折' };
-  document.getElementById('discountByLevel').innerHTML = CFG.levels.map(function (lv) {
-    return '<div class="bg-slate-50 rounded-lg py-2 px-1 border border-slate-100">' +
-             '<div class="text-[10px] text-slate-400">' + lv.short + ' ' + lv.name + '</div>' +
-             '<div class="text-sm font-bold mt-0.5" style="color:' + lv.color + '">' + (discountMap[lv.code] || '1:1') + '</div>' +
-           '</div>';
-  }).join('');
-
-  // ───── 消耗方式 B:可兑换权益卡 ─────
-  document.getElementById('redeemList').innerHTML = CFG.redeemableRewards.map(function (r) {
-    return '<div class="bg-gradient-to-br from-slate-50 to-white rounded-xl p-3 border border-slate-100">' +
-             '<div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-100 to-orange-100 text-amber-600 flex items-center justify-center mb-2"><i data-lucide="' + r.icon + '" class="w-4 h-4"></i></div>' +
-             '<div class="text-xs font-semibold text-slate-800 leading-tight">' + r.name + '</div>' +
-             '<div class="text-[10px] text-slate-400 mt-0.5 mb-1.5">' + r.scope + '</div>' +
-             '<span class="text-[11px] px-2 py-0.5 bg-amber-500 text-white rounded-full">' + r.coin + ' 金币</span>' +
-           '</div>';
-  }).join('');
-
+function switchLevel(idx) {
+  document.querySelectorAll('#lvSwitcher .lv-pill').forEach((p, i) => {
+    p.classList.toggle('active', i === idx);
+  });
+  const d = levelData[idx];
+  document.getElementById('heroLv').textContent = d.lv;
+  document.getElementById('benefitsTitle').textContent = '可享 ' + d.benefits.length + ' 项权益';
+  document.getElementById('recoTitle').textContent = d.lv + ' 会员精选推荐';
+  const grid = document.getElementById('benefitsGrid');
+  grid.innerHTML = d.benefits.map(b =>
+    '<div class="text-center">' +
+      '<div class="w-14 h-14 mx-auto rounded-2xl benefit-icon-bg flex items-center justify-center text-violet-600"><i data-lucide="' + b.icon + '" class="w-6 h-6"></i></div>' +
+      '<div class="text-xs text-slate-700 mt-2">' + b.label + '</div>' +
+    '</div>'
+  ).join('');
   lucide.createIcons();
-})();
+}
+
+switchLevel(2);
+lucide.createIcons();
 </script>
 
 </body>
