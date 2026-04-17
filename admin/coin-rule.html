@@ -72,93 +72,13 @@
         <span>所有发放规则的前提是:<strong>用户必须处于登录状态</strong>,未登录行为不计入金币发放</span>
       </div>
 
-      <!-- 金币发放规则 -->
+      <!-- 金币发放规则(由 shared/member-config.js 动态渲染,保持前后台同源)-->
       <div class="ant-card p-6 mb-5">
-        <div class="text-base font-semibold text-slate-800 mb-5 flex items-center gap-2"><i data-lucide="coins" class="w-5 h-5 text-amber-500"></i>金币发放规则</div>
-
-        <div class="grid grid-cols-3 gap-5">
-
-          <!-- 出价 -->
-          <div class="border border-slate-200 rounded-lg p-5">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <i data-lucide="gavel" class="w-6 h-6 text-sky-500"></i>
-                <span class="text-base font-semibold text-slate-800">出价</span>
-              </div>
-              <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-            </div>
-            <div class="space-y-3">
-              <div>
-                <label class="text-xs text-slate-500 block mb-1">发放金币数</label>
-                <div class="flex items-center gap-2">
-                  <input class="ant-input" value="1" type="number" style="max-width:100px">
-                  <span class="text-sm text-slate-500">枚 / 次</span>
-                </div>
-              </div>
-              <div class="text-xs bg-slate-50 p-3 rounded border border-slate-100">
-                <div class="font-medium text-slate-600 mb-1">去重维度</div>
-                <div class="text-slate-500">用户 ID × 车辆 ID(同一用户对同一台车多次出价只发 1 次)</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 转发 -->
-          <div class="border border-slate-200 rounded-lg p-5">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <i data-lucide="megaphone" class="w-6 h-6 text-violet-500"></i>
-                <span class="text-base font-semibold text-slate-800">转发朋友圈</span>
-              </div>
-              <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-            </div>
-            <div class="space-y-3">
-              <div>
-                <label class="text-xs text-slate-500 block mb-1">发放金币数</label>
-                <div class="flex items-center gap-2">
-                  <input class="ant-input" value="2" type="number" style="max-width:100px">
-                  <span class="text-sm text-slate-500">枚 / 次</span>
-                </div>
-              </div>
-              <div>
-                <label class="text-xs text-slate-500 block mb-1">每日转发上限(枚)</label>
-                <input class="ant-input" value="20" type="number" style="max-width:120px">
-              </div>
-              <div>
-                <label class="text-xs text-slate-500 block mb-1">总量上限(枚)</label>
-                <input class="ant-input" value="9999" type="number" style="max-width:120px">
-              </div>
-              <div class="text-xs bg-slate-50 p-3 rounded border border-slate-100">
-                <div class="font-medium text-slate-600 mb-1">去重维度</div>
-                <div class="text-slate-500">用户 ID × 车辆 ID · 必须登录</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 成交 -->
-          <div class="border border-slate-200 rounded-lg p-5">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-2">
-                <i data-lucide="wallet" class="w-6 h-6 text-emerald-500"></i>
-                <span class="text-base font-semibold text-slate-800">成交</span>
-              </div>
-              <label class="switch"><input type="checkbox" checked><span class="slider"></span></label>
-            </div>
-            <div class="space-y-3">
-              <div>
-                <label class="text-xs text-slate-500 block mb-1">发放金币数</label>
-                <div class="flex items-center gap-2">
-                  <input class="ant-input" value="50" type="number" style="max-width:100px">
-                  <span class="text-sm text-slate-500">枚 / 台</span>
-                </div>
-              </div>
-              <div class="text-xs bg-emerald-50 p-3 rounded border border-emerald-100">
-                <div class="font-medium text-emerald-700 mb-1">✓ 发放时机</div>
-                <div class="text-emerald-600">过户完成 或 付款完成后才发放,因此不存在"退款扣回"场景</div>
-              </div>
-            </div>
-          </div>
-
+        <div class="flex items-center justify-between mb-5">
+          <div class="text-base font-semibold text-slate-800 flex items-center gap-2"><i data-lucide="coins" class="w-5 h-5 text-amber-500"></i>金币发放规则</div>
+          <div class="text-xs text-slate-400">单位:1 金币 ≈ <span id="coinUnitYuan">0.093</span> 元 · 数据源:<code>shared/member-config.js</code></div>
         </div>
+        <div id="earningRulesContainer" class="space-y-4"></div>
       </div>
 
       <!-- 金币有效期 -->
@@ -167,9 +87,9 @@
         <div class="flex items-start gap-5">
           <div class="flex-1 max-w-md">
             <label class="text-xs text-slate-500 block mb-1">有效期(月)</label>
-            <input class="ant-input" value="12" type="number">
+            <input class="ant-input" id="validityMonthsInput" value="12" type="number">
             <div class="text-xs text-slate-400 mt-2">
-              金币自获得当月起,经过 <strong>12 个自然月</strong> 后到期清零。
+              金币自获得当月起,经过 <strong><span id="validityMonthsLabel">12</span> 个自然月</strong> 后到期清零。
             </div>
           </div>
           <div class="flex-1 bg-slate-50 rounded-lg p-4 text-sm">
@@ -237,5 +157,53 @@
   <a href="../index.html" class="px-3 py-1.5 bg-white border border-slate-200 rounded shadow-sm text-xs text-slate-600 hover:bg-slate-50">← Demo 导航</a>
 </div>
 
-<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script><script>lucide.createIcons();</script></body>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="../shared/member-config.js"></script>
+<script>
+(function () {
+  var CFG = window.MEMBER_CONFIG;
+  document.getElementById('coinUnitYuan').textContent = CFG.coin.unitYuan;
+  document.getElementById('validityMonthsInput').value = CFG.coin.validityMonths;
+  document.getElementById('validityMonthsLabel').textContent = CFG.coin.validityMonths;
+
+  var colorMap = {
+    emerald: 'text-emerald-600 bg-emerald-50 border-emerald-100',
+    sky: 'text-sky-600 bg-sky-50 border-sky-100',
+    violet: 'text-violet-600 bg-violet-50 border-violet-100',
+    rose: 'text-rose-600 bg-rose-50 border-rose-100',
+    amber: 'text-amber-600 bg-amber-50 border-amber-100'
+  };
+  document.getElementById('earningRulesContainer').innerHTML = CFG.coinEarning.map(function (g) {
+    var cls = colorMap[g.color] || 'text-slate-600 bg-slate-50 border-slate-100';
+    return '<div class="border border-slate-200 rounded-lg overflow-hidden">' +
+             '<div class="px-4 py-2.5 ' + cls + ' border-b flex items-center gap-2 text-sm font-semibold">' +
+               '<i data-lucide="' + g.icon + '" class="w-4 h-4"></i>' + g.category +
+               '<span class="ml-auto text-xs font-normal text-slate-400">' + g.items.length + ' 条规则</span>' +
+             '</div>' +
+             '<table class="w-full text-sm">' +
+               '<thead class="text-xs text-slate-500 bg-slate-50">' +
+                 '<tr><th class="text-left px-4 py-2 font-medium">具体行为</th>' +
+                 '<th class="text-left px-4 py-2 font-medium" style="width:130px">金币值</th>' +
+                 '<th class="text-left px-4 py-2 font-medium" style="width:110px">单位</th>' +
+                 '<th class="text-left px-4 py-2 font-medium">规则说明</th>' +
+                 '<th class="text-center px-4 py-2 font-medium" style="width:70px">状态</th></tr>' +
+               '</thead>' +
+               '<tbody class="divide-y divide-slate-100">' +
+                 g.items.map(function (it) {
+                   return '<tr>' +
+                            '<td class="px-4 py-3 text-slate-700">' + it.action + '</td>' +
+                            '<td class="px-4 py-3"><input class="ant-input" value="' + it.coin + '" style="max-width:100px"></td>' +
+                            '<td class="px-4 py-3 text-slate-500 text-xs">' + it.unit + '</td>' +
+                            '<td class="px-4 py-3 text-xs text-slate-500">' + (it.desc || '-') + '</td>' +
+                            '<td class="px-4 py-3 text-center"><label class="switch"><input type="checkbox" checked><span class="slider"></span></label></td>' +
+                          '</tr>';
+                 }).join('') +
+               '</tbody>' +
+             '</table>' +
+           '</div>';
+  }).join('');
+  lucide.createIcons();
+})();
+</script>
+</body>
 </html>
