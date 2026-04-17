@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>订单列表 · 业务数据 · 唯车拍</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f2f5; }
+  .ant-sider { background: #001529; }
+  .ant-sider a { color: rgba(255,255,255,.65); }
+  .ant-sider a.active { background: #1677ff; color: #fff; }
+  .ant-sider a:hover:not(.active) { color: #fff; background: rgba(255,255,255,.06); }
+  .ant-card { background: #fff; border-radius: 8px; }
+  .ant-input { padding: 5px 12px; border: 1px solid #d9d9d9; border-radius: 6px; font-size: 14px; width: 100%; }
+  .ant-btn { padding: 5px 16px; border-radius: 6px; font-size: 14px; border: 1px solid #d9d9d9; background: #fff; cursor: pointer; }
+  .ant-btn:hover { color: #1677ff; border-color: #1677ff; }
+  .ant-btn-primary { background: #1677ff; color: #fff; border-color: #1677ff; padding: 5px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; }
+  .ant-btn-primary:hover { background: #4096ff; }
+  .ant-tag { display: inline-flex; align-items: center; padding: 0 7px; font-size: 12px; line-height: 20px; border-radius: 4px; white-space: nowrap; }
+  .ant-tag-blue { background: #e6f4ff; color: #1677ff; border: 1px solid #91caff; }
+  .ant-tag-green { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+  .ant-tag-orange { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
+  .ant-tag-red { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; }
+  .ant-tag-purple { background: #f9f0ff; color: #722ed1; border: 1px solid #d3adf7; }
+  .ant-tag-cyan { background: #e6fffb; color: #08979c; border: 1px solid #87e8de; }
+  .ant-tag-gold { background: #fffbe6; color: #d4b106; border: 1px solid #ffe58f; }
+  .lv-pill { display: inline-flex; align-items: center; justify-content: center; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; color: #fff; }
+  tr:hover { background: #fafafa; }
+</style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+
+  <aside class="ant-sider w-56 flex-none text-white">
+    <div class="h-14 flex items-center px-6 border-b border-white/10">
+      <span class="text-lg font-semibold flex items-center gap-2"><i data-lucide="crown" class="w-5 h-5"></i>会员体系后台</span>
+    </div>
+    <nav class="py-3 text-sm">
+      <a href="dashboard.html" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="bar-chart-3" class="w-4 h-4"></i><span>运营仪表盘</span></a>
+      <div class="px-6 py-2 text-xs text-white/40 mt-2">规则配置</div>
+      <a href="level-rule.html" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="settings" class="w-4 h-4"></i><span>等级规则</span></a>
+      <a href="coin-rule.html" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="wrench" class="w-4 h-4"></i><span>金币规则</span></a>
+      <a href="rewards.html" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="ticket-check" class="w-4 h-4"></i><span>权益卡管理</span></a>
+      <div class="px-6 py-2 text-xs text-white/40 mt-2">业务数据</div>
+      <a href="orders.html" class="active flex items-center gap-3 px-6 py-2.5"><i data-lucide="receipt" class="w-4 h-4"></i><span>订单列表</span></a>
+      <div class="px-6 py-2 text-xs text-white/40 mt-2">商户运营</div>
+      <a href="members.html" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="users" class="w-4 h-4"></i><span>商户档案</span></a>
+      <a href="#" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="file-text" class="w-4 h-4"></i><span>金币流水</span></a>
+      <a href="#" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="gift" class="w-4 h-4"></i><span>兑换记录</span></a>
+    </nav>
+  </aside>
+
+  <div class="flex-1 flex flex-col min-w-0">
+    <header class="bg-white border-b border-slate-200 h-14 px-6 flex items-center justify-between">
+      <div class="flex items-center gap-2 text-sm text-slate-600">
+        <span>首页</span><span>/</span><span>业务数据</span><span>/</span><span class="text-slate-800 font-medium">订单列表</span>
+      </div>
+      <div class="flex items-center gap-2 text-sm">
+        <div class="w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs">运</div>
+        <span>运营-小王</span>
+      </div>
+    </header>
+
+    <main class="flex-1 p-6 overflow-y-auto">
+
+      <div class="mb-5">
+        <h1 class="text-xl font-semibold text-slate-800">订单列表</h1>
+        <p class="text-sm text-slate-500 mt-1">查看平台所有订单 · 重点关注会员等级 / 已享权益 / 售后情况</p>
+      </div>
+
+      <!-- KPI -->
+      <div class="grid grid-cols-5 gap-4 mb-5">
+        <div class="ant-card p-4"><div class="text-xs text-slate-500">今日新增</div><div class="text-2xl font-bold text-slate-800 mt-1">148</div></div>
+        <div class="ant-card p-4"><div class="text-xs text-slate-500">待支付</div><div class="text-2xl font-bold text-orange-600 mt-1">33</div></div>
+        <div class="ant-card p-4"><div class="text-xs text-slate-500">待过户</div><div class="text-2xl font-bold text-sky-600 mt-1">57</div></div>
+        <div class="ant-card p-4"><div class="text-xs text-slate-500">已完成</div><div class="text-2xl font-bold text-emerald-600 mt-1">892</div></div>
+        <div class="ant-card p-4"><div class="text-xs text-slate-500">售后中</div><div class="text-2xl font-bold text-rose-600 mt-1">12</div></div>
+      </div>
+
+      <!-- 筛选 -->
+      <div class="ant-card p-4 mb-5">
+        <div class="grid grid-cols-6 gap-3 items-end">
+          <div class="col-span-2">
+            <label class="text-xs text-slate-500 block mb-1">订单号/车辆/商户</label>
+            <input class="ant-input" placeholder="订单号 / 车源编号 / 商户编号">
+          </div>
+          <div>
+            <label class="text-xs text-slate-500 block mb-1">订单状态</label>
+            <select class="ant-input">
+              <option>全部</option>
+              <option>竞价中</option>
+              <option>拍下</option>
+              <option>待支付</option>
+              <option>已支付</option>
+              <option>待过户</option>
+              <option>已完成</option>
+              <option>售后中</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-slate-500 block mb-1">会员等级</label>
+            <select class="ant-input">
+              <option>全部</option><option>V0</option><option>V1</option><option>V2</option><option>V3</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs text-slate-500 block mb-1">是否使用权益</label>
+            <select class="ant-input">
+              <option>全部</option>
+              <option>使用了权益</option>
+              <option>未使用权益</option>
+            </select>
+          </div>
+          <div class="flex gap-2">
+            <button class="ant-btn-primary flex-1">搜索</button>
+            <button class="ant-btn flex-1">重置</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 表格 -->
+      <div class="ant-card overflow-hidden">
+        <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
+          <div class="text-sm text-slate-600">共 1,042 条订单</div>
+          <div class="flex gap-2">
+            <button class="ant-btn text-xs inline-flex items-center gap-1"><i data-lucide="download" class="w-3.5 h-3.5"></i>导出</button>
+          </div>
+        </div>
+        <table class="w-full text-sm">
+          <thead class="bg-slate-50 text-xs text-slate-600">
+            <tr>
+              <th class="text-left px-4 py-3 font-medium">订单号</th>
+              <th class="text-left px-4 py-3 font-medium">商户 / 等级</th>
+              <th class="text-left px-4 py-3 font-medium">车辆</th>
+              <th class="text-right px-4 py-3 font-medium">成交价</th>
+              <th class="text-left px-4 py-3 font-medium">状态</th>
+              <th class="text-left px-4 py-3 font-medium">已享权益</th>
+              <th class="text-left px-4 py-3 font-medium">成交时间</th>
+              <th class="text-center px-4 py-3 font-medium">操作</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100">
+
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260415001</td>
+              <td class="px-4 py-3">
+                <div class="font-medium text-slate-800">张宇明</div>
+                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#f59e0b">V3</span><span class="text-[10px] text-slate-400">M10086</span></div>
+              </td>
+              <td class="px-4 py-3">
+                <div class="text-slate-800">比亚迪 宋 Pro 1.5TID</div>
+                <div class="text-xs text-slate-400">川A·2021-01·6.07万公里</div>
+              </td>
+              <td class="px-4 py-3 text-right font-semibold">¥ 38,000</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-orange">待支付</span></td>
+              <td class="px-4 py-3">
+                <div class="flex flex-wrap gap-1">
+                  <span class="ant-tag ant-tag-purple">过户 8 折</span>
+                  <span class="ant-tag ant-tag-gold">+50 金币</span>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-xs text-slate-500">2026-04-15 11:23</td>
+              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+            </tr>
+
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260415002</td>
+              <td class="px-4 py-3">
+                <div class="font-medium text-slate-800">李明辉</div>
+                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#8b5cf6">V2</span><span class="text-[10px] text-slate-400">M12005</span></div>
+              </td>
+              <td class="px-4 py-3">
+                <div class="text-slate-800">福特 福克斯 1.0T</div>
+                <div class="text-xs text-slate-400">川A·2016-12·13.47万公里</div>
+              </td>
+              <td class="px-4 py-3 text-right font-semibold">¥ 10,500</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-blue">待过户</span></td>
+              <td class="px-4 py-3">
+                <div class="flex flex-wrap gap-1">
+                  <span class="ant-tag ant-tag-purple">过户 9.5 折</span>
+                  <span class="ant-tag ant-tag-cyan">1V1 客服</span>
+                  <span class="ant-tag ant-tag-gold">+50 金币</span>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-xs text-slate-500">2026-04-14 14:30</td>
+              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+            </tr>
+
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260414033</td>
+              <td class="px-4 py-3">
+                <div class="font-medium text-slate-800">王淑芬</div>
+                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#8b5cf6">V2</span><span class="text-[10px] text-slate-400">M08856</span></div>
+              </td>
+              <td class="px-4 py-3">
+                <div class="text-slate-800">大众 朗逸 1.4TSI DSG</div>
+                <div class="text-xs text-slate-400">粤B·2013-05·23.23万公里</div>
+              </td>
+              <td class="px-4 py-3 text-right font-semibold">¥ 8,600</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-green">已完成</span></td>
+              <td class="px-4 py-3">
+                <div class="flex flex-wrap gap-1">
+                  <span class="ant-tag ant-tag-purple">过户 9.5 折</span>
+                  <span class="ant-tag ant-tag-gold">+50 金币</span>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-xs text-slate-500">2026-04-14 09:15</td>
+              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+            </tr>
+
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260413018</td>
+              <td class="px-4 py-3">
+                <div class="font-medium text-slate-800">张宇明</div>
+                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#f59e0b">V3</span><span class="text-[10px] text-slate-400">M10086</span></div>
+              </td>
+              <td class="px-4 py-3">
+                <div class="text-slate-800">金杯 阁瑞斯 2.4L</div>
+                <div class="text-xs text-slate-400">粤B·2016-03·6.13万公里</div>
+              </td>
+              <td class="px-4 py-3 text-right font-semibold">¥ 24,500</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-red">售后中</span></td>
+              <td class="px-4 py-3">
+                <div class="flex flex-wrap gap-1">
+                  <span class="ant-tag ant-tag-red">无理由退车</span>
+                  <span class="ant-tag ant-tag-purple">过户 8 折</span>
+                  <span class="ant-tag ant-tag-gold">+50 金币</span>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-xs text-slate-500">2026-04-13 16:40</td>
+              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+            </tr>
+
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260413005</td>
+              <td class="px-4 py-3">
+                <div class="font-medium text-slate-800">陈国强</div>
+                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#0ea5e9">V1</span><span class="text-[10px] text-slate-400">M22134</span></div>
+              </td>
+              <td class="px-4 py-3">
+                <div class="text-slate-800">比亚迪 秦 PLUS DM-i</div>
+                <div class="text-xs text-slate-400">粤A·2021-10·8.1万公里</div>
+              </td>
+              <td class="px-4 py-3 text-right font-semibold">¥ 62,000</td>
+              <td class="px-4 py-3"><span class="ant-tag">已支付</span></td>
+              <td class="px-4 py-3">
+                <div class="flex flex-wrap gap-1">
+                  <span class="ant-tag ant-tag-cyan">1V1 客服</span>
+                  <span class="ant-tag ant-tag-gold">+50 金币</span>
+                </div>
+              </td>
+              <td class="px-4 py-3 text-xs text-slate-500">2026-04-13 10:22</td>
+              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+            </tr>
+
+            <tr>
+              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260412011</td>
+              <td class="px-4 py-3">
+                <div class="font-medium text-slate-800">孙建国</div>
+                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#94a3b8">V0</span><span class="text-[10px] text-slate-400">M45012</span></div>
+              </td>
+              <td class="px-4 py-3">
+                <div class="text-slate-800">比亚迪 海豚 骑士版</div>
+                <div class="text-xs text-slate-400">沪A·2022-08·2.5万公里</div>
+              </td>
+              <td class="px-4 py-3 text-right font-semibold">¥ 79,800</td>
+              <td class="px-4 py-3"><span class="ant-tag ant-tag-blue">拍下</span></td>
+              <td class="px-4 py-3">
+                <span class="text-xs text-slate-400">未使用权益</span>
+              </td>
+              <td class="px-4 py-3 text-xs text-slate-500">2026-04-12 15:08</td>
+              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <div class="px-4 py-3 border-t border-slate-100 flex items-center justify-between text-sm">
+          <div class="text-slate-500">第 1 - 6 条 / 共 1,042 条</div>
+          <div class="flex items-center gap-2">
+            <button class="ant-btn px-2 py-1">‹</button>
+            <button class="px-3 py-1 bg-blue-500 text-white rounded">1</button>
+            <button class="ant-btn px-3 py-1">2</button>
+            <button class="ant-btn px-3 py-1">3</button>
+            <span class="text-slate-400">...</span>
+            <button class="ant-btn px-3 py-1">174</button>
+            <button class="ant-btn px-2 py-1">›</button>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div class="fixed top-4 right-6 z-50">
+  <a href="../index.html" class="px-3 py-1.5 bg-white border border-slate-200 rounded shadow-sm text-xs text-slate-600 hover:bg-slate-50">← Demo 导航</a>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>订单详情 · 唯车拍</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f6f8; }
+  .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #f5f6f8; position: relative; }
+  @media (min-width: 768px) { body { background: #f5f5f7; padding: 24px 0; } .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; } }
+  /* 顶部橙色状态条 */
+  .status-hero { background: linear-gradient(135deg, #fb923c 0%, #ef4444 100%); }
+  /* 时间轴 */
+  .timeline-dot { width: 12px; height: 12px; border-radius: 50%; position: relative; z-index: 2; flex-shrink: 0; margin-top: 4px; }
+  .timeline-line { position: absolute; left: 5px; top: 16px; bottom: -8px; width: 2px; background: #e2e8f0; z-index: 1; }
+  .timeline-line.done { background: #10b981; }
+</style>
+</head>
+<body>
+
+<div class="phone-shell">
+
+  <!-- 顶部状态区 -->
+  <div class="status-hero text-white">
+    <div class="flex items-center justify-between px-5 py-2 text-sm">
+      <span>13:30</span>
+      <span class="flex items-center gap-1 opacity-90"><i data-lucide="signal" class="w-3.5 h-3.5"></i><i data-lucide="wifi" class="w-3.5 h-3.5"></i><i data-lucide="battery-full" class="w-3.5 h-3.5"></i></span>
+    </div>
+    <div class="flex items-center justify-between px-5 py-3">
+      <button onclick="smartBack('orders.html')" class="text-white"><i data-lucide="chevron-left" class="w-6 h-6"></i></button>
+      <span class="text-base font-semibold">订单详情</span>
+      <button class="text-white"><i data-lucide="headphones" class="w-5 h-5"></i></button>
+    </div>
+
+    <div class="px-5 pb-5">
+      <div class="flex items-center gap-2 mb-2">
+        <i data-lucide="clock-4" class="w-5 h-5"></i>
+        <span class="text-lg font-bold">等待支付</span>
+      </div>
+      <div class="text-sm opacity-90">剩余时间 <span class="font-bold">23:45:12</span> 后订单自动取消</div>
+    </div>
+  </div>
+
+  <!-- 流程时间轴 -->
+  <div class="px-4 -mt-3 relative z-10 mb-3">
+    <div class="bg-white rounded-2xl p-4 shadow-sm">
+      <div class="relative">
+        <div class="flex items-start gap-3 pb-4 relative">
+          <div class="timeline-dot bg-emerald-500"></div>
+          <div class="timeline-line done"></div>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-slate-800 flex items-center justify-between">
+              <span>竞价中 · 出价 42 次</span>
+              <span class="text-[10px] text-slate-400">04-14 10:00</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 pb-4 relative">
+          <div class="timeline-dot bg-emerald-500"></div>
+          <div class="timeline-line done"></div>
+          <div class="flex-1">
+            <div class="text-sm font-medium text-slate-800 flex items-center justify-between">
+              <span>拍下车辆 · 最终成交价 ¥38,000</span>
+              <span class="text-[10px] text-slate-400">04-15 11:23</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 pb-4 relative">
+          <div class="timeline-dot bg-orange-500 ring-4 ring-orange-100"></div>
+          <div class="timeline-line"></div>
+          <div class="flex-1">
+            <div class="text-sm font-semibold text-orange-600 flex items-center justify-between">
+              <span>待支付 · 当前节点</span>
+              <span class="text-[10px] text-slate-400">进行中</span>
+            </div>
+          </div>
+        </div>
+        <div class="flex items-start gap-3 pb-4 relative">
+          <div class="timeline-dot bg-slate-200"></div>
+          <div class="timeline-line"></div>
+          <div class="flex-1"><div class="text-sm text-slate-400">已支付</div></div>
+        </div>
+        <div class="flex items-start gap-3 pb-4 relative">
+          <div class="timeline-dot bg-slate-200"></div>
+          <div class="timeline-line"></div>
+          <div class="flex-1"><div class="text-sm text-slate-400">待过户</div></div>
+        </div>
+        <div class="flex items-start gap-3 relative">
+          <div class="timeline-dot bg-slate-200"></div>
+          <div class="flex-1"><div class="text-sm text-slate-400">已完成</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 车辆信息 -->
+  <div class="px-4 mb-3">
+    <div class="bg-white rounded-2xl p-4 shadow-sm">
+      <div class="flex gap-3">
+        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=300&h=200&fit=crop&auto=format&q=80" class="w-28 h-20 rounded-lg object-cover" alt="">
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-bold text-slate-800">比亚迪 宋 Pro 1.5TID 双离合</div>
+          <div class="text-[11px] text-slate-500 mt-1">川A·2021-01·6.07万公里·0次过户</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">车牌 川A·1865F · 所在地:成都</div>
+          <a class="text-[11px] text-violet-600 mt-1 inline-flex items-center">查看车辆详情 <i data-lucide="chevron-right" class="w-3 h-3"></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ⭐ 本单会员权益(核心) -->
+  <div class="px-4 mb-3">
+    <div class="rounded-2xl p-4 shadow-sm" style="background:linear-gradient(120deg, #1a0a42 0%, #3b1978 45%, #7a3dd1 100%)">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2 text-white">
+          <i data-lucide="crown" class="w-5 h-5 text-amber-300"></i>
+          <span class="text-sm font-bold">本单享 V3 会员权益</span>
+        </div>
+        <span class="text-[10px] px-2 py-0.5 bg-amber-400/30 text-amber-200 rounded-full">共 4 项</span>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center gap-3 bg-white/10 backdrop-blur rounded-xl p-2.5 border border-white/10">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-400 to-indigo-500 flex items-center justify-center text-white flex-none"><i data-lucide="tag" class="w-4 h-4"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-semibold text-white">过户 8 折 / 复检 8 折</div>
+            <div class="text-[10px] text-indigo-200">已节省 <span class="text-amber-300 font-bold">¥ 340</span></div>
+          </div>
+          <span class="text-[10px] px-2 py-0.5 bg-emerald-400/30 text-emerald-200 rounded">已生效</span>
+        </div>
+
+        <div class="flex items-center gap-3 bg-white/10 backdrop-blur rounded-xl p-2.5 border border-white/10">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-rose-400 to-red-500 flex items-center justify-center text-white flex-none"><i data-lucide="undo-2" class="w-4 h-4"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-semibold text-white">无理由退车 1 台卡</div>
+            <div class="text-[10px] text-indigo-200">过户后 7 日内可申请</div>
+          </div>
+          <button onclick="event.preventDefault()" class="text-[10px] px-2 py-0.5 bg-rose-400/30 text-rose-100 rounded">申请退车</button>
+        </div>
+
+        <div class="flex items-center gap-3 bg-white/10 backdrop-blur rounded-xl p-2.5 border border-white/10">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white flex-none"><i data-lucide="truck" class="w-4 h-4"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-semibold text-white">代送车上门(含代物流)</div>
+            <div class="text-[10px] text-indigo-200">V3 等级直达 · 支付后预约</div>
+          </div>
+          <button onclick="event.preventDefault()" class="text-[10px] px-2 py-0.5 bg-emerald-400/30 text-emerald-100 rounded">去预约</button>
+        </div>
+
+        <div class="flex items-center gap-3 bg-white/10 backdrop-blur rounded-xl p-2.5 border border-white/10">
+          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white flex-none"><i data-lucide="coins" class="w-4 h-4"></i></div>
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-semibold text-white">成交金币奖励</div>
+            <div class="text-[10px] text-indigo-200">过户完成后发放 <span class="text-amber-300 font-bold">+50 金币</span></div>
+          </div>
+          <span class="text-[10px] px-2 py-0.5 bg-amber-400/30 text-amber-200 rounded">待发放</span>
+        </div>
+      </div>
+
+      <div class="text-center text-[10px] text-indigo-200 mt-3 pt-3 border-t border-white/10">
+        <i data-lucide="info" class="w-3 h-3 inline"></i>
+        通过会员权益,本单共节省 <span class="text-amber-300 font-bold">¥ 340</span>,获得 <span class="text-amber-300 font-bold">50 金币</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 费用明细 -->
+  <div class="px-4 mb-3">
+    <div class="bg-white rounded-2xl p-4 shadow-sm">
+      <div class="text-sm font-bold text-slate-800 mb-3">费用明细</div>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between"><span class="text-slate-500">车辆成交价</span><span class="text-slate-800">¥ 38,000.00</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">服务费</span><span class="text-slate-800">¥ 800.00</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">过户费</span><span class="text-slate-500"><span class="line-through text-slate-400 mr-1">¥1,200</span>¥ 960.00</span></div>
+        <div class="flex justify-between"><span class="text-violet-600 text-xs flex items-center gap-1"><i data-lucide="tag" class="w-3 h-3"></i>8 折优惠</span><span class="text-violet-600 font-semibold">- ¥ 240.00</span></div>
+        <div class="flex justify-between"><span class="text-slate-500">复检费</span><span class="text-slate-500"><span class="line-through text-slate-400 mr-1">¥500</span>¥ 400.00</span></div>
+        <div class="flex justify-between"><span class="text-violet-600 text-xs flex items-center gap-1"><i data-lucide="tag" class="w-3 h-3"></i>8 折优惠</span><span class="text-violet-600 font-semibold">- ¥ 100.00</span></div>
+      </div>
+      <div class="mt-3 pt-3 border-t border-slate-100 flex items-center justify-between">
+        <span class="text-sm font-bold text-slate-800">应付总计</span>
+        <span class="text-xl font-black text-rose-600">¥ 40,160</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 订单信息 -->
+  <div class="px-4 mb-3">
+    <div class="bg-white rounded-2xl p-4 shadow-sm space-y-2 text-xs">
+      <div class="flex justify-between"><span class="text-slate-500">订单编号</span><span class="text-slate-700 font-mono">WP20260415001 <button class="text-blue-600 ml-1">复制</button></span></div>
+      <div class="flex justify-between"><span class="text-slate-500">下单时间</span><span class="text-slate-700">2026-04-15 11:23:45</span></div>
+      <div class="flex justify-between"><span class="text-slate-500">支付截止</span><span class="text-rose-600">2026-04-16 11:23:45</span></div>
+      <div class="flex justify-between"><span class="text-slate-500">会员等级</span><span class="text-amber-600 font-semibold">V3 金卡</span></div>
+    </div>
+  </div>
+
+  <!-- 底部支付栏 -->
+  <div class="sticky bottom-0 bg-white border-t border-slate-200 px-4 py-3 flex items-center gap-3">
+    <div class="flex-1">
+      <div class="text-[10px] text-emerald-600">会员权益共节省 ¥340</div>
+      <div class="text-xl font-black text-rose-600">¥40,160</div>
+    </div>
+    <button onclick="event.preventDefault()" class="px-4 py-2.5 text-sm text-slate-600 border border-slate-200 rounded-full">取消订单</button>
+    <button onclick="event.preventDefault()" class="px-6 py-2.5 text-sm text-white bg-gradient-to-r from-red-500 to-red-600 rounded-full font-bold shadow-lg">立即支付</button>
+  </div>
+
+</div>
+
+<div class="hidden md:block fixed top-4 left-4 z-50">
+  <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="_smart-back.js"></script>
+<script>lucide.createIcons();</script>
+
+</body>
+</html>

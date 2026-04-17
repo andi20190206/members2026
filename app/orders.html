@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>我的订单 · 唯车拍</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f5f6f8; }
+  .phone-shell { max-width: 420px; margin: 0 auto; min-height: 100vh; background: #f5f6f8; position: relative; }
+  @media (min-width: 768px) { body { background: #f5f5f7; padding: 24px 0; } .phone-shell { border-radius: 40px; box-shadow: 0 20px 60px rgba(0,0,0,.2); overflow: hidden; } }
+  .tab { cursor: pointer; }
+  .tab.active { color: #ef4444; font-weight: 600; position: relative; }
+  .tab.active::after { content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); width: 20px; height: 3px; background: #ef4444; border-radius: 3px; }
+  .benefit-tag { display: inline-flex; align-items: center; gap: 2px; font-size: 10px; padding: 1px 6px; border-radius: 4px; }
+</style>
+</head>
+<body>
+
+<div class="phone-shell">
+
+  <!-- Status -->
+  <div class="flex items-center justify-between px-5 py-2 text-slate-800 text-sm bg-white">
+    <span>13:30</span>
+    <span class="flex items-center gap-1"><i data-lucide="signal" class="w-3.5 h-3.5"></i><i data-lucide="wifi" class="w-3.5 h-3.5"></i><i data-lucide="battery-full" class="w-3.5 h-3.5"></i></span>
+  </div>
+
+  <!-- Header -->
+  <div class="bg-white flex items-center justify-between px-5 py-4 border-b border-slate-100">
+    <button onclick="smartBack('profile-loggedin.html')" class="text-slate-800"><i data-lucide="chevron-left" class="w-6 h-6" style="stroke-width:2"></i></button>
+    <span class="text-lg font-bold text-slate-900">我的订单</span>
+    <button class="text-slate-400"><i data-lucide="search" class="w-5 h-5"></i></button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="bg-white px-4 border-b border-slate-100">
+    <div class="flex gap-6 py-3 overflow-x-auto text-sm text-slate-600">
+      <span class="tab active" onclick="filter('all', this)">全部</span>
+      <span class="tab" onclick="filter('pending-pay', this)">待支付</span>
+      <span class="tab" onclick="filter('pending-confirm', this)">待确认</span>
+      <span class="tab" onclick="filter('frozen', this)">已冻结</span>
+      <span class="tab" onclick="filter('done', this)">已完成</span>
+      <span class="tab" onclick="filter('after', this)">售后</span>
+    </div>
+  </div>
+
+  <!-- 订单列表 -->
+  <div class="px-4 pt-3 pb-24 space-y-3">
+
+    <!-- 订单 1:待支付(含权益) -->
+    <a href="order-detail.html" class="block bg-white rounded-2xl overflow-hidden shadow-sm">
+      <div class="flex items-center justify-between px-4 pt-3 pb-2 border-b border-slate-50">
+        <span class="text-[11px] text-slate-400 font-mono">WP20260415001</span>
+        <span class="text-xs text-orange-500 font-semibold">待支付</span>
+      </div>
+      <div class="flex gap-3 p-3">
+        <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=200&h=150&fit=crop&auto=format&q=80" class="w-24 h-20 rounded-lg object-cover" alt="">
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-semibold text-slate-800 truncate">比亚迪 宋 Pro 1.5TID</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">川A · 2021-01 · 6.07万公里</div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="benefit-tag bg-violet-50 text-violet-600 border border-violet-200"><i data-lucide="tag" class="w-2.5 h-2.5"></i>过户 8 折</span>
+            <span class="benefit-tag bg-rose-50 text-rose-600 border border-rose-200"><i data-lucide="undo-2" class="w-2.5 h-2.5"></i>可无理由退车</span>
+            <span class="benefit-tag bg-emerald-50 text-emerald-600 border border-emerald-200"><i data-lucide="truck" class="w-2.5 h-2.5"></i>代送上门</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 border-t border-slate-50">
+        <div>
+          <span class="text-[11px] text-slate-500">应付 </span>
+          <span class="text-lg font-bold text-rose-600">¥40,160</span>
+          <span class="text-[10px] text-emerald-600 ml-1">节省 ¥340</span>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="event.preventDefault()" class="px-3 py-1 text-xs text-slate-600 border border-slate-200 rounded-full">取消订单</button>
+          <button onclick="event.preventDefault()" class="px-3 py-1 text-xs text-white bg-gradient-to-r from-red-500 to-red-600 rounded-full">立即支付</button>
+        </div>
+      </div>
+    </a>
+
+    <!-- 订单 2:已支付,待过户(已用权益) -->
+    <a href="order-detail.html" class="block bg-white rounded-2xl overflow-hidden shadow-sm">
+      <div class="flex items-center justify-between px-4 pt-3 pb-2 border-b border-slate-50">
+        <span class="text-[11px] text-slate-400 font-mono">WP20260415002</span>
+        <span class="text-xs text-sky-600 font-semibold">待过户</span>
+      </div>
+      <div class="flex gap-3 p-3">
+        <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?w=200&h=150&fit=crop&auto=format&q=80" class="w-24 h-20 rounded-lg object-cover" alt="">
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-semibold text-slate-800 truncate">福特 福克斯-两厢 1.0T</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">川A · 2016-12 · 13.47万公里</div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="benefit-tag bg-violet-50 text-violet-600 border border-violet-200"><i data-lucide="tag" class="w-2.5 h-2.5"></i>过户 9.5 折</span>
+            <span class="benefit-tag bg-sky-50 text-sky-600 border border-sky-200"><i data-lucide="headphones" class="w-2.5 h-2.5"></i>1V1 客服</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 border-t border-slate-50">
+        <div>
+          <span class="text-[11px] text-slate-500">实付 </span>
+          <span class="text-base font-bold text-slate-800">¥10,500</span>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="event.preventDefault()" class="px-3 py-1 text-xs text-slate-600 border border-slate-200 rounded-full">联系客服</button>
+          <button onclick="event.preventDefault()" class="px-3 py-1 text-xs text-violet-600 border border-violet-300 rounded-full">查看进度</button>
+        </div>
+      </div>
+    </a>
+
+    <!-- 订单 3:已完成 -->
+    <a href="order-detail.html" class="block bg-white rounded-2xl overflow-hidden shadow-sm opacity-90">
+      <div class="flex items-center justify-between px-4 pt-3 pb-2 border-b border-slate-50">
+        <span class="text-[11px] text-slate-400 font-mono">WP20260414033</span>
+        <span class="text-xs text-emerald-600 font-semibold">已完成</span>
+      </div>
+      <div class="flex gap-3 p-3">
+        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=200&h=150&fit=crop&auto=format&q=80" class="w-24 h-20 rounded-lg object-cover" alt="">
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-semibold text-slate-800 truncate">大众 朗逸 1.4TSI DSG</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">粤B · 2013-05 · 23.23万公里</div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="benefit-tag bg-violet-50 text-violet-600 border border-violet-200"><i data-lucide="tag" class="w-2.5 h-2.5"></i>过户 9.5 折</span>
+            <span class="benefit-tag bg-amber-50 text-amber-600 border border-amber-200"><i data-lucide="coins" class="w-2.5 h-2.5"></i>+50 金币</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 border-t border-slate-50">
+        <div>
+          <span class="text-[11px] text-slate-500">实付 </span>
+          <span class="text-base font-bold text-slate-800">¥8,600</span>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="event.preventDefault()" class="px-3 py-1 text-xs text-slate-600 border border-slate-200 rounded-full">开发票</button>
+          <button onclick="event.preventDefault()" class="px-3 py-1 text-xs text-slate-600 border border-slate-200 rounded-full">再来一单</button>
+        </div>
+      </div>
+    </a>
+
+    <!-- 订单 4:售后中 -->
+    <a href="order-detail.html" class="block bg-white rounded-2xl overflow-hidden shadow-sm border border-rose-200">
+      <div class="flex items-center justify-between px-4 pt-3 pb-2 border-b border-slate-50">
+        <span class="text-[11px] text-slate-400 font-mono">WP20260413018</span>
+        <span class="text-xs text-rose-600 font-semibold flex items-center gap-0.5"><i data-lucide="alert-circle" class="w-3 h-3"></i>售后中</span>
+      </div>
+      <div class="flex gap-3 p-3">
+        <img src="https://images.unsplash.com/photo-1542362567-b07e54358753?w=200&h=150&fit=crop&auto=format&q=80" class="w-24 h-20 rounded-lg object-cover" alt="">
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-semibold text-slate-800 truncate">金杯 阁瑞斯 2.4L 139马力</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">粤B · 2016-03 · 6.13万公里</div>
+          <div class="flex flex-wrap gap-1 mt-2">
+            <span class="benefit-tag bg-rose-50 text-rose-600 border border-rose-200"><i data-lucide="undo-2" class="w-2.5 h-2.5"></i>无理由退车中</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 border-t border-rose-100 bg-rose-50/30">
+        <div class="text-[11px] text-rose-600">退车申请审核中 · 24h 内响应</div>
+        <button onclick="event.preventDefault()" class="px-3 py-1 text-xs text-rose-600 border border-rose-300 rounded-full">查看进度</button>
+      </div>
+    </a>
+
+    <!-- 订单 5:拍下待支付(未使用权益) -->
+    <a href="order-detail.html" class="block bg-white rounded-2xl overflow-hidden shadow-sm">
+      <div class="flex items-center justify-between px-4 pt-3 pb-2 border-b border-slate-50">
+        <span class="text-[11px] text-slate-400 font-mono">WP20260412011</span>
+        <span class="text-xs text-orange-500 font-semibold">待支付</span>
+      </div>
+      <div class="flex gap-3 p-3">
+        <img src="https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=200&h=150&fit=crop&auto=format&q=80" class="w-24 h-20 rounded-lg object-cover" alt="">
+        <div class="flex-1 min-w-0">
+          <div class="text-sm font-semibold text-slate-800 truncate">比亚迪 海豚 2022款 骑士版</div>
+          <div class="text-[11px] text-slate-500 mt-0.5">沪A · 2022-08 · 2.50万公里</div>
+          <div class="text-[10px] text-slate-400 mt-2">⓵ 暂未使用会员权益 <a class="text-violet-600 ml-1">去兑换 ›</a></div>
+        </div>
+      </div>
+      <div class="flex items-center justify-between px-4 py-3 border-t border-slate-50">
+        <div>
+          <span class="text-[11px] text-slate-500">应付 </span>
+          <span class="text-lg font-bold text-rose-600">¥79,800</span>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="event.preventDefault()" class="px-3 py-1 text-xs text-slate-600 border border-slate-200 rounded-full">取消</button>
+          <button onclick="event.preventDefault()" class="px-3 py-1 text-xs text-white bg-gradient-to-r from-red-500 to-red-600 rounded-full">立即支付</button>
+        </div>
+      </div>
+    </a>
+
+    <div class="text-center text-xs text-slate-400 py-4">— 已加载全部订单 —</div>
+  </div>
+
+</div>
+
+<div class="hidden md:block fixed top-4 left-4 z-50">
+  <a href="../index.html" class="px-4 py-2 bg-white rounded-full shadow-lg text-sm text-slate-700 hover:bg-slate-50">← 返回 Demo 导航</a>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script src="_smart-back.js"></script>
+<script>
+lucide.createIcons();
+function filter(t, el) {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  el.classList.add('active');
+}
+</script>
+
+</body>
+</html>
