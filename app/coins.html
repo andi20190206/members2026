@@ -73,9 +73,7 @@
   <div class="px-4 bg-white border-b border-slate-100">
     <div class="flex gap-6 py-3 text-sm text-slate-600 overflow-x-auto">
       <span class="tab active" onclick="filterTx('all', this)">全部</span>
-      <span class="tab" onclick="filterTx('bid', this)">出价</span>
-      <span class="tab" onclick="filterTx('share', this)">转发</span>
-      <span class="tab" onclick="filterTx('deal', this)">成交</span>
+      <span class="tab" onclick="filterTx('earn', this)">获取</span>
       <span class="tab" onclick="filterTx('spend', this)">消耗</span>
       <span class="tab" onclick="filterTx('expire', this)">过期</span>
     </div>
@@ -106,18 +104,18 @@
           <div class="text-xs text-slate-400 mt-0.5">车源 XC2103 · 09:45</div>
         </div>
         <div class="text-right">
-          <div class="text-base font-bold text-violet-600">+2</div>
+          <div class="text-base font-bold text-violet-600">+1</div>
           <div class="text-[10px] text-slate-400">有效期至 2027-04-15</div>
         </div>
       </div>
       <div class="tx-row flex items-center gap-3 p-4" data-type="bid">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white"><i data-lucide="gavel" class="w-5 h-5"></i></div>
         <div class="flex-1">
-          <div class="text-sm font-medium text-slate-800">出价奖励</div>
+          <div class="text-sm font-medium text-slate-800">有效出价</div>
           <div class="text-xs text-slate-400 mt-0.5">车源 XC2103 · 09:40</div>
         </div>
         <div class="text-right">
-          <div class="text-base font-bold text-sky-600">+1</div>
+          <div class="text-base font-bold text-sky-600">+10</div>
           <div class="text-[10px] text-slate-400">有效期至 2027-04-15</div>
         </div>
       </div>
@@ -149,15 +147,26 @@
           <div class="text-[10px] text-slate-400">有效期至 2027-04-14</div>
         </div>
       </div>
-      <div class="tx-row flex items-center gap-3 p-4" data-type="bid">
+      <div class="tx-row flex items-center gap-3 p-4 border-b border-slate-50" data-type="bid">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-sky-400 to-blue-500 flex items-center justify-center text-white"><i data-lucide="gavel" class="w-5 h-5"></i></div>
         <div class="flex-1">
-          <div class="text-sm font-medium text-slate-800">出价奖励 × 3</div>
-          <div class="text-xs text-slate-400 mt-0.5">3 辆不同车源</div>
+          <div class="text-sm font-medium text-slate-800">有效出价 × 3</div>
+          <div class="text-xs text-slate-400 mt-0.5">3 辆不同车源 · 10 金币/台</div>
         </div>
         <div class="text-right">
-          <div class="text-base font-bold text-sky-600">+3</div>
+          <div class="text-base font-bold text-sky-600">+30</div>
           <div class="text-[10px] text-slate-400">已合并展示</div>
+        </div>
+      </div>
+      <div class="tx-row flex items-center gap-3 p-4" data-type="service">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center text-white"><i data-lucide="truck" class="w-5 h-5"></i></div>
+        <div class="flex-1">
+          <div class="text-sm font-medium text-slate-800">使用平台物流服务</div>
+          <div class="text-xs text-slate-400 mt-0.5">车源 XC2038 · 11:05</div>
+        </div>
+        <div class="text-right">
+          <div class="text-base font-bold text-amber-600">+5</div>
+          <div class="text-[10px] text-slate-400">有效期至 2027-04-14</div>
         </div>
       </div>
     </div>
@@ -177,7 +186,7 @@
           <div class="text-[10px] text-slate-400">余额 369</div>
         </div>
       </div>
-      <div class="tx-row flex items-center gap-3 p-4" data-type="deal">
+      <div class="tx-row flex items-center gap-3 p-4 border-b border-slate-50" data-type="deal">
         <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-500 flex items-center justify-center text-white"><i data-lucide="wallet" class="w-5 h-5"></i></div>
         <div class="flex-1">
           <div class="text-sm font-medium text-slate-800">成交奖励</div>
@@ -185,6 +194,17 @@
         </div>
         <div class="text-right">
           <div class="text-base font-bold text-emerald-600">+50</div>
+          <div class="text-[10px] text-slate-400">有效期至 2027-04-10</div>
+        </div>
+      </div>
+      <div class="tx-row flex items-center gap-3 p-4" data-type="invite">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-fuchsia-400 to-pink-500 flex items-center justify-center text-white"><i data-lucide="user-plus" class="w-5 h-5"></i></div>
+        <div class="flex-1">
+          <div class="text-sm font-medium text-slate-800">邀请好友开通会员</div>
+          <div class="text-xs text-slate-400 mt-0.5">好友 138****6621 · 09:18</div>
+        </div>
+        <div class="text-right">
+          <div class="text-base font-bold text-fuchsia-600">+2</div>
           <div class="text-[10px] text-slate-400">有效期至 2027-04-10</div>
         </div>
       </div>
@@ -253,9 +273,14 @@ function filterTx(type, el) {
   // 更新 tab 状态
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active');
-  // 筛选行
+  // "获取" 汇总所有加分行为(成交 / 出价 / 转发 / 邀请 / 认证 / 互动 / 增值服务 等)
+  var EARN_TYPES = ['deal','bid','share','invite','verify','vote','service','festival','weichezhuan'];
   document.querySelectorAll('.tx-row').forEach(row => {
-    row.style.display = (type === 'all' || row.dataset.type === type) ? '' : 'none';
+    var t = row.dataset.type;
+    var show = (type === 'all')
+      || (type === 'earn' && EARN_TYPES.indexOf(t) !== -1)
+      || (t === type);
+    row.style.display = show ? '' : 'none';
   });
 }
 </script>
