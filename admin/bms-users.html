@@ -49,6 +49,7 @@
   .el-table { width: 100%; border-collapse: collapse; font-size: 13px; color: #606266; }
   .el-table thead th { background: #f5f7fa; color: #909399; font-weight: 500; padding: 10px 12px; border-bottom: 1px solid #ebeef5; text-align: left; white-space: nowrap; }
   .el-table tbody td { padding: 12px 12px; border-bottom: 1px solid #ebeef5; text-align: left; vertical-align: top; }
+  .el-table tbody tr { cursor: pointer; }
   .el-table tbody tr:hover { background: #f5f7fa; }
 
   .user-cell { display: flex; align-items: flex-start; gap: 6px; }
@@ -328,9 +329,19 @@
     { code: "m_0654321876543210", name: "黄建华", phone: "13988776655", region: "广东珠海", source: "官网", regAt: "2023-11-02", balance: "3200", pending: "0", deposit: "2000", total: "5200" },
   ];
 
+  const buildDetailUrl = (u) => {
+    const params = new URLSearchParams({
+      code: u.code,
+      name: u.name,
+      phone: u.phone,
+      total: u.total,
+    });
+    return `bms-user-detail.html?${params.toString()}`;
+  };
+
   const body = document.getElementById("userBody");
-  body.innerHTML = users.map((u) => `
-    <tr>
+  body.innerHTML = users.map((u, i) => `
+    <tr data-idx="${i}">
       <td>
         <div class="user-cell">
           <span class="verify-badge"><svg xmlns="http://www.w3.org/2000/svg" width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
@@ -348,9 +359,17 @@
       <td style="text-align:right">${u.pending}</td>
       <td style="text-align:right">${u.deposit}</td>
       <td style="text-align:right">${u.total}</td>
-      <td style="text-align:center"><a class="detail-link">详情</a></td>
+      <td style="text-align:center"><a class="detail-link" href="${buildDetailUrl(u)}">详情</a></td>
     </tr>
   `).join("");
+
+  body.addEventListener("click", (e) => {
+    if (e.target.closest("a")) return; // let explicit links handle their own navigation
+    const tr = e.target.closest("tr[data-idx]");
+    if (!tr) return;
+    const u = users[Number(tr.dataset.idx)];
+    if (u) window.location.href = buildDetailUrl(u);
+  });
 
   lucide.createIcons();
 </script>
