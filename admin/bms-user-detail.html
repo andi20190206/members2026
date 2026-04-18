@@ -86,6 +86,64 @@
 
   .cert-type { color: #303133; font-size: 14px; }
   .bank-account { color: #303133; font-size: 14px; font-weight: 500; margin-top: 4px; }
+
+  /* Tab panels */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .panel-empty { padding: 60px 20px; text-align: center; color: #909399; font-size: 13px; }
+  .panel-empty i { width: 36px; height: 36px; color: #dcdfe6; margin: 0 auto 8px; display: block; }
+
+  /* Section */
+  .panel-section { padding: 20px 24px; }
+  .panel-section + .panel-section { border-top: 1px solid #ebeef5; }
+  .section-title { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #303133; margin-bottom: 14px; }
+  .section-title .mini-label { font-size: 12px; color: #909399; font-weight: 400; }
+
+  .el-btn-sm { display: inline-flex; align-items: center; gap: 4px; height: 28px; padding: 0 12px; border-radius: 4px; font-size: 12px; cursor: pointer; border: 1px solid #dcdfe6; background: #fff; color: #606266; }
+  .el-btn-sm:hover { color: #409eff; border-color: #c6e2ff; background: #ecf5ff; }
+  .el-btn-primary-sm { background: #409eff; color: #fff; border-color: #409eff; }
+  .el-btn-primary-sm:hover { background: #66b1ff; color: #fff; border-color: #66b1ff; }
+  .el-btn-danger-sm { color: #f56c6c; border-color: #fbc4c4; }
+  .el-btn-danger-sm:hover { color: #fff; background: #f56c6c; border-color: #f56c6c; }
+
+  /* Level banner */
+  .lv-banner { border-radius: 6px; padding: 20px 24px; color: #fff; display: flex; align-items: center; justify-content: space-between; }
+  .lv-banner .lv-short { font-size: 40px; font-weight: 700; letter-spacing: 2px; line-height: 1; }
+  .lv-banner .lv-name { font-size: 16px; font-weight: 500; margin-top: 4px; }
+  .lv-banner .lv-sub { font-size: 12px; opacity: .8; margin-top: 6px; }
+  .lv-banner .lv-right { text-align: right; font-size: 12px; line-height: 1.8; opacity: .95; }
+  .lv-banner .lv-right .k { opacity: .7; margin-right: 6px; }
+
+  /* Metric cards */
+  .metric-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .metric-card { background: #f8fafc; border: 1px solid #ebeef5; border-radius: 4px; padding: 14px 16px; }
+  .metric-card .m-lbl { color: #909399; font-size: 12px; }
+  .metric-card .m-val { color: #303133; font-size: 22px; font-weight: 600; margin-top: 6px; }
+  .metric-card .m-val.accent { color: #409eff; }
+  .metric-card .m-val.warn { color: #e6a23c; }
+  .metric-card .m-val.danger { color: #f56c6c; }
+  .metric-card .m-sub { color: #909399; font-size: 11px; margin-top: 4px; }
+  .metric-card .m-val small { font-size: 12px; color: #909399; font-weight: 400; margin-left: 4px; }
+
+  /* Progress */
+  .prog-bar { height: 8px; background: #f0f2f5; border-radius: 4px; overflow: hidden; margin-top: 8px; }
+  .prog-bar .prog-fill { height: 100%; background: linear-gradient(90deg, #409eff, #8b5cf6); border-radius: 4px; transition: width .4s; }
+  .prog-meta { display: flex; justify-content: space-between; font-size: 12px; color: #909399; margin-top: 6px; }
+
+  /* kv list */
+  .kv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 40px; }
+  .kv-row { display: flex; padding: 6px 0; font-size: 13px; }
+  .kv-row .kv-k { color: #909399; width: 100px; flex-shrink: 0; }
+  .kv-row .kv-v { color: #303133; flex: 1; }
+  .kv-row .kv-v .ok { color: #67c23a; }
+
+  /* coin type tag */
+  .type-tag { display: inline-flex; padding: 1px 8px; border-radius: 3px; font-size: 12px; font-weight: 500; }
+  .type-plus { background: #f0f9eb; color: #67c23a; border: 1px solid #e1f3d8; }
+  .type-minus { background: #fef0f0; color: #f56c6c; border: 1px solid #fde2e2; }
+  .type-expire { background: #fdf6ec; color: #e6a23c; border: 1px solid #faecd8; }
+
+  .expire-alert { background: #fdf6ec; border: 1px solid #faecd8; border-radius: 4px; padding: 10px 14px; color: #e6a23c; font-size: 12px; display: flex; align-items: center; gap: 8px; }
 </style>
 </head>
 <body>
@@ -217,10 +275,13 @@
           <div class="el-tab" data-tab="auth">实名认证信息</div>
           <div class="el-tab" data-tab="bank">银行卡信息</div>
           <div class="el-tab" data-tab="account">账户信息</div>
+          <div class="el-tab" data-tab="level">会员等级</div>
+          <div class="el-tab" data-tab="coin">积分/唯金币</div>
           <div class="el-tab" data-tab="tag">客户标签</div>
         </div>
 
-        <!-- Basic info -->
+        <!-- Panel: 基础信息 -->
+        <div class="tab-panel active" data-panel="basic">
         <div class="info-grid">
           <div>
             <div class="info-row">
@@ -315,6 +376,50 @@
             <tbody id="trajBody"></tbody>
           </table>
         </div>
+        </div><!-- /panel basic -->
+
+        <!-- Panel: 实名认证信息 -->
+        <div class="tab-panel" data-panel="auth">
+          <div class="panel-empty">
+            <i data-lucide="shield-check"></i>
+            <div>实名认证信息(演示占位)</div>
+          </div>
+        </div>
+
+        <!-- Panel: 银行卡信息 -->
+        <div class="tab-panel" data-panel="bank">
+          <div class="panel-empty">
+            <i data-lucide="credit-card"></i>
+            <div>银行卡信息(演示占位)</div>
+          </div>
+        </div>
+
+        <!-- Panel: 账户信息 -->
+        <div class="tab-panel" data-panel="account">
+          <div class="panel-empty">
+            <i data-lucide="wallet"></i>
+            <div>账户信息(演示占位)</div>
+          </div>
+        </div>
+
+        <!-- Panel: 会员等级 -->
+        <div class="tab-panel" data-panel="level">
+          <!-- If user is not 买家, show notice. Otherwise show full content. -->
+          <div id="levelContent"></div>
+        </div>
+
+        <!-- Panel: 积分/唯金币 -->
+        <div class="tab-panel" data-panel="coin">
+          <div id="coinContent"></div>
+        </div>
+
+        <!-- Panel: 客户标签 -->
+        <div class="tab-panel" data-panel="tag">
+          <div class="panel-empty">
+            <i data-lucide="tags"></i>
+            <div>客户标签(演示占位)</div>
+          </div>
+        </div>
       </div>
 
     </main>
@@ -325,6 +430,7 @@
   <a href="../index.html" class="px-3 py-1 bg-white border border-slate-200 rounded shadow-sm text-xs text-slate-600 hover:bg-slate-50">← Demo 导航</a>
 </div>
 
+<script src="../shared/member-config.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
   const qs = new URLSearchParams(location.search);
@@ -336,6 +442,9 @@
   const total = get("total", "35184");
   const certType = get("certType", "企业");
   const bankNo = get("bankNo", "9912409242822");
+  const role = get("role", "买家");            // 买家 / 卖家 / 双边
+  const levelCode = get("level", "LV3");        // "" for non-buyer
+  const coinBalance = Number(get("coin", "520"));
 
   const fmtMoney = (n) => Number(n).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const fmtPhone = (p) => (p && p.length === 11) ? `${p.slice(0,3)} ${p.slice(3,7)} ${p.slice(7)}` : p;
@@ -389,13 +498,302 @@
     lucide.createIcons();
   });
 
-  // Tab switching (visual only - keeps the active tab synced with click)
+  // Tab switching — swap both the tab header and the content panel
   document.querySelectorAll(".el-tab").forEach(t => {
     t.addEventListener("click", () => {
-      document.querySelectorAll(".el-tab").forEach(x => x.classList.remove("active"));
-      t.classList.add("active");
+      const key = t.dataset.tab;
+      document.querySelectorAll(".el-tab").forEach(x => x.classList.toggle("active", x === t));
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.dataset.panel === key));
+      lucide.createIcons();
     });
   });
+
+  // ─────────────────────────────────────────────
+  // 会员等级 Tab
+  // ─────────────────────────────────────────────
+  (function renderLevelPanel() {
+    const host = document.getElementById("levelContent");
+    // Only 买家 users are eligible for membership levels
+    if (role === "卖家" || !levelCode) {
+      host.innerHTML = `
+        <div class="panel-empty">
+          <i data-lucide="info"></i>
+          <div>该用户当前角色为「${role || "卖家"}」,会员等级仅适用于买家用户</div>
+          <div style="margin-top:10px">
+            <button class="el-btn-sm">变更为买家 / 双边</button>
+          </div>
+        </div>`;
+      return;
+    }
+
+    const cfg = window.MEMBER_CONFIG;
+    const lv = cfg.getLevelByCode(levelCode);
+    const lvIdx = cfg.levels.findIndex(x => x.code === lv.code);
+    const nextLv = cfg.levels[lvIdx + 1];
+
+    // Demo metrics — period: rolling 3-month window ending current month
+    const periodStart = "2026-02";
+    const periodEnd = "2026-04";
+    const nextEvalDate = "2026-05-01";
+    const dealsByLevel = { LV0: 0, LV1: 2, LV2: 5, LV3: 12 };
+    const deals = dealsByLevel[lv.code] || 0;
+    const nextNeed = nextLv ? Math.max(0, nextLv.threshold.dealsMin - deals) : 0;
+    const progressTo = nextLv ? Math.min(100, Math.round((deals / nextLv.threshold.dealsMin) * 100)) : 100;
+
+    const history = {
+      LV0: [
+        { at: "2026-02-01", type: "周期评级", from: "-",  to: "V0", reason: "新用户评级", op: "系统" }
+      ],
+      LV1: [
+        { at: "2026-02-01", type: "周期评级", from: "V0", to: "V1", reason: "近 3 月成交 2 台(门槛 1 台)", op: "系统" },
+        { at: "2025-11-01", type: "周期评级", from: "V0", to: "V0", reason: "近 3 月无成交",               op: "系统" }
+      ],
+      LV2: [
+        { at: "2026-02-01", type: "周期评级", from: "V1", to: "V2", reason: "近 3 月成交 5 台(门槛 3 台)",  op: "系统" },
+        { at: "2025-11-01", type: "周期评级", from: "V0", to: "V1", reason: "近 3 月成交 2 台",               op: "系统" },
+        { at: "2025-08-01", type: "注册",     from: "-",  to: "V0", reason: "新用户注册",                     op: "系统" }
+      ],
+      LV3: [
+        { at: "2026-02-01", type: "周期评级", from: "V2", to: "V3", reason: "近 3 月成交 12 台(门槛 10 台)", op: "系统" },
+        { at: "2025-11-01", type: "周期评级", from: "V2", to: "V2", reason: "维持 V2(成交 5 台)",           op: "系统" },
+        { at: "2025-08-01", type: "周期评级", from: "V1", to: "V2", reason: "近 3 月成交 4 台",               op: "系统" },
+        { at: "2025-05-01", type: "人工调整", from: "V0", to: "V1", reason: "VIP 客户特批",                   op: "管理员 · 王经理" }
+      ]
+    }[lv.code];
+
+    host.innerHTML = `
+      <div class="panel-section">
+        <div class="lv-banner" style="background:linear-gradient(135deg, ${lv.gradient[0]}, ${lv.gradient[1]})">
+          <div>
+            <div class="lv-short">${lv.short}</div>
+            <div class="lv-name">${lv.name}</div>
+            <div class="lv-sub">${lv.thresholdText}</div>
+          </div>
+          <div class="lv-right">
+            <div><span class="k">用户角色</span>${role}</div>
+            <div><span class="k">当前定级周期</span>${periodStart} ~ ${periodEnd}</div>
+            <div><span class="k">下次评级</span>${nextEvalDate}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="m-lbl">本周期成交台数</div>
+            <div class="m-val accent">${deals}<small>台</small></div>
+            <div class="m-sub">门槛 ${lv.threshold.dealsMin || 0} 台 · 已达标</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-lbl">距离下一等级</div>
+            <div class="m-val ${nextLv ? '' : 'warn'}">${nextLv ? `还差 ${nextNeed}` : '已最高级'}<small>${nextLv ? '台' : ''}</small></div>
+            <div class="m-sub">${nextLv ? `下一级: ${nextLv.short} ${nextLv.name}` : `当前已是平台最高等级 V3`}</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-lbl">账户金额门槛</div>
+            <div class="m-val">≥ ${lv.threshold.accountMin || 0}<small>元</small></div>
+            <div class="m-sub"><span style="color:#67c23a">✓ 已满足</span>(总金额 ${fmtMoney(total)} 元)</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-lbl">等级稳定性</div>
+            <div class="m-val">连续 2 周期</div>
+            <div class="m-sub">维持在 ${lv.short} 及以上</div>
+          </div>
+        </div>
+        ${nextLv ? `
+          <div style="margin-top:16px">
+            <div class="prog-meta"><span>${lv.short} · ${lv.name}</span><span>${nextLv.short} · ${nextLv.name}</span></div>
+            <div class="prog-bar"><div class="prog-fill" style="width:${progressTo}%"></div></div>
+            <div class="prog-meta"><span>已成交 ${deals} 台</span><span>门槛 ${nextLv.threshold.dealsMin} 台</span></div>
+          </div>` : ''}
+      </div>
+
+      <div class="panel-section">
+        <div class="section-title">
+          <i data-lucide="shield-check" class="w-4 h-4 text-blue-500"></i>
+          当前等级权益
+          <span class="mini-label">· 共 ${lv.benefits.length} 项</span>
+        </div>
+        <div class="kv-grid">
+          ${lv.benefits.map(b => `
+            <div class="kv-row">
+              <span class="kv-k"><i data-lucide="${b.icon}" class="w-3.5 h-3.5 inline mr-1 text-violet-500"></i>${b.label}</span>
+              <span class="kv-v">${b.desc}</span>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="section-title">
+          <i data-lucide="history" class="w-4 h-4 text-slate-500"></i>
+          等级变化历史
+          <span class="mini-label">· 含系统自动评级与管理员人工调整</span>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <button class="el-btn-sm">手动调整等级</button>
+            <button class="el-btn-sm el-btn-danger-sm">冻结本周期评级</button>
+            <button class="el-btn-sm">查看等级规则</button>
+          </div>
+        </div>
+        <table class="el-table">
+          <thead>
+            <tr>
+              <th style="width:18%">变更时间</th>
+              <th style="width:14%">变更类型</th>
+              <th style="width:12%">原等级</th>
+              <th style="width:12%">新等级</th>
+              <th>原因</th>
+              <th style="width:18%">操作人</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${history.map(h => `
+              <tr>
+                <td>${h.at}</td>
+                <td>${h.type}</td>
+                <td>${h.from}</td>
+                <td><strong style="color:${cfg.getLevelByCode(h.to === '-' ? 'LV0' : ('LV' + h.to.replace('V',''))).color}">${h.to}</strong></td>
+                <td>${h.reason}</td>
+                <td>${h.op}</td>
+              </tr>
+            `).join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
+  })();
+
+  // ─────────────────────────────────────────────
+  // 积分/唯金币 Tab
+  // ─────────────────────────────────────────────
+  (function renderCoinPanel() {
+    const host = document.getElementById("coinContent");
+    const cfg = window.MEMBER_CONFIG;
+    const unit = cfg.coin.unitYuan;
+
+    // Demo figures derived from balance
+    const earned = Math.round(coinBalance * 1.8 + 200);
+    const consumed = earned - coinBalance;
+    const expiringSoon = Math.min(coinBalance, Math.round(coinBalance * 0.18));
+
+    // Ledger entries — in reverse-chronological order, with running balance
+    const baseLedger = [
+      { at: "2026-04-15 14:23", type: "earn",    amt:  +10, src: "有效出价参与竞拍",    ref: "鲁AF64114", note: "出价 +10" },
+      { at: "2026-04-13 10:37", type: "earn",    amt:  +50, src: "完成车辆交易",        ref: "鲁AF64114", note: "成交奖励" },
+      { at: "2026-04-10 09:15", type: "consume", amt: -200, src: "兑换权益卡",          ref: "碰撞报告查询卡", note: "" },
+      { at: "2026-03-28 11:22", type: "earn",    amt:  +50, src: "完成车辆交易",        ref: "粤BC5432 ",  note: "成交奖励" },
+      { at: "2026-03-15 16:40", type: "earn",    amt:   +5, src: "完善账户银行卡信息",  ref: "首次完善",   note: "一次性奖励" },
+      { at: "2026-03-02 18:02", type: "admin",   amt:  +20, src: "管理员手动调整",      ref: "补偿活动异常",note: "操作人: 管理员·王经理" },
+      { at: "2026-02-08 09:31", type: "expire",  amt:  -15, src: "金币过期",            ref: "2025-02 批次", note: "自动清理" }
+    ];
+    // Running balance
+    let running = coinBalance;
+    const ledger = baseLedger.map(e => {
+      const row = { ...e, balance: running };
+      running = running - e.amt;
+      return row;
+    });
+
+    const typeMap = {
+      earn:    { tag: '<span class="type-tag type-plus">收入</span>',  amtCls: "color:#67c23a", sign: "+" },
+      consume: { tag: '<span class="type-tag type-minus">兑换</span>', amtCls: "color:#f56c6c", sign: "" },
+      admin:   { tag: '<span class="type-tag type-plus">调整</span>',  amtCls: "color:#409eff", sign: "+" },
+      expire:  { tag: '<span class="type-tag type-expire">过期</span>',amtCls: "color:#e6a23c", sign: "" }
+    };
+
+    host.innerHTML = `
+      <div class="panel-section">
+        <div class="metric-grid">
+          <div class="metric-card">
+            <div class="m-lbl">当前余额</div>
+            <div class="m-val accent">${coinBalance.toLocaleString()}<small>金币</small></div>
+            <div class="m-sub">约 ¥ ${(coinBalance * unit).toFixed(2)}</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-lbl">累计获得</div>
+            <div class="m-val">${earned.toLocaleString()}<small>金币</small></div>
+            <div class="m-sub">含成交 / 出价 / 活动 / 调整</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-lbl">累计消耗</div>
+            <div class="m-val">${consumed.toLocaleString()}<small>金币</small></div>
+            <div class="m-sub">含兑换 / 过期</div>
+          </div>
+          <div class="metric-card">
+            <div class="m-lbl">30 天内将过期</div>
+            <div class="m-val warn">${expiringSoon.toLocaleString()}<small>金币</small></div>
+            <div class="m-sub">${expiringSoon > 0 ? '建议提醒用户尽快使用' : '无即将过期金币'}</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel-section">
+        <div class="section-title">
+          <i data-lucide="sliders-horizontal" class="w-4 h-4 text-blue-500"></i>
+          管理操作
+          <span class="mini-label">· 所有调整均记入流水,操作人与原因必填</span>
+          <div style="margin-left:auto;display:flex;gap:8px">
+            <button class="el-btn-sm el-btn-primary-sm"><i data-lucide="plus" class="w-3 h-3"></i>手动增加</button>
+            <button class="el-btn-sm el-btn-danger-sm"><i data-lucide="minus" class="w-3 h-3"></i>手动扣减</button>
+            <button class="el-btn-sm"><i data-lucide="snowflake" class="w-3 h-3"></i>冻结金币</button>
+            <button class="el-btn-sm"><i data-lucide="download" class="w-3 h-3"></i>导出流水</button>
+          </div>
+        </div>
+
+        <div class="kv-grid">
+          <div class="kv-row"><span class="kv-k">金币单价</span><span class="kv-v">1 金币 = ¥ ${unit}</span></div>
+          <div class="kv-row"><span class="kv-k">有效期</span><span class="kv-v">${cfg.coin.validityDesc}</span></div>
+          <div class="kv-row"><span class="kv-k">等级折扣</span><span class="kv-v">${(levelCode === 'LV2') ? '95 折(银卡专享)' : (levelCode === 'LV3' ? '8 折(金卡专享)' : '1:1 等值兑换')}</span></div>
+          <div class="kv-row"><span class="kv-k">风控状态</span><span class="kv-v"><span class="ok">✓ 正常</span>(无刷分 / 套利异常)</span></div>
+        </div>
+      </div>
+
+      ${expiringSoon > 0 ? `
+      <div class="panel-section" style="padding-top:0">
+        <div class="expire-alert">
+          <i data-lucide="alert-triangle" class="w-4 h-4"></i>
+          <span>该用户有 <strong>${expiringSoon}</strong> 金币将于 30 天内过期(约 ¥ ${(expiringSoon * unit).toFixed(2)})。可通过短信 / 站内信提醒用户使用。</span>
+          <button class="el-btn-sm" style="margin-left:auto">发送过期提醒</button>
+        </div>
+      </div>` : ''}
+
+      <div class="panel-section">
+        <div class="section-title">
+          <i data-lucide="list" class="w-4 h-4 text-slate-500"></i>
+          金币流水明细
+          <span class="mini-label">· 近 6 个月</span>
+        </div>
+        <table class="el-table">
+          <thead>
+            <tr>
+              <th style="width:16%">时间</th>
+              <th style="width:10%">类型</th>
+              <th style="width:10%;text-align:right">变动</th>
+              <th style="width:10%;text-align:right">余额</th>
+              <th style="width:20%">来源 / 用途</th>
+              <th style="width:16%">关联业务</th>
+              <th>备注</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${ledger.map(e => {
+              const m = typeMap[e.type];
+              return `
+                <tr>
+                  <td>${e.at}</td>
+                  <td>${m.tag}</td>
+                  <td style="text-align:right;${m.amtCls};font-weight:600">${m.sign}${e.amt}</td>
+                  <td style="text-align:right">${e.balance.toLocaleString()}</td>
+                  <td>${e.src}</td>
+                  <td>${e.ref}</td>
+                  <td style="color:#909399">${e.note || '-'}</td>
+                </tr>`;
+            }).join("")}
+          </tbody>
+        </table>
+      </div>
+    `;
+  })();
 
   document.title = `用户详情 · ${code} · 唯普汽车`;
 
