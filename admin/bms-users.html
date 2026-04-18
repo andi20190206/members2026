@@ -348,7 +348,7 @@
       <td style="text-align:right">${u.pending}</td>
       <td style="text-align:right">${u.deposit}</td>
       <td style="text-align:right">${u.total}</td>
-      <td style="text-align:center"><a class="detail-link">详情</a></td>
+      <td style="text-align:center"><a class="detail-link" href="bms-user-detail.html?code=${encodeURIComponent(u.code)}&name=${encodeURIComponent(u.name)}&phone=${encodeURIComponent(u.phone)}&total=${encodeURIComponent(u.total)}">详情</a></td>
     </tr>
   `).join("");
 
