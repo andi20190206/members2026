@@ -55,6 +55,48 @@
 
   .empty-row { padding: 48px 0; text-align: center; color: #909399; font-size: 12px; }
 
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  /* 保证金汇总条 */
+  .deposit-summary { display: flex; gap: 40px; padding: 12px 16px; border-bottom: 1px solid #ebeef5; font-size: 13px; color: #606266; }
+  .deposit-summary b { color: #303133; font-weight: 600; }
+
+  .el-table tbody tr.row-hl { background: #ecf5ff; }
+
+  /* 用户画像 */
+  .portrait-wrap { display: flex; gap: 16px; padding: 16px; }
+  .portrait-avatar { flex: 0 0 100px; display: flex; align-items: flex-start; justify-content: center; padding-top: 20px; color: #c0c4cc; }
+  .portrait-content { flex: 1; font-size: 12px; color: #303133; line-height: 1.9; }
+  .portrait-content h4 { font-size: 13px; font-weight: 600; color: #303133; margin-bottom: 8px; }
+  .portrait-content .kv { margin: 4px 0; }
+  .portrait-content .kv .label { color: #303133; font-weight: 500; margin-right: 4px; }
+  .portrait-content .hi { color: #f56c6c; }
+  .portrait-header { display: flex; justify-content: flex-end; padding: 12px 16px 0; color: #606266; font-size: 12px; gap: 8px; align-items: center; }
+  .portrait-month { height: 28px; padding: 0 10px; border: 1px solid #dcdfe6; border-radius: 4px; font-size: 12px; color: #606266; outline: none; }
+  .portrait-summary { margin-top: 12px; padding-top: 10px; border-top: 1px dashed #ebeef5; }
+
+  /* 会员权益 */
+  .mv-section { padding: 16px; border-bottom: 1px dashed #ebeef5; }
+  .mv-section:last-child { border-bottom: none; }
+  .mv-section h4 { font-size: 13px; font-weight: 600; color: #303133; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .mv-level-card { border-radius: 10px; padding: 16px; color: #fff; display: flex; justify-content: space-between; align-items: center; }
+  .mv-level-card .big { font-size: 22px; font-weight: 700; }
+  .mv-level-card .sub { font-size: 11px; opacity: .9; margin-top: 2px; }
+  .mv-benefit-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 10px; }
+  .mv-benefit { display: flex; gap: 8px; padding: 8px 10px; background: #f5f7fa; border-radius: 6px; font-size: 12px; }
+  .mv-benefit i { color: #8b5cf6; flex-shrink: 0; margin-top: 1px; }
+  .mv-benefit .bt { color: #303133; font-weight: 500; }
+  .mv-benefit .bd { color: #909399; font-size: 11px; margin-top: 2px; }
+  .mv-coin-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .mv-coin-cell { background: #f5f7fa; border-radius: 6px; padding: 10px 12px; text-align: center; }
+  .mv-coin-cell .num { font-size: 20px; font-weight: 700; color: #e6a23c; }
+  .mv-coin-cell .lb { font-size: 11px; color: #909399; margin-top: 2px; }
+  .mv-pill { display: inline-flex; align-items: center; gap: 4px; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 500; }
+  .mv-pill.green { background: #f0f9eb; color: #67c23a; }
+  .mv-pill.orange { background: #fdf6ec; color: #e6a23c; }
+  .mv-pill.gray { background: #f4f4f5; color: #909399; }
+
   /* Pagination (compact) */
   .pager { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 12px; color: #606266; font-size: 12px; }
   .pager .total { margin-right: 4px; }
@@ -205,32 +247,129 @@
       <!-- Bottom grid -->
       <div class="grid grid-cols-12 gap-3">
 
-        <!-- Left: tabs + bid table -->
+        <!-- Left: tabs + panels -->
         <div class="ant-card col-span-8">
           <div class="tabs">
-            <div class="tab active">出价记录 <i data-lucide="chevron-down" class="w-3 h-3"></i></div>
-            <div class="tab">售后记录</div>
-            <div class="tab">保证金充值记录</div>
-            <div class="tab">客户意向</div>
-            <div class="tab">用户画像</div>
+            <div class="tab active" data-tab="bid">出价记录 <i data-lucide="chevron-down" class="w-3 h-3"></i></div>
+            <div class="tab" data-tab="afs">售后记录</div>
+            <div class="tab" data-tab="deposit">保证金充值记录</div>
+            <div class="tab" data-tab="intent">客户意向</div>
+            <div class="tab" data-tab="portrait">用户画像</div>
+            <div class="tab" data-tab="member">会员权益</div>
           </div>
-          <table class="el-table">
-            <thead>
-              <tr>
-                <th>出价车辆</th>
-                <th>成交时间</th>
-                <th>出价次数</th>
-                <th>最高出价</th>
-                <th>最低出价</th>
-              </tr>
-            </thead>
-            <tbody id="bidBody"></tbody>
-          </table>
-          <div class="pager">
-            <span class="total">共 5 条</span>
-            <button class="pager-arrow"><i data-lucide="chevron-left" class="w-3 h-3"></i></button>
-            <button class="pager-btn active">1</button>
-            <button class="pager-arrow"><i data-lucide="chevron-right" class="w-3 h-3"></i></button>
+
+          <!-- 出价记录 -->
+          <div class="tab-panel active" data-panel="bid">
+            <table class="el-table">
+              <thead>
+                <tr>
+                  <th>出价车辆</th>
+                  <th>成交时间</th>
+                  <th>出价次数</th>
+                  <th>最高出价</th>
+                  <th>最低出价</th>
+                </tr>
+              </thead>
+              <tbody id="bidBody"></tbody>
+            </table>
+            <div class="pager">
+              <span class="total">共 5 条</span>
+              <button class="pager-arrow"><i data-lucide="chevron-left" class="w-3 h-3"></i></button>
+              <button class="pager-btn active">1</button>
+              <button class="pager-arrow"><i data-lucide="chevron-right" class="w-3 h-3"></i></button>
+            </div>
+          </div>
+
+          <!-- 售后记录 -->
+          <div class="tab-panel" data-panel="afs">
+            <table class="el-table">
+              <thead>
+                <tr>
+                  <th>车牌</th>
+                  <th>发起时间</th>
+                  <th>是否退车</th>
+                  <th>状态</th>
+                  <th>责任方</th>
+                  <th>买家金额变更</th>
+                </tr>
+              </thead>
+              <tbody id="afsBody"></tbody>
+            </table>
+            <div class="pager">
+              <span class="total">共 2 条</span>
+              <button class="pager-arrow"><i data-lucide="chevron-left" class="w-3 h-3"></i></button>
+              <button class="pager-btn active">1</button>
+              <button class="pager-arrow"><i data-lucide="chevron-right" class="w-3 h-3"></i></button>
+            </div>
+          </div>
+
+          <!-- 保证金充值记录 -->
+          <div class="tab-panel" data-panel="deposit">
+            <div class="deposit-summary">
+              <span>可用保证金: <b>6,000.00</b> 元</span>
+              <span>已冻结保证金: <b>4,000.00</b> 元</span>
+              <span>总金额: <b>15,000.00</b> 元</span>
+            </div>
+            <table class="el-table">
+              <thead>
+                <tr>
+                  <th>日期</th>
+                  <th>类型</th>
+                  <th>金额(元)</th>
+                  <th>状态</th>
+                  <th>备注</th>
+                </tr>
+              </thead>
+              <tbody id="depositBody"></tbody>
+            </table>
+            <div class="pager">
+              <span class="total">共 5 条</span>
+              <button class="pager-arrow"><i data-lucide="chevron-left" class="w-3 h-3"></i></button>
+              <button class="pager-btn active">1</button>
+              <button class="pager-arrow"><i data-lucide="chevron-right" class="w-3 h-3"></i></button>
+            </div>
+          </div>
+
+          <!-- 客户意向 -->
+          <div class="tab-panel" data-panel="intent">
+            <div class="empty-row">暂无客户意向记录</div>
+          </div>
+
+          <!-- 用户画像 -->
+          <div class="tab-panel" data-panel="portrait">
+            <div class="portrait-header">
+              <span>生成月份</span>
+              <input class="portrait-month" type="month" value="2026-04" />
+            </div>
+            <div class="portrait-wrap">
+              <div class="portrait-avatar">
+                <svg viewBox="0 0 64 64" width="80" height="110" fill="currentColor">
+                  <circle cx="32" cy="18" r="10"/>
+                  <path d="M12 58c0-11 9-20 20-20s20 9 20 20v2H12z"/>
+                </svg>
+              </div>
+              <div class="portrait-content">
+                <h4>近 3 个月交易偏好</h4>
+                <div class="kv"><span class="label">品牌:</span>丰田<span class="hi">(20.7%)</span>、奥迪<span class="hi">(15.5%)</span>、本田<span class="hi">(15.5%)</span>、日产<span class="hi">(6.9%)</span>、大众<span class="hi">(6.9%)</span>、宝骏<span class="hi">(5.2%)</span>、马自达<span class="hi">(5.2%)</span>、比亚迪<span class="hi">(5.2%)</span>、别克<span class="hi">(3.4%)</span>、标致<span class="hi">(3.4%)</span>、福特<span class="hi">(1.7%)</span>、传祺<span class="hi">(1.7%)</span>、现代<span class="hi">(1.7%)</span>、特斯拉<span class="hi">(1.7%)</span>、起亚<span class="hi">(1.7%)</span>、宝马<span class="hi">(1.7%)</span>、雪佛兰<span class="hi">(1.7%)</span></div>
+                <div class="kv"><span class="label">车系:</span>卡罗拉<span class="hi">(6.9%)</span>、迈腾<span class="hi">(5.2%)</span>、730<span class="hi">(5.2%)</span>、Q5<span class="hi">(5.2%)</span>、A4L<span class="hi">(5.2%)</span>、CR-V<span class="hi">(3.4%)</span>、唐<span class="hi">(3.4%)</span>、NV200<span class="hi">(3.4%)</span>、锐志<span class="hi">(3.4%)</span>、逸致<span class="hi">(3.4%)</span>、RAV4荣放<span class="hi">(3.4%)</span>、阿特兹<span class="hi">(3.4%)</span>、飞度<span class="hi">(3.4%)</span>、A6L<span class="hi">(1.7%)</span>、君越<span class="hi">(1.7%)</span>、X3(进口)<span class="hi">(1.7%)</span>、GS8<span class="hi">(1.7%)</span>、思域<span class="hi">(1.7%)</span>、翼虎<span class="hi">(1.7%)</span>、标致408<span class="hi">(1.7%)</span>、Model Y<span class="hi">(1.7%)</span>、轩逸<span class="hi">(1.7%)</span>、智跑<span class="hi">(1.7%)</span>、4008<span class="hi">(1.7%)</span></div>
+                <div class="kv"><span class="label">能源类型:</span>汽油<span class="hi">(93.1%)</span>、电力<span class="hi">(3.4%)</span>、油电<span class="hi">(3.4%)</span></div>
+                <div class="kv"><span class="label">价格区间:</span>5万以下<span class="hi">(79.3%)</span>、5-10万<span class="hi">(19.0%)</span>、10-15万<span class="hi">(1.7%)</span></div>
+                <div class="kv"><span class="label">车龄:</span>10年以上<span class="hi">(41.4%)</span>、8-10年<span class="hi">(36.2%)</span>、未知<span class="hi">(12.1%)</span>、6-8年<span class="hi">(3.4%)</span>、4-6年<span class="hi">(3.4%)</span>、2-4年<span class="hi">(1.7%)</span>、2年以内<span class="hi">(1.7%)</span></div>
+                <div class="kv"><span class="label">行驶里程:</span>12万公里以上<span class="hi">(69.0%)</span>、9-12万公里<span class="hi">(15.5%)</span>、6-9万公里<span class="hi">(10.3%)</span>、3万公里以下<span class="hi">(3.4%)</span>、3-6万公里<span class="hi">(1.7%)</span></div>
+                <div class="kv"><span class="label">所在城市:</span>广州<span class="hi">(24.1%)</span>、东莞<span class="hi">(19.0%)</span>、佛山<span class="hi">(13.8%)</span>、惠州<span class="hi">(10.3%)</span>、中山<span class="hi">(6.9%)</span>、河源<span class="hi">(3.4%)</span>、茂名<span class="hi">(3.4%)</span>、揭阳<span class="hi">(1.7%)</span>、江门<span class="hi">(1.7%)</span>、汕头<span class="hi">(1.7%)</span>、西安<span class="hi">(1.7%)</span>、武汉<span class="hi">(1.7%)</span>、阳江<span class="hi">(1.7%)</span>、成都<span class="hi">(1.7%)</span>、九江<span class="hi">(1.7%)</span>、郑州<span class="hi">(1.7%)</span>、深圳<span class="hi">(1.7%)</span>、南昌<span class="hi">(1.7%)</span></div>
+                <div class="kv"><span class="label">车况评分:</span>无评分<span class="hi">(24.1%)</span>、65<span class="hi">(19.0%)</span>、80<span class="hi">(13.8%)</span>、55<span class="hi">(13.8%)</span>、75<span class="hi">(12.1%)</span>、85<span class="hi">(8.6%)</span>、90<span class="hi">(6.9%)</span>、95<span class="hi">(1.7%)</span></div>
+                <div class="kv"><span class="label">事故等级:</span>B<span class="hi">(44.8%)</span>、无评级<span class="hi">(24.1%)</span>、C<span class="hi">(22.4%)</span>、D<span class="hi">(8.6%)</span></div>
+                <div class="portrait-summary">
+                  <h4>总结</h4>
+                  <div>偏好能源类型<span class="hi">(汽油)</span>、价格区间<span class="hi">(5万以下)</span>、车龄<span class="hi">(10年以上、8-10年)</span>、行驶里程<span class="hi">(12万公里以上)</span>、车况评分<span class="hi">(65)</span>、事故等级<span class="hi">(B)</span>的车源。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 会员权益 -->
+          <div class="tab-panel" data-panel="member">
+            <div id="mvPanel"></div>
           </div>
         </div>
 
@@ -347,6 +486,125 @@
       <td>${m.last}</td>
     </tr>
   `).join("");
+
+  // 售后记录
+  const afs = [
+    { plate:"粤YGW171", time:"2026-03-16 10:46:55", refund:"直接退车", status:"已执行", liable:"买家", amount:-2000 },
+    { plate:"粤A15L5Z", time:"2026-03-01 10:00:47", refund:"不退车",   status:"已执行", liable:"无责任方", amount: 2000 },
+  ];
+  document.getElementById("afsBody").innerHTML = afs.map(a => `
+    <tr>
+      <td>${a.plate}</td>
+      <td>${a.time}</td>
+      <td>${a.refund}</td>
+      <td>${a.status}</td>
+      <td>${a.liable}</td>
+      <td>${a.amount}</td>
+    </tr>
+  `).join("");
+
+  // 保证金充值记录
+  const deposits = [
+    { date:"2026-03-17 11:39", type:"充值", amount:"6000",  status:"已处理", note:"" },
+    { date:"2026-03-17 11:39", type:"充值", amount:"2000",  status:"已处理", note:"", hl:true },
+    { date:"2026-03-16 12:12", type:"提取", amount:"-2000", status:"已处理", note:"粤YGW171违约金" },
+    { date:"2026-01-26 23:21", type:"充值", amount:"2000",  status:"已处理", note:"" },
+    { date:"2025-12-28 12:23", type:"充值", amount:"2000",  status:"已处理", note:"" },
+  ];
+  document.getElementById("depositBody").innerHTML = deposits.map(d => `
+    <tr class="${d.hl ? 'row-hl' : ''}">
+      <td>${d.date}</td>
+      <td>${d.type}</td>
+      <td>${d.amount}</td>
+      <td>${d.status}</td>
+      <td>${d.note}</td>
+    </tr>
+  `).join("");
+
+  // Tab 切换
+  document.querySelectorAll(".tab").forEach(t => {
+    t.addEventListener("click", () => {
+      const k = t.dataset.tab;
+      document.querySelectorAll(".tab").forEach(x => x.classList.toggle("active", x === t));
+      document.querySelectorAll(".tab-panel").forEach(p => p.classList.toggle("active", p.dataset.panel === k));
+      lucide.createIcons();
+    });
+  });
+
+  // 会员权益 Tab 内容
+  const currentLevel = q.get("level") || "V2";
+  const lv = window.MEMBER_CONFIG.getLevelByCode(currentLevel);
+  const coinBalance = 850;
+  const coinEarnedYear = 1260;
+  const coinExpiringSoon = 60;
+  const coinUsed = coinEarnedYear - coinBalance;
+  const rewardRecords = [
+    { name:"平台行驶证查询卡", coin:100, time:"2026-04-02 10:21", status:"已使用", statusCls:"gray" },
+    { name:"出险维保数据",     coin:300, time:"2026-03-19 16:45", status:"使用中", statusCls:"green" },
+    { name:"碰撞报告查询卡",   coin:200, time:"2026-02-08 11:12", status:"已过期", statusCls:"gray" },
+    { name:"过户费减免 100 元", coin:500, time:"2026-01-22 09:03", status:"已使用", statusCls:"gray" },
+  ];
+  const grad = `linear-gradient(135deg, ${lv.gradient[0]}, ${lv.gradient[1]})`;
+  document.getElementById("mvPanel").innerHTML = `
+    <div class="mv-section">
+      <h4><i data-lucide="crown" class="w-4 h-4"></i>当前等级</h4>
+      <div class="mv-level-card" style="background:${grad}">
+        <div>
+          <div class="big">${lv.name}</div>
+          <div class="sub">${lv.thresholdText}</div>
+        </div>
+        <div style="text-align:right">
+          <div class="big">${lv.short}</div>
+          <div class="sub">当前权益共 ${lv.benefits.length} 项</div>
+        </div>
+      </div>
+      <div class="mv-benefit-grid">
+        ${lv.benefits.map(b => `
+          <div class="mv-benefit">
+            <i data-lucide="${b.icon}" class="w-4 h-4"></i>
+            <div>
+              <div class="bt">${b.label}</div>
+              <div class="bd">${b.desc}</div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+
+    <div class="mv-section">
+      <h4><i data-lucide="coins" class="w-4 h-4"></i>唯金币</h4>
+      <div class="mv-coin-row">
+        <div class="mv-coin-cell"><div class="num">${coinBalance}</div><div class="lb">当前余额 ≈ ¥${window.MEMBER_CONFIG.yuanFromCoin(coinBalance)}</div></div>
+        <div class="mv-coin-cell"><div class="num" style="color:#67c23a">${coinEarnedYear}</div><div class="lb">今年累计获得</div></div>
+        <div class="mv-coin-cell"><div class="num" style="color:#909399">${coinUsed}</div><div class="lb">已使用</div></div>
+        <div class="mv-coin-cell"><div class="num" style="color:#f56c6c">${coinExpiringSoon}</div><div class="lb">30 天内到期</div></div>
+      </div>
+    </div>
+
+    <div class="mv-section">
+      <h4><i data-lucide="ticket" class="w-4 h-4"></i>权益卡使用记录</h4>
+      <table class="el-table">
+        <thead>
+          <tr>
+            <th>权益卡</th>
+            <th>兑换消耗</th>
+            <th>兑换时间</th>
+            <th>状态</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${rewardRecords.map(r => `
+            <tr>
+              <td>${r.name}</td>
+              <td>${r.coin} 金币</td>
+              <td>${r.time}</td>
+              <td><span class="mv-pill ${r.statusCls}">${r.status}</span></td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
 
   lucide.createIcons();
 </script>
