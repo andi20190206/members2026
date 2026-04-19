@@ -855,9 +855,14 @@
     lucide.createIcons();
   }
   function closeRuleModal() { ruleModal.classList.remove("open"); }
-  document.getElementById("ruleModalClose").addEventListener("click", closeRuleModal);
-  document.getElementById("ruleModalOk").addEventListener("click", closeRuleModal);
-  ruleModal.addEventListener("click", (e) => { if (e.target === ruleModal) closeRuleModal(); });
+  // Use delegation on the stable modal container — lucide.createIcons() replaces
+  // the <i data-lucide="x"> with a fresh <svg>, so a listener attached to the
+  // original <i> would be lost.
+  ruleModal.addEventListener("click", (e) => {
+    if (e.target === ruleModal
+        || e.target.closest("#ruleModalClose")
+        || e.target.closest("#ruleModalOk")) closeRuleModal();
+  });
 
   // ─────────────────────────────────────────────
   // 积分/唯金币 Tab
@@ -934,7 +939,6 @@
             <button class="el-btn-sm el-btn-primary-sm" data-action="add"><i data-lucide="plus" class="w-3 h-3"></i>手动新增</button>
             <button class="el-btn-sm el-btn-danger-sm" data-action="deduct"><i data-lucide="minus" class="w-3 h-3"></i>手动扣减</button>
             <button class="el-btn-sm" data-action="freeze"><i data-lucide="snowflake" class="w-3 h-3"></i>冻结金币</button>
-            <button class="el-btn-sm" data-action="export"><i data-lucide="download" class="w-3 h-3"></i>导出流水</button>
           </div>
         </div>
 
@@ -1013,10 +1017,6 @@
   let modalAction = null;   // "add" | "deduct" | "freeze"
 
   function handleCoinAction(action) {
-    if (action === "export") {
-      alert("导出流水(演示):将导出当前筛选下的金币流水为 CSV / Excel。");
-      return;
-    }
     modalAction = action;
     const cfgMap = {
       add:    { title: "手动新增金币", icon: "plus",      amtLbl: "新增数量", hint: "按实际业务补偿或活动奖励数量填写" },
@@ -1041,9 +1041,13 @@
 
   function closeModal() { modal.classList.remove("open"); modalAction = null; }
 
-  document.getElementById("modalClose").addEventListener("click", closeModal);
-  document.getElementById("modalCancel").addEventListener("click", closeModal);
-  modal.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+  // Delegation on the stable mask — lucide.createIcons() rebuilds the × <svg>,
+  // so listeners attached directly to <i data-lucide="x"> would be lost.
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal
+        || e.target.closest("#modalClose")
+        || e.target.closest("#modalCancel")) closeModal();
+  });
 
   document.getElementById("modalSubmit").addEventListener("click", () => {
     const amtEl = document.getElementById("modalAmount");
