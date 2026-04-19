@@ -54,9 +54,9 @@
   .el-table tbody tr.row-selected:hover { background: #d9ecff; }
 
   .name-cell { display: inline-flex; align-items: center; gap: 4px; }
-  .id-icon { width: 14px; height: 14px; border-radius: 2px; color: #fff; display: inline-flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; flex-shrink: 0; }
-  .id-icon.blue { background: #409eff; }
-  .id-icon.teal { background: #13c2c2; }
+  .lv-badge { display: inline-flex; align-items: center; justify-content: center; height: 16px; min-width: 22px; padding: 0 4px; border-radius: 3px; color: #fff; font-size: 10px; font-weight: 700; font-style: italic; letter-spacing: .5px; flex-shrink: 0; }
+  .auth-icon { width: 14px; height: 14px; color: #409eff; flex-shrink: 0; }
+  .auth-icon svg { fill: currentColor; stroke: #fff; stroke-width: 1.5; }
 
   .phone-cell { display: inline-flex; align-items: center; gap: 4px; }
   .phone-cell i { color: #c0c4cc; cursor: pointer; }
@@ -340,29 +340,31 @@
   <a href="../index.html" class="px-3 py-1 bg-white border border-slate-200 rounded shadow-sm text-xs text-slate-600 hover:bg-slate-50">← Demo 导航</a>
 </div>
 
+<script src="../shared/member-config.js"></script>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <script>
   const buyers = [
-    { name:"郑园", type:"个人买家", sales:"", tx:"活跃客户", acct:"m_6689475262079722", phone:"189****2868", reg:"2025-12-28", auth:"2026-03-08", balance:"0", deposit:"10000", total:"15000", region:"", src:"官网", lastDeal:"2026-03-20", yearDeal:3, yearBid:5, match:5 },
-    { name:"雷琨瑶", type:"专业买家", sales:"", tx:"活跃客户", acct:"m_651857491114756", phone:"188****7205", reg:"2025-12-08", auth:"2025-12-10", balance:"0", deposit:"2000", total:"2000", region:"长沙", src:"rncwp", lastDeal:"2026-03-30", yearDeal:4, yearBid:15, match:24 },
-    { name:"霍学明", type:"", sales:"", tx:"活跃客户", acct:"m_6416634018455373", phone:"139****2750", reg:"2025-11-26", auth:"2025-11-26", balance:"0", deposit:"0", total:"0", region:"", src:"rncwp", lastDeal:"2026-03-20", yearDeal:4, yearBid:13, match:13 },
-    { name:"谢亮塘", type:"", sales:"林泰", tx:"活跃客户", acct:"m_6407157528166823", phone:"137****0863", reg:"2025-11-25", auth:"2025-11-25", balance:"0", deposit:"2000", total:"7000", region:"广州市", src:"mpcwp", lastDeal:"2026-04-12", yearDeal:4, yearBid:14, match:19 },
-    { name:"钟榴添", type:"", sales:"林玉兰", tx:"活跃客户", acct:"m_6396874345283856", phone:"132****5301", reg:"2025-11-24", auth:"2025-11-24", balance:"5000", deposit:"6000", total:"11000", region:"广州市", src:"rncwp", lastDeal:"2026-04-13", yearDeal:11, yearBid:22, match:26 },
-    { name:"吴汉", type:"", sales:"林泰", tx:"活跃客户", acct:"m_6335547257696285", phone:"156****3767", reg:"2025-11-17", auth:"2025-11-17", balance:"1000", deposit:"8000", total:"9000", region:"桂林", src:"车唯拍+小程序", lastDeal:"2026-03-25", yearDeal:3, yearBid:37, match:47 },
-    { name:"张恒", type:"专业买家", sales:"", tx:"活跃客户", acct:"m_6232472062259752", phone:"187****2008", reg:"2025-11-05", auth:"2025-11-05", balance:"158.9", deposit:"14000", total:"19158.9", region:"榆林市", src:"mpcwp", lastDeal:"2026-04-06", yearDeal:8, yearBid:36, match:36, selected:true },
-    { name:"李景文", type:"", sales:"", tx:"活跃客户", acct:"m_6230677848487069", phone:"156****8688", reg:"2025-11-05", auth:"2025-11-05", balance:"10000", deposit:"10000", total:"20000", region:"中山市", src:"mpcwp", lastDeal:"2026-03-25", yearDeal:7, yearBid:28, match:43 },
-    { name:"谢淋光", type:"专业买家", sales:"林玉兰", tx:"活跃客户", acct:"m_6213868513004821", phone:"181****8785", reg:"2025-11-03", auth:"2025-11-03", balance:"0", deposit:"2000", total:"2000", region:"南宁", src:"mpcwp", lastDeal:"2026-03-27", yearDeal:7, yearBid:16, match:20 },
-    { name:"孙勇英", type:"", sales:"", tx:"活跃客户", acct:"m_5996761059859518", phone:"130****0277", reg:"2025-10-09", auth:"2025-10-13", balance:"3000", deposit:"10000", total:"13000", region:"新乡", src:"rncwp", lastDeal:"2026-04-16", yearDeal:4, yearBid:20, match:39 },
+    { name:"郑园", level:"V2", authed:true, type:"个人买家", sales:"", tx:"活跃客户", acct:"m_6689475262079722", phone:"189****2868", reg:"2025-12-28", auth:"2026-03-08", balance:"0", deposit:"10000", total:"15000", region:"", src:"官网", lastDeal:"2026-03-20", yearDeal:3, yearBid:5, match:5 },
+    { name:"雷琨瑶", level:"V2", authed:true, type:"专业买家", sales:"", tx:"活跃客户", acct:"m_651857491114756", phone:"188****7205", reg:"2025-12-08", auth:"2025-12-10", balance:"0", deposit:"2000", total:"2000", region:"长沙", src:"rncwp", lastDeal:"2026-03-30", yearDeal:4, yearBid:15, match:24 },
+    { name:"霍学明", level:"V2", authed:true, type:"", sales:"", tx:"活跃客户", acct:"m_6416634018455373", phone:"139****2750", reg:"2025-11-26", auth:"2025-11-26", balance:"0", deposit:"0", total:"0", region:"", src:"rncwp", lastDeal:"2026-03-20", yearDeal:4, yearBid:13, match:13 },
+    { name:"谢亮塘", level:"V2", authed:true, type:"", sales:"林泰", tx:"活跃客户", acct:"m_6407157528166823", phone:"137****0863", reg:"2025-11-25", auth:"2025-11-25", balance:"0", deposit:"2000", total:"7000", region:"广州市", src:"mpcwp", lastDeal:"2026-04-12", yearDeal:4, yearBid:14, match:19 },
+    { name:"钟榴添", level:"V2", authed:true, type:"", sales:"林玉兰", tx:"活跃客户", acct:"m_6396874345283856", phone:"132****5301", reg:"2025-11-24", auth:"2025-11-24", balance:"5000", deposit:"6000", total:"11000", region:"广州市", src:"rncwp", lastDeal:"2026-04-13", yearDeal:11, yearBid:22, match:26 },
+    { name:"吴汉", level:"V2", authed:true, type:"", sales:"林泰", tx:"活跃客户", acct:"m_6335547257696285", phone:"156****3767", reg:"2025-11-17", auth:"2025-11-17", balance:"1000", deposit:"8000", total:"9000", region:"桂林", src:"车唯拍+小程序", lastDeal:"2026-03-25", yearDeal:3, yearBid:37, match:47 },
+    { name:"张恒", level:"V2", authed:true, type:"专业买家", sales:"", tx:"活跃客户", acct:"m_6232472062259752", phone:"187****2008", reg:"2025-11-05", auth:"2025-11-05", balance:"158.9", deposit:"14000", total:"19158.9", region:"榆林市", src:"mpcwp", lastDeal:"2026-04-06", yearDeal:8, yearBid:36, match:36, selected:true },
+    { name:"李景文", level:"V2", authed:true, type:"", sales:"", tx:"活跃客户", acct:"m_6230677848487069", phone:"156****8688", reg:"2025-11-05", auth:"2025-11-05", balance:"10000", deposit:"10000", total:"20000", region:"中山市", src:"mpcwp", lastDeal:"2026-03-25", yearDeal:7, yearBid:28, match:43 },
+    { name:"谢淋光", level:"V2", authed:true, type:"专业买家", sales:"林玉兰", tx:"活跃客户", acct:"m_6213868513004821", phone:"181****8785", reg:"2025-11-03", auth:"2025-11-03", balance:"0", deposit:"2000", total:"2000", region:"南宁", src:"mpcwp", lastDeal:"2026-03-27", yearDeal:7, yearBid:16, match:20 },
+    { name:"孙勇英", level:"V2", authed:true, type:"", sales:"", tx:"活跃客户", acct:"m_5996761059859518", phone:"130****0277", reg:"2025-10-09", auth:"2025-10-13", balance:"3000", deposit:"10000", total:"13000", region:"新乡", src:"rncwp", lastDeal:"2026-04-16", yearDeal:4, yearBid:20, match:39 },
   ];
 
   const fmtZero = (v) => v === "0" ? `<span class="zero-amount">0</span>` : v;
+  const levelColor = (code) => window.MEMBER_CONFIG.getLevelByCode(code).color;
 
   document.getElementById("buyerBody").innerHTML = buyers.map(b => `
     <tr class="${b.selected ? 'row-selected' : ''}">
       <td>
         <span class="name-cell">
-          <span class="id-icon blue">身</span>
-          <span class="id-icon teal">✓</span>
+          <span class="lv-badge" style="background:${levelColor(b.level)}" title="客户等级 ${b.level}">${b.level}</span>
+          ${b.authed ? `<span class="auth-icon" title="已实名认证"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i></span>` : ''}
           ${b.name}
         </span>
       </td>
