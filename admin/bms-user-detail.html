@@ -831,10 +831,6 @@
               <td class="dim">商户特征</td>
               ${cfg.levels.map(l => `<td class="text-l ${colCurClass(l)}">${l.feature}</td>`).join("")}
             </tr>
-            <tr>
-              <td class="dim">当前商户数</td>
-              ${cfg.levels.map(l => `<td class="${colCurClass(l)}"><strong>${l.merchantCount.toLocaleString()}</strong></td>`).join("")}
-            </tr>
             ${dims.map(d => `
               <tr>
                 <td class="dim">${d.name}</td>
