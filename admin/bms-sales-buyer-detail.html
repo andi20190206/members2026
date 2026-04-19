@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>买家详情 · 销售管理 · 唯普汽车</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", Arial, sans-serif; background: #f0f2f5; color: #303133; font-size: 13px; }
+
+  /* Sider */
+  .ant-sider { background: #304156; width: 200px; flex: 0 0 200px; color: #bfcbd9; }
+  .ant-sider .logo { background: #263445; }
+  .ant-sider .brand-title { color: #fff; font-size: 16px; font-weight: 600; letter-spacing: 1px; }
+  .ant-sider .brand-sub { color: #8492a6; font-size: 10px; margin-top: 2px; letter-spacing: 1px; }
+  .ant-sider .menu-item { display: flex; align-items: center; gap: 10px; padding: 0 20px; height: 44px; color: #bfcbd9; font-size: 13px; cursor: pointer; }
+  .ant-sider .menu-item:hover { background: #263445; color: #fff; }
+  .ant-sider .menu-item.open { background: #1f2d3d; color: #fff; }
+  .ant-sider .menu-item i.chevron { margin-left: auto; transition: transform .2s; }
+  .ant-sider .menu-item.open i.chevron { transform: rotate(90deg); }
+  .ant-sider .submenu { background: #1f2d3d; }
+  .ant-sider .submenu .sub-item { display: flex; align-items: center; height: 40px; padding-left: 50px; color: #bfcbd9; font-size: 13px; cursor: pointer; }
+  .ant-sider .submenu .sub-item:hover { color: #fff; background: #001528; }
+  .ant-sider .submenu .sub-item.active { color: #409eff; background: #263445; }
+
+  .ant-header { height: 50px; background: #fff; border-bottom: 1px solid #e4e7ed; }
+  .breadcrumb-link { cursor: pointer; }
+  .breadcrumb-link:hover { color: #409eff; }
+
+  .ant-card { background: #fff; border-radius: 2px; }
+  .card-title { font-size: 14px; font-weight: 500; color: #303133; display: inline-flex; align-items: center; gap: 6px; }
+  .card-title::before { content: ""; display: inline-block; width: 3px; height: 14px; background: #409eff; border-radius: 2px; }
+
+  .lv-badge { display: inline-flex; align-items: center; justify-content: center; height: 16px; min-width: 22px; padding: 0 4px; border-radius: 3px; color: #fff; font-size: 10px; font-weight: 700; font-style: italic; letter-spacing: .5px; }
+
+  /* Stat number */
+  .stat-number { font-size: 36px; font-weight: 600; color: #409eff; line-height: 1.1; }
+  .stat-label { font-size: 13px; color: #606266; margin-top: 4px; }
+  .stat-kv { font-size: 12px; color: #909399; margin-top: 10px; line-height: 1.8; }
+
+  /* Tabs */
+  .tabs { display: flex; border-bottom: 1px solid #e4e7ed; padding: 0 8px; }
+  .tab { display: inline-flex; align-items: center; gap: 4px; height: 40px; padding: 0 18px; font-size: 14px; color: #606266; cursor: pointer; position: relative; }
+  .tab:hover { color: #409eff; }
+  .tab.active { color: #409eff; font-weight: 500; }
+  .tab.active::after { content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: #409eff; }
+
+  /* Table */
+  .el-table { width: 100%; border-collapse: collapse; font-size: 12px; color: #606266; }
+  .el-table thead th { background: #f5f7fa; color: #606266; font-weight: 500; padding: 10px 8px; border-bottom: 1px solid #ebeef5; text-align: center; white-space: nowrap; }
+  .el-table tbody td { padding: 10px 8px; border-bottom: 1px solid #ebeef5; text-align: center; vertical-align: middle; }
+  .el-table tbody tr:hover { background: #f5f7fa; }
+  .link { color: #409eff; cursor: pointer; }
+  .link:hover { text-decoration: underline; }
+
+  .empty-row { padding: 48px 0; text-align: center; color: #909399; font-size: 12px; }
+
+  /* Pagination (compact) */
+  .pager { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 12px; color: #606266; font-size: 12px; }
+  .pager .total { margin-right: 4px; }
+  .pager-btn { min-width: 26px; height: 26px; padding: 0 6px; border-radius: 2px; background: #f4f4f5; color: #606266; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; border: 1px solid transparent; font-size: 12px; }
+  .pager-btn:hover { color: #409eff; }
+  .pager-btn.active { background: #fff; color: #409eff; border-color: #409eff; }
+  .pager-arrow { min-width: 26px; height: 26px; background: #f4f4f5; color: #606266; border: none; cursor: pointer; border-radius: 2px; display: inline-flex; align-items: center; justify-content: center; }
+  .pager-arrow:hover { color: #409eff; }
+
+  .phone-big { font-size: 22px; font-weight: 600; color: #303133; letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<div class="flex min-h-screen">
+
+  <!-- Sider -->
+  <aside class="ant-sider flex flex-col">
+    <div class="logo h-14 flex flex-col items-center justify-center">
+      <div class="brand-title"><span style="color:#e6a23c">唯普</span>汽车</div>
+      <div class="brand-sub">www.chevip.com</div>
+    </div>
+    <nav class="flex-1 overflow-y-auto">
+      <div class="menu-item"><i data-lucide="shield-check" class="w-4 h-4"></i><span>检测认证管理</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item" onclick="location.href='bms-orders.html'"><i data-lucide="database" class="w-4 h-4"></i><span>业务数据</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+
+      <div class="menu-item open"><i data-lucide="bar-chart-3" class="w-4 h-4"></i><span>销售管理</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="submenu">
+        <div class="sub-item">销售首页</div>
+        <div class="sub-item">客户等级管理</div>
+        <div class="sub-item active" onclick="location.href='bms-sales-buyers.html'">买家管理</div>
+        <div class="sub-item">B2C零售</div>
+        <div class="sub-item">门店奖励</div>
+        <div class="sub-item" onclick="location.href='bms-sales-orders.html'">销售订单</div>
+      </div>
+
+      <div class="menu-item"><i data-lucide="briefcase" class="w-4 h-4"></i><span>政企大客户</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item"><i data-lucide="headphones" class="w-4 h-4"></i><span>服务中心</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item"><i data-lucide="package" class="w-4 h-4"></i><span>库存管理</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item"><i data-lucide="search-check" class="w-4 h-4"></i><span>查验管理</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item"><i data-lucide="settings" class="w-4 h-4"></i><span>运营部</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item"><i data-lucide="users" class="w-4 h-4"></i><span>人力资源</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item"><i data-lucide="store" class="w-4 h-4"></i><span>集团门店管理</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item"><i data-lucide="share-2" class="w-4 h-4"></i><span>共享拍</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item"><i data-lucide="sliders-horizontal" class="w-4 h-4"></i><span>配置管理</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item"><i data-lucide="file-bar-chart" class="w-4 h-4"></i><span>报表管理</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+      <div class="menu-item"><i data-lucide="monitor" class="w-4 h-4"></i><span>中控中心</span><i data-lucide="chevron-right" class="w-3 h-3 chevron"></i></div>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <div class="flex-1 flex flex-col min-w-0">
+
+    <!-- Header -->
+    <header class="ant-header flex items-center justify-between px-4">
+      <div class="flex items-center gap-4 text-sm text-slate-600">
+        <i data-lucide="menu" class="w-5 h-5 cursor-pointer text-slate-500"></i>
+        <div class="flex items-center gap-1">
+          <i data-lucide="home" class="w-3.5 h-3.5 text-slate-400"></i>
+          <span class="breadcrumb-link" onclick="location.href='../index.html'">首页</span>
+          <span class="text-slate-300">/</span>
+          <i data-lucide="bar-chart-3" class="w-3.5 h-3.5 text-slate-400"></i>
+          <span>销售管理</span>
+          <span class="text-slate-300">/</span>
+          <span class="breadcrumb-link" onclick="location.href='bms-sales-buyers.html'">买家管理</span>
+          <span class="text-slate-300">/</span>
+          <span class="font-medium">买家详情</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <i data-lucide="download" class="w-4 h-4 text-blue-500 cursor-pointer"></i>
+        <div class="flex items-center gap-2 cursor-pointer">
+          <div class="w-7 h-7 rounded-full bg-slate-200 overflow-hidden flex items-center justify-center">
+            <i data-lucide="user" class="w-4 h-4 text-slate-500"></i>
+          </div>
+          <span class="text-sm text-slate-600">ylj</span>
+          <i data-lucide="chevron-down" class="w-3 h-3 text-slate-400"></i>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="flex-1 p-3 overflow-auto">
+
+      <!-- Top info row -->
+      <div class="grid grid-cols-12 gap-3 mb-3">
+        <!-- Profile card -->
+        <div class="ant-card col-span-3 p-4">
+          <div class="flex items-center gap-2 mb-3">
+            <i data-lucide="phone" class="w-5 h-5 text-slate-400"></i>
+            <span class="phone-big" id="buyerPhone">18978302868</span>
+          </div>
+          <div class="space-y-2 text-slate-600 pt-2 border-t border-slate-100">
+            <div class="flex items-center gap-2">
+              <span class="lv-badge" id="buyerLevel" style="background:#8b5cf6">V2</span>
+              <span class="text-slate-400">客户姓名:</span>
+              <span id="buyerName" class="text-slate-700">郑园</span>
+            </div>
+            <div><span class="text-slate-400">注册时间:</span> <span id="buyerReg">2025-12-28 12:05:53</span></div>
+            <div><span class="text-slate-400">买家来源:</span> <span id="buyerSrc">ZCP-WEB-Mobile</span></div>
+            <div><span class="text-slate-400">所在城市:</span> <span id="buyerCity"></span></div>
+          </div>
+        </div>
+
+        <!-- Stat: 成交 -->
+        <div class="ant-card col-span-2 p-4 text-center">
+          <div class="stat-number">3</div>
+          <div class="stat-label">成交台数</div>
+          <div class="stat-kv text-left">
+            <div>车价范围:111100 ~ 112800</div>
+            <div>平均价格:111800</div>
+          </div>
+        </div>
+
+        <!-- Stat: 出价 -->
+        <div class="ant-card col-span-2 p-4 text-center">
+          <div class="stat-number">5</div>
+          <div class="stat-label">出价台数</div>
+          <div class="stat-kv text-left">
+            <div>车价范围:95200 ~ 315600</div>
+            <div>平均价格:165736.75</div>
+          </div>
+        </div>
+
+        <!-- Stat: 售后 -->
+        <div class="ant-card col-span-3 p-4 text-center">
+          <div class="stat-number">2</div>
+          <div class="stat-label">售后次数</div>
+          <div class="stat-kv text-left">
+            <div>售后直接退车台数: 1 台</div>
+            <div>买家问题的售后次数: 1 次</div>
+          </div>
+        </div>
+
+        <!-- Stat: 过户 -->
+        <div class="ant-card col-span-2 p-4 text-center">
+          <div class="stat-number">2</div>
+          <div class="stat-label">过户次数</div>
+          <div class="stat-kv text-left">
+            <div>其中外地:</div>
+            <div>广西 0 台</div>
+            <div>深圳 0 台</div>
+            <div>其他地区 0 台</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom grid -->
+      <div class="grid grid-cols-12 gap-3">
+
+        <!-- Left: tabs + bid table -->
+        <div class="ant-card col-span-8">
+          <div class="tabs">
+            <div class="tab active">出价记录 <i data-lucide="chevron-down" class="w-3 h-3"></i></div>
+            <div class="tab">售后记录</div>
+            <div class="tab">保证金充值记录</div>
+            <div class="tab">客户意向</div>
+            <div class="tab">用户画像</div>
+          </div>
+          <table class="el-table">
+            <thead>
+              <tr>
+                <th>出价车辆</th>
+                <th>成交时间</th>
+                <th>出价次数</th>
+                <th>最高出价</th>
+                <th>最低出价</th>
+              </tr>
+            </thead>
+            <tbody id="bidBody"></tbody>
+          </table>
+          <div class="pager">
+            <span class="total">共 5 条</span>
+            <button class="pager-arrow"><i data-lucide="chevron-left" class="w-3 h-3"></i></button>
+            <button class="pager-btn active">1</button>
+            <button class="pager-arrow"><i data-lucide="chevron-right" class="w-3 h-3"></i></button>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="col-span-4 flex flex-col gap-3">
+
+          <!-- 交易车型 -->
+          <div class="ant-card">
+            <div class="flex items-center justify-between px-4 py-3 border-b border-slate-100">
+              <span class="card-title">交易车型</span>
+              <label class="text-xs text-slate-500 flex items-center gap-1 cursor-pointer">
+                <input type="checkbox" class="align-middle" /> 仅看买中
+              </label>
+            </div>
+            <table class="el-table">
+              <thead>
+                <tr>
+                  <th>品牌车系</th>
+                  <th>数量</th>
+                  <th>最后成交时间</th>
+                </tr>
+              </thead>
+              <tbody id="modelBody"></tbody>
+            </table>
+            <div class="pager">
+              <span class="total">共 3 条</span>
+              <button class="pager-arrow"><i data-lucide="chevron-left" class="w-3 h-3"></i></button>
+              <button class="pager-btn active">1</button>
+              <button class="pager-arrow"><i data-lucide="chevron-right" class="w-3 h-3"></i></button>
+            </div>
+          </div>
+
+          <!-- 迁户地点 -->
+          <div class="ant-card">
+            <div class="flex items-center px-4 py-3 border-b border-slate-100">
+              <span class="card-title">迁户地点</span>
+            </div>
+            <table class="el-table">
+              <thead>
+                <tr>
+                  <th>品牌车系</th>
+                  <th>车牌地址</th>
+                  <th>迁入地址</th>
+                  <th>最后成交日期</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td colspan="4" class="empty-row">暂无数据</td></tr>
+              </tbody>
+            </table>
+            <div class="pager">
+              <span class="total">共 0 条</span>
+              <button class="pager-arrow"><i data-lucide="chevron-left" class="w-3 h-3"></i></button>
+              <button class="pager-btn active">1</button>
+              <button class="pager-arrow"><i data-lucide="chevron-right" class="w-3 h-3"></i></button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<div class="fixed top-2 right-4 z-50">
+  <a href="../index.html" class="px-3 py-1 bg-white border border-slate-200 rounded shadow-sm text-xs text-slate-600 hover:bg-slate-50">← Demo 导航</a>
+</div>
+
+<script src="../shared/member-config.js"></script>
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<script>
+  // Query params override (来自买家管理列表跳转)
+  const q = new URLSearchParams(location.search);
+  const setText = (id, val) => { if (val) document.getElementById(id).textContent = val; };
+  setText("buyerName", q.get("name"));
+  setText("buyerPhone", q.get("phone"));
+  setText("buyerReg", q.get("reg"));
+  setText("buyerSrc", q.get("src"));
+  setText("buyerCity", q.get("city"));
+  if (q.get("level")) {
+    const lv = window.MEMBER_CONFIG.getLevelByCode(q.get("level"));
+    const el = document.getElementById("buyerLevel");
+    el.textContent = lv.short;
+    el.style.background = lv.color;
+  }
+
+  const bids = [
+    { model:"奥迪 S4(进口)", deal:"2026-04-15 15:21:37", count:34, hi:"315600", lo:"301600" },
+    { model:"福特 蒙迪欧",   deal:"2026-03-20 15:12:53", count:15, hi:"111500", lo:"105200" },
+    { model:"福特 蒙迪欧",   deal:"2026-03-13 15:18:17", count:11, hi:"112800", lo:"105200" },
+    { model:"福特 锐际",     deal:"2026-02-27 15:14:17", count:36, hi:"111100", lo:"95200"  },
+    { model:"福特 蒙迪欧",   deal:"2026-02-25 15:17:07", count:21, hi:"114800", lo:"105400" },
+  ];
+  document.getElementById("bidBody").innerHTML = bids.map(b => `
+    <tr>
+      <td><span class="link">${b.model}</span></td>
+      <td>${b.deal}</td>
+      <td>${b.count}</td>
+      <td>${b.hi}</td>
+      <td>${b.lo}</td>
+    </tr>
+  `).join("");
+
+  const models = [
+    { model:"奥迪 S4(进口)", count:1, last:"2026-04-15 15:21:37" },
+    { model:"福特 蒙迪欧",   count:3, last:"2026-03-20 15:12:53" },
+    { model:"福特 锐际",     count:1, last:"2026-02-27 15:14:17" },
+  ];
+  document.getElementById("modelBody").innerHTML = models.map(m => `
+    <tr>
+      <td>${m.model}</td>
+      <td>${m.count}</td>
+      <td>${m.last}</td>
+    </tr>
+  `).join("");
+
+  lucide.createIcons();
+</script>
+</body>
+</html>
