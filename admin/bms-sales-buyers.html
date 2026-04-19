@@ -54,6 +54,8 @@
   .el-table tbody tr.row-selected:hover { background: #d9ecff; }
 
   .name-cell { display: inline-flex; align-items: center; gap: 4px; }
+  .name-link { color: #303133; cursor: pointer; }
+  .name-link:hover { color: #409eff; text-decoration: underline; }
   .lv-badge { display: inline-flex; align-items: center; justify-content: center; height: 16px; min-width: 22px; padding: 0 4px; border-radius: 3px; color: #fff; font-size: 10px; font-weight: 700; font-style: italic; letter-spacing: .5px; flex-shrink: 0; }
   .auth-icon { width: 14px; height: 14px; color: #409eff; flex-shrink: 0; }
   .auth-icon svg { fill: currentColor; stroke: #fff; stroke-width: 1.5; }
@@ -359,13 +361,18 @@
   const fmtZero = (v) => v === "0" ? `<span class="zero-amount">0</span>` : v;
   const levelColor = (code) => window.MEMBER_CONFIG.getLevelByCode(code).color;
 
+  const detailUrl = (b) => `bms-sales-buyer-detail.html?${new URLSearchParams({
+    name: b.name, phone: b.phone.replace(/\*/g,"8"), reg: b.reg + " 12:05:53",
+    src: b.src, city: b.region || "", level: b.level,
+  }).toString()}`;
+
   document.getElementById("buyerBody").innerHTML = buyers.map(b => `
     <tr class="${b.selected ? 'row-selected' : ''}">
       <td>
         <span class="name-cell">
           <span class="lv-badge" style="background:${levelColor(b.level)}" title="客户等级 ${b.level}">${b.level}</span>
           ${b.authed ? `<span class="auth-icon" title="已实名认证"><i data-lucide="shield-check" class="w-3.5 h-3.5"></i></span>` : ''}
-          ${b.name}
+          <a class="name-link" href="${detailUrl(b)}">${b.name}</a>
         </span>
       </td>
       <td>${b.type || ''}</td>
