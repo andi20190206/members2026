@@ -3,93 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>订单列表 · 业务数据 · 唯车拍</title>
+<title>订单列表 · 业务数据 · 唯车拍 BMS</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; background: #f0f2f5; }
-  .ant-sider { background: #001529; }
-  .ant-sider a { color: rgba(255,255,255,.65); }
-  .ant-sider a.active { background: #1677ff; color: #fff; }
-  .ant-sider a:hover:not(.active) { color: #fff; background: rgba(255,255,255,.06); }
-  .ant-card { background: #fff; border-radius: 8px; }
-  .ant-input { padding: 5px 12px; border: 1px solid #d9d9d9; border-radius: 6px; font-size: 14px; width: 100%; }
-  .ant-btn { padding: 5px 16px; border-radius: 6px; font-size: 14px; border: 1px solid #d9d9d9; background: #fff; cursor: pointer; }
-  .ant-btn:hover { color: #1677ff; border-color: #1677ff; }
-  .ant-btn-primary { background: #1677ff; color: #fff; border-color: #1677ff; padding: 5px 16px; border-radius: 6px; font-size: 14px; cursor: pointer; }
-  .ant-btn-primary:hover { background: #4096ff; }
-  .ant-tag { display: inline-flex; align-items: center; padding: 0 7px; font-size: 12px; line-height: 20px; border-radius: 4px; white-space: nowrap; }
-  .ant-tag-blue { background: #e6f4ff; color: #1677ff; border: 1px solid #91caff; }
-  .ant-tag-green { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
-  .ant-tag-orange { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
-  .ant-tag-red { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; }
-  .ant-tag-purple { background: #f9f0ff; color: #722ed1; border: 1px solid #d3adf7; }
-  .ant-tag-cyan { background: #e6fffb; color: #08979c; border: 1px solid #87e8de; }
-  .ant-tag-gold { background: #fffbe6; color: #d4b106; border: 1px solid #ffe58f; }
-  .lv-pill { display: inline-flex; align-items: center; justify-content: center; padding: 1px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; color: #fff; }
-  tr:hover { background: #fafafa; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; margin: 0; background: #f5f5f5; }
+  .bms-sidebar { width: 200px; background: #fff; border-right: 1px solid #e8e8e8; min-height: 100vh; flex-shrink: 0; }
+  .bms-sidebar .logo { height: 48px; display: flex; align-items: center; padding: 0 16px; border-bottom: 1px solid #f0f0f0; font-size: 15px; font-weight: 600; color: #333; }
+  .bms-sidebar .menu-group { padding: 4px 0; }
+  .bms-sidebar .menu-title { padding: 8px 16px; font-size: 13px; color: #333; font-weight: 500; display: flex; align-items: center; gap: 6px; cursor: pointer; }
+  .bms-sidebar .menu-title i { width: 16px; height: 16px; color: #666; }
+  .bms-sidebar .menu-item { display: block; padding: 6px 16px 6px 40px; font-size: 13px; color: #666; text-decoration: none; line-height: 1.6; }
+  .bms-sidebar .menu-item:hover { color: #c41a16; background: #fff5f5; }
+  .bms-sidebar .menu-item.active { color: #c41a16; background: #fff1f0; font-weight: 500; }
+  .bms-header { height: 48px; background: #fff; border-bottom: 1px solid #e8e8e8; display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+  .filter-label { font-size: 13px; color: #333; white-space: nowrap; min-width: fit-content; }
+  .filter-input { height: 30px; border: 1px solid #d9d9d9; border-radius: 4px; padding: 0 8px; font-size: 13px; background: #fff; outline: none; }
+  .filter-input:focus { border-color: #40a9ff; box-shadow: 0 0 0 2px rgba(24,144,255,.1); }
+  .filter-select { height: 30px; border: 1px solid #d9d9d9; border-radius: 4px; padding: 0 8px; font-size: 13px; background: #fff; outline: none; appearance: auto; min-width: 100px; }
+  .btn-query { height: 30px; padding: 0 16px; background: #1890ff; color: #fff; border: none; border-radius: 4px; font-size: 13px; cursor: pointer; }
+  .btn-query:hover { background: #40a9ff; }
+  .btn-report { height: 30px; padding: 0 16px; background: #c41a16; color: #fff; border: none; border-radius: 4px; font-size: 13px; cursor: pointer; }
+  .btn-report:hover { background: #d4433f; }
+  .auction-tabs { display: flex; gap: 0; border-bottom: 1px solid #e8e8e8; background: #fff; }
+  .auction-tab { padding: 10px 16px; font-size: 13px; color: #666; cursor: pointer; border-bottom: 2px solid transparent; white-space: nowrap; }
+  .auction-tab:hover { color: #c41a16; }
+  .auction-tab.active { color: #c41a16; border-bottom-color: #c41a16; font-weight: 500; }
+  .bms-table { width: 100%; border-collapse: collapse; font-size: 13px; background: #fff; }
+  .bms-table thead th { background: #fafafa; border-bottom: 1px solid #e8e8e8; padding: 10px 12px; text-align: left; font-weight: 500; color: #333; font-size: 13px; white-space: nowrap; }
+  .bms-table tbody td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; color: #333; font-size: 13px; vertical-align: middle; }
+  .bms-table tbody tr:hover { background: #fafafa; }
+  .v-badge { display: inline-flex; align-items: center; justify-content: center; padding: 1px 6px; border-radius: 3px; font-size: 11px; font-weight: 600; color: #fff; cursor: pointer; margin-left: 4px; vertical-align: middle; }
+  .v-badge.v0 { background: #8c8c8c; }
+  .v-badge.v1 { background: #1890ff; }
+  .v-badge.v2 { background: #722ed1; }
+  .v-badge.v3 { background: #d4380d; }
+  .v-badge:hover { opacity: .85; }
+  .status-tag { display: inline-block; padding: 1px 8px; border-radius: 3px; font-size: 12px; }
+  .status-paid { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+  .status-unpaid { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
+  .status-partial { background: #e6f7ff; color: #1890ff; border: 1px solid #91d5ff; }
+  .status-bidding { background: #e6f7ff; color: #1890ff; border: 1px solid #91d5ff; }
+  .status-pending { background: #fff7e6; color: #d46b08; border: 1px solid #ffd591; }
+  .status-done { background: #f6ffed; color: #389e0d; border: 1px solid #b7eb8f; }
+  .status-transfer { background: #f9f0ff; color: #722ed1; border: 1px solid #d3adf7; }
+  .status-aftersale { background: #fff1f0; color: #cf1322; border: 1px solid #ffa39e; }
+  .pagination { display: flex; align-items: center; gap: 4px; font-size: 13px; }
+  .pagination button { min-width: 30px; height: 30px; border: 1px solid #d9d9d9; background: #fff; border-radius: 4px; cursor: pointer; font-size: 13px; }
+  .pagination button:hover { color: #1890ff; border-color: #1890ff; }
+  .pagination button.active { background: #1890ff; color: #fff; border-color: #1890ff; }
+  .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,.45); z-index: 1000; align-items: center; justify-content: center; }
+  .modal-overlay.show { display: flex; }
+  .modal-box { background: #fff; border-radius: 8px; width: 480px; max-width: 90vw; box-shadow: 0 6px 30px rgba(0,0,0,.2); }
+  .benefit-row { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #f5f5f5; }
+  .benefit-row:last-child { border-bottom: none; }
+  .benefit-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-right: 12px; }
 </style>
 </head>
 <body>
 
-<div class="flex min-h-screen">
+<div class="flex" style="min-height:100vh">
 
-  <aside class="ant-sider w-56 flex-none text-white">
-    <div class="h-14 flex items-center px-6 border-b border-white/10">
-      <span class="text-lg font-semibold flex items-center gap-2"><i data-lucide="crown" class="w-5 h-5"></i>会员体系后台</span>
+  <!-- Sidebar -->
+  <div class="bms-sidebar">
+    <div class="logo">
+      <i data-lucide="car" class="w-5 h-5" style="color:#c41a16;margin-right:6px"></i> 唯车拍 BMS
     </div>
-    <nav class="py-3 text-sm">
-      <a href="dashboard.html" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="bar-chart-3" class="w-4 h-4"></i><span>运营仪表盘</span></a>
-      <div class="px-6 py-2 text-xs text-white/40 mt-2">规则配置</div>
-      <a href="level-rule.html" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="settings" class="w-4 h-4"></i><span>等级规则</span></a>
-      <a href="coin-rule.html" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="wrench" class="w-4 h-4"></i><span>金币规则</span></a>
-      <a href="rewards.html" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="ticket-check" class="w-4 h-4"></i><span>权益卡管理</span></a>
-      <div class="px-6 py-2 text-xs text-white/40 mt-2">业务数据</div>
-      <a href="orders.html" class="active flex items-center gap-3 px-6 py-2.5"><i data-lucide="receipt" class="w-4 h-4"></i><span>订单列表</span></a>
-      <div class="px-6 py-2 text-xs text-white/40 mt-2">商户运营</div>
-      <a href="members.html" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="users" class="w-4 h-4"></i><span>商户档案</span></a>
-      <a href="#" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="file-text" class="w-4 h-4"></i><span>金币流水</span></a>
-      <a href="#" class="flex items-center gap-3 px-6 py-2.5"><i data-lucide="gift" class="w-4 h-4"></i><span>兑换记录</span></a>
-    </nav>
-  </aside>
+    <div class="menu-group">
+      <div class="menu-title"><i data-lucide="shield-check"></i> 检测认证管理</div>
+      <div class="menu-title" style="color:#c41a16;font-weight:600"><i data-lucide="bar-chart-3"></i> 业务数据</div>
+      <a href="orders.html" class="menu-item active">订单列表</a>
+      <a href="order-detail.html" class="menu-item">订单详情</a>
+      <a href="dashboard.html" class="menu-item">运营仪表盘</a>
+      <div class="menu-title"><i data-lucide="store"></i> 销售管理</div>
+      <div class="menu-title"><i data-lucide="crown"></i> 会员管理</div>
+      <a href="level-rule.html" class="menu-item">等级规则</a>
+      <a href="coin-rule.html" class="menu-item">金币规则</a>
+      <a href="rewards.html" class="menu-item">权益卡管理</a>
+      <a href="members.html" class="menu-item">商户档案</a>
+      <div class="menu-title"><i data-lucide="settings"></i> 系统管理</div>
+    </div>
+  </div>
 
+  <!-- Main -->
   <div class="flex-1 flex flex-col min-w-0">
-    <header class="bg-white border-b border-slate-200 h-14 px-6 flex items-center justify-between">
-      <div class="flex items-center gap-2 text-sm text-slate-600">
-        <span>首页</span><span>/</span><span>业务数据</span><span>/</span><span class="text-slate-800 font-medium">订单列表</span>
-      </div>
-      <div class="flex items-center gap-2 text-sm">
-        <div class="w-7 h-7 bg-blue-500 rounded-full flex items-center justify-center text-white text-xs">运</div>
-        <span>运营-小王</span>
-      </div>
-    </header>
 
-    <main class="flex-1 p-6 overflow-y-auto">
-
-      <div class="mb-5">
-        <h1 class="text-xl font-semibold text-slate-800">订单列表</h1>
-        <p class="text-sm text-slate-500 mt-1">查看平台所有订单 · 重点关注会员等级 / 已享权益 / 售后情况</p>
+    <!-- Header -->
+    <div class="bms-header">
+      <div class="flex items-center gap-3">
+        <i data-lucide="menu" class="w-5 h-5 text-gray-500 cursor-pointer"></i>
+        <span class="text-sm text-gray-400">首页</span>
+        <span class="text-sm text-gray-400">/</span>
+        <span class="text-sm text-gray-400">业务数据</span>
+        <span class="text-sm text-gray-400">/</span>
+        <span class="text-sm text-gray-800 font-medium">订单列表</span>
       </div>
-
-      <!-- KPI -->
-      <div class="grid grid-cols-5 gap-4 mb-5">
-        <div class="ant-card p-4"><div class="text-xs text-slate-500">今日新增</div><div class="text-2xl font-bold text-slate-800 mt-1">148</div></div>
-        <div class="ant-card p-4"><div class="text-xs text-slate-500">待支付</div><div class="text-2xl font-bold text-orange-600 mt-1">33</div></div>
-        <div class="ant-card p-4"><div class="text-xs text-slate-500">待过户</div><div class="text-2xl font-bold text-sky-600 mt-1">57</div></div>
-        <div class="ant-card p-4"><div class="text-xs text-slate-500">已完成</div><div class="text-2xl font-bold text-emerald-600 mt-1">892</div></div>
-        <div class="ant-card p-4"><div class="text-xs text-slate-500">售后中</div><div class="text-2xl font-bold text-rose-600 mt-1">12</div></div>
+      <div class="flex items-center gap-3">
+        <i data-lucide="download" class="w-4 h-4 text-gray-500 cursor-pointer"></i>
+        <div class="w-7 h-7 rounded-full bg-blue-100 flex items-center justify-center text-xs text-blue-700 font-medium">cp</div>
+        <span class="text-sm text-gray-600">cpyj</span>
       </div>
+    </div>
 
-      <!-- 筛选 -->
-      <div class="ant-card p-4 mb-5">
-        <div class="grid grid-cols-6 gap-3 items-end">
-          <div class="col-span-2">
-            <label class="text-xs text-slate-500 block mb-1">订单号/车辆/商户</label>
-            <input class="ant-input" placeholder="订单号 / 车源编号 / 商户编号">
+    <!-- Content -->
+    <div class="flex-1 overflow-y-auto" style="background:#f5f5f5">
+
+      <!-- Filters -->
+      <div style="background:#fff;padding:12px 16px;border-bottom:1px solid #e8e8e8">
+        <div class="flex items-center gap-3 flex-wrap mb-2">
+          <div class="flex items-center gap-1">
+            <span class="filter-label">车牌:</span>
+            <input class="filter-input" style="width:110px" placeholder="请输入">
           </div>
-          <div>
-            <label class="text-xs text-slate-500 block mb-1">订单状态</label>
-            <select class="ant-input">
-              <option>全部</option>
+          <div class="flex items-center gap-1">
+            <span class="filter-label">用户:</span>
+            <input class="filter-input" style="width:110px" placeholder="请输入">
+          </div>
+          <div class="flex items-center gap-1">
+            <span class="filter-label">VIN:</span>
+            <input class="filter-input" style="width:130px" placeholder="请输入">
+          </div>
+          <div class="flex items-center gap-1">
+            <span class="filter-label">付款状态:</span>
+            <select class="filter-select">
+              <option>请选择</option>
+              <option>已付款</option>
+              <option>未付款</option>
+              <option>部分付款</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-1">
+            <span class="filter-label">订单状态:</span>
+            <select class="filter-select">
+              <option>请选择</option>
               <option>竞价中</option>
               <option>拍下</option>
               <option>待支付</option>
@@ -99,207 +144,366 @@
               <option>售后中</option>
             </select>
           </div>
-          <div>
-            <label class="text-xs text-slate-500 block mb-1">会员等级</label>
-            <select class="ant-input">
-              <option>全部</option><option>V0</option><option>V1</option><option>V2</option><option>V3</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-xs text-slate-500 block mb-1">是否使用权益</label>
-            <select class="ant-input">
+          <div class="flex items-center gap-1">
+            <span class="filter-label">会员等级:</span>
+            <select class="filter-select" style="min-width:80px">
               <option>全部</option>
-              <option>使用了权益</option>
-              <option>未使用权益</option>
+              <option>V0</option>
+              <option>V1</option>
+              <option>V2</option>
+              <option>V3</option>
             </select>
           </div>
-          <div class="flex gap-2">
-            <button class="ant-btn-primary flex-1">搜索</button>
-            <button class="ant-btn flex-1">重置</button>
+        </div>
+        <div class="flex items-center gap-3 flex-wrap">
+          <div class="flex items-center gap-1">
+            <span class="filter-label">门店:</span>
+            <select class="filter-select" style="min-width:120px">
+              <option>请选择</option>
+              <option>广州总店</option>
+              <option>深圳店</option>
+              <option>佛山店</option>
+              <option>东莞店</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-1">
+            <span class="filter-label">成交时间:</span>
+            <input class="filter-input" type="date" style="width:130px">
+            <span class="text-gray-400 text-xs">~</span>
+            <input class="filter-input" type="date" style="width:130px">
+          </div>
+          <div class="flex items-center gap-1">
+            <span class="filter-label">收款时间:</span>
+            <input class="filter-input" type="date" style="width:130px">
+            <span class="text-gray-400 text-xs">~</span>
+            <input class="filter-input" type="date" style="width:130px">
+          </div>
+          <div class="flex items-center gap-1">
+            <span class="filter-label">是否延期付款:</span>
+            <select class="filter-select" style="min-width:80px">
+              <option>请选择</option>
+              <option>是</option>
+              <option>否</option>
+            </select>
+          </div>
+          <div class="flex items-center gap-2 ml-auto">
+            <button class="btn-query">查询</button>
+            <button class="btn-report">成交报表</button>
           </div>
         </div>
       </div>
 
-      <!-- 表格 -->
-      <div class="ant-card overflow-hidden">
-        <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between">
-          <div class="text-sm text-slate-600">共 1,042 条订单</div>
-          <div class="flex gap-2">
-            <button class="ant-btn text-xs inline-flex items-center gap-1"><i data-lucide="download" class="w-3.5 h-3.5"></i>导出</button>
-          </div>
-        </div>
-        <table class="w-full text-sm">
-          <thead class="bg-slate-50 text-xs text-slate-600">
+      <!-- Auction tabs -->
+      <div class="auction-tabs" style="padding-left:8px">
+        <div class="auction-tab active">竞价大厅</div>
+        <div class="auction-tab">有保留价</div>
+        <div class="auction-tab">顺序拍</div>
+        <div class="auction-tab">好车直卖</div>
+        <div class="auction-tab">专场拍</div>
+        <div class="auction-tab">广交所</div>
+        <div class="auction-tab">外部订单</div>
+        <div class="auction-tab">报废专场</div>
+        <div class="auction-tab">共享拍</div>
+      </div>
+
+      <!-- Table -->
+      <div style="background:#fff;margin:0">
+        <table class="bms-table">
+          <thead>
             <tr>
-              <th class="text-left px-4 py-3 font-medium">订单号</th>
-              <th class="text-left px-4 py-3 font-medium">商户 / 等级</th>
-              <th class="text-left px-4 py-3 font-medium">车辆</th>
-              <th class="text-right px-4 py-3 font-medium">成交价</th>
-              <th class="text-left px-4 py-3 font-medium">状态</th>
-              <th class="text-left px-4 py-3 font-medium">已享权益</th>
-              <th class="text-left px-4 py-3 font-medium">成交时间</th>
-              <th class="text-center px-4 py-3 font-medium">操作</th>
+              <th>车牌</th>
+              <th>车型</th>
+              <th>成交时间</th>
+              <th>收款状态</th>
+              <th>订单状态</th>
+              <th>是否报废车</th>
+              <th>卖家</th>
+              <th>门店</th>
+              <th>买家</th>
+              <th style="text-align:right">总价</th>
+              <th style="text-align:right">成交价</th>
+              <th style="text-align:right">服务费</th>
+              <th>操作</th>
             </tr>
           </thead>
-          <tbody class="divide-y divide-slate-100">
-
+          <tbody>
             <tr>
-              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260415001</td>
-              <td class="px-4 py-3">
-                <div class="font-medium text-slate-800">张宇明</div>
-                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#f59e0b">V3</span><span class="text-[10px] text-slate-400">M10086</span></div>
-              </td>
-              <td class="px-4 py-3">
-                <div class="text-slate-800">比亚迪 宋 Pro 1.5TID</div>
-                <div class="text-xs text-slate-400">川A·2021-01·6.07万公里</div>
-              </td>
-              <td class="px-4 py-3 text-right font-semibold">¥ 38,000</td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-orange">待支付</span></td>
-              <td class="px-4 py-3">
-                <div class="flex flex-wrap gap-1">
-                  <span class="ant-tag ant-tag-purple">过户 8 折</span>
-                  <span class="ant-tag ant-tag-gold">+50 金币</span>
-                </div>
-              </td>
-              <td class="px-4 py-3 text-xs text-slate-500">2026-04-15 11:23</td>
-              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+              <td><a href="order-detail.html" class="text-blue-600 hover:underline">粤A·D3821</a></td>
+              <td>比亚迪 宋Pro 1.5TID</td>
+              <td>2026-06-18 11:23</td>
+              <td><span class="status-tag status-paid">已付款</span></td>
+              <td><span class="status-tag status-done">已完成</span></td>
+              <td>否</td>
+              <td>陈先生</td>
+              <td>广州总店</td>
+              <td>张宇明 <span class="v-badge v3" onclick="showBenefits('张宇明','V3')">V3</span></td>
+              <td style="text-align:right">¥41,800</td>
+              <td style="text-align:right">¥38,000</td>
+              <td style="text-align:right">¥3,800</td>
+              <td><a href="order-detail.html" class="text-blue-600 text-xs hover:underline">详情</a></td>
             </tr>
-
             <tr>
-              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260415002</td>
-              <td class="px-4 py-3">
-                <div class="font-medium text-slate-800">李明辉</div>
-                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#8b5cf6">V2</span><span class="text-[10px] text-slate-400">M12005</span></div>
-              </td>
-              <td class="px-4 py-3">
-                <div class="text-slate-800">福特 福克斯 1.0T</div>
-                <div class="text-xs text-slate-400">川A·2016-12·13.47万公里</div>
-              </td>
-              <td class="px-4 py-3 text-right font-semibold">¥ 10,500</td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-blue">待过户</span></td>
-              <td class="px-4 py-3">
-                <div class="flex flex-wrap gap-1">
-                  <span class="ant-tag ant-tag-purple">过户 9.5 折</span>
-                  <span class="ant-tag ant-tag-cyan">1V1 客服</span>
-                  <span class="ant-tag ant-tag-gold">+50 金币</span>
-                </div>
-              </td>
-              <td class="px-4 py-3 text-xs text-slate-500">2026-04-14 14:30</td>
-              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+              <td><a href="order-detail.html" class="text-blue-600 hover:underline">川A·F5520</a></td>
+              <td>大众 朗逸 1.4TSI DSG</td>
+              <td>2026-06-17 14:30</td>
+              <td><span class="status-tag status-paid">已付款</span></td>
+              <td><span class="status-tag status-transfer">待过户</span></td>
+              <td>否</td>
+              <td>李女士</td>
+              <td>深圳店</td>
+              <td>李明辉 <span class="v-badge v2" onclick="showBenefits('李明辉','V2')">V2</span></td>
+              <td style="text-align:right">¥12,100</td>
+              <td style="text-align:right">¥10,500</td>
+              <td style="text-align:right">¥1,600</td>
+              <td><a href="order-detail.html" class="text-blue-600 text-xs hover:underline">详情</a></td>
             </tr>
-
             <tr>
-              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260414033</td>
-              <td class="px-4 py-3">
-                <div class="font-medium text-slate-800">王淑芬</div>
-                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#8b5cf6">V2</span><span class="text-[10px] text-slate-400">M08856</span></div>
-              </td>
-              <td class="px-4 py-3">
-                <div class="text-slate-800">大众 朗逸 1.4TSI DSG</div>
-                <div class="text-xs text-slate-400">粤B·2013-05·23.23万公里</div>
-              </td>
-              <td class="px-4 py-3 text-right font-semibold">¥ 8,600</td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-green">已完成</span></td>
-              <td class="px-4 py-3">
-                <div class="flex flex-wrap gap-1">
-                  <span class="ant-tag ant-tag-purple">过户 9.5 折</span>
-                  <span class="ant-tag ant-tag-gold">+50 金币</span>
-                </div>
-              </td>
-              <td class="px-4 py-3 text-xs text-slate-500">2026-04-14 09:15</td>
-              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+              <td><a href="order-detail.html" class="text-blue-600 hover:underline">粤B·K7783</a></td>
+              <td>福特 福克斯 1.0T</td>
+              <td>2026-06-17 09:15</td>
+              <td><span class="status-tag status-unpaid">未付款</span></td>
+              <td><span class="status-tag status-pending">待支付</span></td>
+              <td>否</td>
+              <td>王先生</td>
+              <td>佛山店</td>
+              <td>王淑芬 <span class="v-badge v2" onclick="showBenefits('王淑芬','V2')">V2</span></td>
+              <td style="text-align:right">¥9,800</td>
+              <td style="text-align:right">¥8,600</td>
+              <td style="text-align:right">¥1,200</td>
+              <td><a href="order-detail.html" class="text-blue-600 text-xs hover:underline">详情</a></td>
             </tr>
-
             <tr>
-              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260413018</td>
-              <td class="px-4 py-3">
-                <div class="font-medium text-slate-800">张宇明</div>
-                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#f59e0b">V3</span><span class="text-[10px] text-slate-400">M10086</span></div>
-              </td>
-              <td class="px-4 py-3">
-                <div class="text-slate-800">金杯 阁瑞斯 2.4L</div>
-                <div class="text-xs text-slate-400">粤B·2016-03·6.13万公里</div>
-              </td>
-              <td class="px-4 py-3 text-right font-semibold">¥ 24,500</td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-red">售后中</span></td>
-              <td class="px-4 py-3">
-                <div class="flex flex-wrap gap-1">
-                  <span class="ant-tag ant-tag-red">无理由退车</span>
-                  <span class="ant-tag ant-tag-purple">过户 8 折</span>
-                  <span class="ant-tag ant-tag-gold">+50 金币</span>
-                </div>
-              </td>
-              <td class="px-4 py-3 text-xs text-slate-500">2026-04-13 16:40</td>
-              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+              <td><a href="order-detail.html" class="text-blue-600 hover:underline">粤A·T1129</a></td>
+              <td>金杯 阁瑞斯 2.4L</td>
+              <td>2026-06-16 16:40</td>
+              <td><span class="status-tag status-paid">已付款</span></td>
+              <td><span class="status-tag status-aftersale">售后中</span></td>
+              <td>否</td>
+              <td>赵先生</td>
+              <td>广州总店</td>
+              <td>张宇明 <span class="v-badge v3" onclick="showBenefits('张宇明','V3')">V3</span></td>
+              <td style="text-align:right">¥27,300</td>
+              <td style="text-align:right">¥24,500</td>
+              <td style="text-align:right">¥2,800</td>
+              <td><a href="order-detail.html" class="text-blue-600 text-xs hover:underline">详情</a></td>
             </tr>
-
             <tr>
-              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260413005</td>
-              <td class="px-4 py-3">
-                <div class="font-medium text-slate-800">陈国强</div>
-                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#0ea5e9">V1</span><span class="text-[10px] text-slate-400">M22134</span></div>
-              </td>
-              <td class="px-4 py-3">
-                <div class="text-slate-800">比亚迪 秦 PLUS DM-i</div>
-                <div class="text-xs text-slate-400">粤A·2021-10·8.1万公里</div>
-              </td>
-              <td class="px-4 py-3 text-right font-semibold">¥ 62,000</td>
-              <td class="px-4 py-3"><span class="ant-tag">已支付</span></td>
-              <td class="px-4 py-3">
-                <div class="flex flex-wrap gap-1">
-                  <span class="ant-tag ant-tag-cyan">1V1 客服</span>
-                  <span class="ant-tag ant-tag-gold">+50 金币</span>
-                </div>
-              </td>
-              <td class="px-4 py-3 text-xs text-slate-500">2026-04-13 10:22</td>
-              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+              <td><a href="order-detail.html" class="text-blue-600 hover:underline">粤A·M6688</a></td>
+              <td>比亚迪 秦PLUS DM-i</td>
+              <td>2026-06-16 10:22</td>
+              <td><span class="status-tag status-paid">已付款</span></td>
+              <td><span class="status-tag status-done">已完成</span></td>
+              <td>否</td>
+              <td>孙女士</td>
+              <td>东莞店</td>
+              <td>陈国强 <span class="v-badge v1" onclick="showBenefits('陈国强','V1')">V1</span></td>
+              <td style="text-align:right">¥66,200</td>
+              <td style="text-align:right">¥62,000</td>
+              <td style="text-align:right">¥4,200</td>
+              <td><a href="order-detail.html" class="text-blue-600 text-xs hover:underline">详情</a></td>
             </tr>
-
             <tr>
-              <td class="px-4 py-3 font-mono text-xs text-slate-700">WP20260412011</td>
-              <td class="px-4 py-3">
-                <div class="font-medium text-slate-800">孙建国</div>
-                <div class="flex items-center gap-1 mt-0.5"><span class="lv-pill" style="background:#94a3b8">V0</span><span class="text-[10px] text-slate-400">M45012</span></div>
-              </td>
-              <td class="px-4 py-3">
-                <div class="text-slate-800">比亚迪 海豚 骑士版</div>
-                <div class="text-xs text-slate-400">沪A·2022-08·2.5万公里</div>
-              </td>
-              <td class="px-4 py-3 text-right font-semibold">¥ 79,800</td>
-              <td class="px-4 py-3"><span class="ant-tag ant-tag-blue">拍下</span></td>
-              <td class="px-4 py-3">
-                <span class="text-xs text-slate-400">未使用权益</span>
-              </td>
-              <td class="px-4 py-3 text-xs text-slate-500">2026-04-12 15:08</td>
-              <td class="px-4 py-3 text-center"><a href="order-detail.html" class="text-blue-600 text-xs">详情</a></td>
+              <td><a href="order-detail.html" class="text-blue-600 hover:underline">沪A·N2205</a></td>
+              <td>比亚迪 海豚 骑士版</td>
+              <td>2026-06-15 15:08</td>
+              <td><span class="status-tag status-unpaid">未付款</span></td>
+              <td><span class="status-tag status-pending">待支付</span></td>
+              <td>否</td>
+              <td>周先生</td>
+              <td>广州总店</td>
+              <td>孙建国 <span class="v-badge v0" onclick="showBenefits('孙建国','V0')">V0</span></td>
+              <td style="text-align:right">¥84,800</td>
+              <td style="text-align:right">¥79,800</td>
+              <td style="text-align:right">¥5,000</td>
+              <td><a href="order-detail.html" class="text-blue-600 text-xs hover:underline">详情</a></td>
             </tr>
-
+            <tr>
+              <td><a href="order-detail.html" class="text-blue-600 hover:underline">粤B·S3316</a></td>
+              <td>丰田 卡罗拉 1.8L</td>
+              <td>2026-06-15 11:45</td>
+              <td><span class="status-tag status-partial">部分付款</span></td>
+              <td><span class="status-tag status-pending">待支付</span></td>
+              <td>否</td>
+              <td>黄先生</td>
+              <td>深圳店</td>
+              <td>赵小刚 <span class="v-badge v1" onclick="showBenefits('赵小刚','V1')">V1</span></td>
+              <td style="text-align:right">¥52,600</td>
+              <td style="text-align:right">¥48,000</td>
+              <td style="text-align:right">¥4,600</td>
+              <td><a href="order-detail.html" class="text-blue-600 text-xs hover:underline">详情</a></td>
+            </tr>
+            <tr>
+              <td><a href="order-detail.html" class="text-blue-600 hover:underline">粤A·G9901</a></td>
+              <td>本田 飞度 1.5L CVT</td>
+              <td>2026-06-14 08:30</td>
+              <td><span class="status-tag status-paid">已付款</span></td>
+              <td><span class="status-tag status-done">已完成</span></td>
+              <td>否</td>
+              <td>钱女士</td>
+              <td>佛山店</td>
+              <td>刘大伟 <span class="v-badge v3" onclick="showBenefits('刘大伟','V3')">V3</span></td>
+              <td style="text-align:right">¥35,400</td>
+              <td style="text-align:right">¥32,000</td>
+              <td style="text-align:right">¥3,400</td>
+              <td><a href="order-detail.html" class="text-blue-600 text-xs hover:underline">详情</a></td>
+            </tr>
+            <tr>
+              <td><a href="order-detail.html" class="text-blue-600 hover:underline">粤C·W4412</a></td>
+              <td>日产 轩逸 1.6L CVT</td>
+              <td>2026-06-13 17:20</td>
+              <td><span class="status-tag status-paid">已付款</span></td>
+              <td><span class="status-tag status-transfer">待过户</span></td>
+              <td>是</td>
+              <td>吴先生</td>
+              <td>东莞店</td>
+              <td>何志明 <span class="v-badge v0" onclick="showBenefits('何志明','V0')">V0</span></td>
+              <td style="text-align:right">¥3,200</td>
+              <td style="text-align:right">¥2,500</td>
+              <td style="text-align:right">¥700</td>
+              <td><a href="order-detail.html" class="text-blue-600 text-xs hover:underline">详情</a></td>
+            </tr>
+            <tr>
+              <td><a href="order-detail.html" class="text-blue-600 hover:underline">粤A·B7766</a></td>
+              <td>奔驰 C200L 运动版</td>
+              <td>2026-06-12 14:55</td>
+              <td><span class="status-tag status-paid">已付款</span></td>
+              <td><span class="status-tag status-done">已完成</span></td>
+              <td>否</td>
+              <td>郑先生</td>
+              <td>广州总店</td>
+              <td>马丽华 <span class="v-badge v2" onclick="showBenefits('马丽华','V2')">V2</span></td>
+              <td style="text-align:right">¥168,500</td>
+              <td style="text-align:right">¥158,000</td>
+              <td style="text-align:right">¥10,500</td>
+              <td><a href="order-detail.html" class="text-blue-600 text-xs hover:underline">详情</a></td>
+            </tr>
           </tbody>
         </table>
 
-        <div class="px-4 py-3 border-t border-slate-100 flex items-center justify-between text-sm">
-          <div class="text-slate-500">第 1 - 6 条 / 共 1,042 条</div>
-          <div class="flex items-center gap-2">
-            <button class="ant-btn px-2 py-1">‹</button>
-            <button class="px-3 py-1 bg-blue-500 text-white rounded">1</button>
-            <button class="ant-btn px-3 py-1">2</button>
-            <button class="ant-btn px-3 py-1">3</button>
-            <span class="text-slate-400">...</span>
-            <button class="ant-btn px-3 py-1">174</button>
-            <button class="ant-btn px-2 py-1">›</button>
+        <!-- Pagination -->
+        <div style="padding:12px 16px;border-top:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between">
+          <span class="text-sm text-gray-500">共 1,042 条</span>
+          <div class="pagination">
+            <button>&lt;</button>
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+            <span class="text-gray-400">...</span>
+            <button>105</button>
+            <button>&gt;</button>
+            <select class="filter-select" style="min-width:90px;margin-left:8px"><option>10 条/页</option><option>20 条/页</option><option>50 条/页</option></select>
           </div>
         </div>
       </div>
 
-    </main>
+    </div>
   </div>
 </div>
 
-<div class="fixed top-4 right-6 z-50">
-  <a href="../index.html" class="px-3 py-1.5 bg-white border border-slate-200 rounded shadow-sm text-xs text-slate-600 hover:bg-slate-50">← Demo 导航</a>
+<!-- Benefits Modal -->
+<div class="modal-overlay" id="benefitsModal" onclick="if(event.target===this)closeBenefits()">
+  <div class="modal-box">
+    <div style="padding:16px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:16px;font-weight:600;color:#333" id="modalTitle">会员权益</span>
+        <span class="v-badge" id="modalBadge" style="cursor:default"></span>
+      </div>
+      <i data-lucide="x" class="w-5 h-5 text-gray-400 cursor-pointer" onclick="closeBenefits()"></i>
+    </div>
+    <div style="padding:16px 20px" id="modalBody"></div>
+    <div style="padding:12px 20px;border-top:1px solid #f0f0f0;text-align:right">
+      <button class="btn-query" onclick="closeBenefits()">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- Demo nav -->
+<div class="fixed top-2 right-4 z-50">
+  <a href="../index.html" class="px-3 py-1.5 bg-white border border-gray-200 rounded shadow-sm text-xs text-gray-600 hover:bg-gray-50">← Demo 导航</a>
 </div>
 
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
-<script>lucide.createIcons();</script>
+<script>
+lucide.createIcons();
+
+var benefitsData = {
+  V0: {
+    label: 'V0 基础会员', color: '#8c8c8c',
+    items: [
+      { icon: 'coins', color: '#f59e0b', bg: '#fffbe6', title: '成交金币奖励', desc: '每笔成交 +50 金币' },
+      { icon: 'headphones', color: '#1890ff', bg: '#e6f7ff', title: '在线客服', desc: '标准在线客服支持' }
+    ]
+  },
+  V1: {
+    label: 'V1 会员', color: '#1890ff',
+    items: [
+      { icon: 'coins', color: '#f59e0b', bg: '#fffbe6', title: '成交金币奖励', desc: '每笔成交 +50 金币' },
+      { icon: 'headphones', color: '#1890ff', bg: '#e6f7ff', title: '1V1 专属客服', desc: '专属客服通道,优先响应' },
+      { icon: 'car', color: '#52c41a', bg: '#f6ffed', title: '免费停车 3 天', desc: '成交车辆免费停放 3 天' }
+    ]
+  },
+  V2: {
+    label: 'V2 会员', color: '#722ed1',
+    items: [
+      { icon: 'coins', color: '#f59e0b', bg: '#fffbe6', title: '成交金币奖励', desc: '每笔成交 +50 金币' },
+      { icon: 'tag', color: '#52c41a', bg: '#f6ffed', title: '过户费 9.5 折', desc: '过户/复检费用享 9.5 折优惠' },
+      { icon: 'headphones', color: '#1890ff', bg: '#e6f7ff', title: '1V1 专属客服', desc: '专属客服通道,优先响应' },
+      { icon: 'briefcase', color: '#722ed1', bg: '#f9f0ff', title: '专属销售顾问', desc: '1 对 1 销售顾问,推荐优质车源' },
+      { icon: 'car', color: '#52c41a', bg: '#f6ffed', title: '免费停车 5 天', desc: '成交车辆免费停放 5 天' }
+    ]
+  },
+  V3: {
+    label: 'V3 会员', color: '#d4380d',
+    items: [
+      { icon: 'coins', color: '#f59e0b', bg: '#fffbe6', title: '成交金币奖励', desc: '每笔成交 +50 金币' },
+      { icon: 'tag', color: '#52c41a', bg: '#f6ffed', title: '过户费 8 折', desc: '过户/复检费用享 8 折优惠' },
+      { icon: 'headphones', color: '#1890ff', bg: '#e6f7ff', title: '1V1 专属客服', desc: '专属客服通道,优先响应' },
+      { icon: 'briefcase', color: '#722ed1', bg: '#f9f0ff', title: '专属销售顾问', desc: '1 对 1 销售顾问,推荐优质车源' },
+      { icon: 'truck', color: '#eb2f96', bg: '#fff0f6', title: '代送车上门', desc: '成交车辆免费送达指定地点' },
+      { icon: 'undo-2', color: '#cf1322', bg: '#fff1f0', title: '无理由退车', desc: '7 天内支持无理由退车' },
+      { icon: 'car', color: '#52c41a', bg: '#f6ffed', title: '免费停车 7 天', desc: '成交车辆免费停放 7 天' }
+    ]
+  }
+};
+
+function showBenefits(name, level) {
+  var data = benefitsData[level];
+  if (!data) return;
+  document.getElementById('modalTitle').textContent = name + ' — 会员权益';
+  var badge = document.getElementById('modalBadge');
+  badge.textContent = level;
+  badge.className = 'v-badge ' + level.toLowerCase();
+  badge.style.cursor = 'default';
+
+  var html = '<div style="margin-bottom:12px;padding:10px 12px;border-radius:8px;background:' + data.color + '10;border:1px solid ' + data.color + '30">' +
+    '<span style="font-size:14px;font-weight:600;color:' + data.color + '">' + data.label + '</span>' +
+    '<span style="font-size:12px;color:#999;margin-left:8px">该客户可享受以下权益</span></div>';
+
+  for (var i = 0; i < data.items.length; i++) {
+    var item = data.items[i];
+    html += '<div class="benefit-row">' +
+      '<div class="benefit-icon" style="background:' + item.bg + '"><i data-lucide="' + item.icon + '" style="width:20px;height:20px;color:' + item.color + '"></i></div>' +
+      '<div><div style="font-size:14px;font-weight:500;color:#333">' + item.title + '</div>' +
+      '<div style="font-size:12px;color:#999;margin-top:2px">' + item.desc + '</div></div></div>';
+  }
+
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('benefitsModal').classList.add('show');
+  setTimeout(function() { lucide.createIcons(); }, 10);
+}
+
+function closeBenefits() {
+  document.getElementById('benefitsModal').classList.remove('show');
+}
+
+document.querySelectorAll('.auction-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.auction-tab').forEach(function(t) { t.classList.remove('active'); });
+    this.classList.add('active');
+  });
+});
+</script>
 </body>
 </html>
